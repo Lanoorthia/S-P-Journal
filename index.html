@@ -17,7 +17,6 @@
     --road: #AA1F24; 
     --dark: #2A2A2A;
     --border-color: #EAEAEA;
-    --paper-texture: url('images/paper.jpg');
   }
   body { font-family: 'Nunito', sans-serif; background: var(--blue); overflow-x: hidden; min-height: 100vh; margin: 0;}
   .page { display: none; min-height: 100vh; }
@@ -126,22 +125,36 @@
   }
 
   /* ========================================================= */
-  /* CAPTURE AREA (9:16 PROPORTION - CENTERED & TEXTURED)      */
+  /* CAPTURE AREA - FIX OVERFLOW BUG                           */
   /* ========================================================= */
   #captureArea { 
     background-color: var(--blue); 
-    background-image: var(--paper-texture); 
-    background-size: cover;
-    background-position: center;
     margin: 16px auto; 
     padding: 16px; 
     position: relative; 
     aspect-ratio: 9 / 16; 
     display: flex; flex-direction: column; align-items: center; 
     width: calc(100% - 32px); max-width: 420px;
+    
+    /* สองบรรทัดนี้คือหัวใจสำคัญที่แก้บั๊กรูปพื้นหลังทะลุกรอบ */
+    overflow: hidden; 
+    border-radius: 16px;
+    z-index: 1;
   }
 
-  #captureHeader { text-align: center; margin-bottom: 12px; padding-top: 10px; width: 100%; }
+  /* เลเยอร์กระดาษให้อยู่ใต้สุด ไม่บังปุ่มและไม่หลุดกรอบ */
+  .paper-bg-texture {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  #captureHeader { text-align: center; margin-bottom: 12px; padding-top: 10px; width: 100%; position: relative; z-index: 2;}
   #captureHeader h2 { font-family: 'Pacifico', cursive; font-size: 32px; color: var(--road); line-height: 1.2; }
   #captureHeader p { font-size: 13px; font-weight: 700; letter-spacing: 0.5px; color: var(--road); margin-top: -2px; }
   .badge-label { background: var(--road); color: white; padding: 4px 14px; border-radius: 20px; display: inline-block; margin-top: 6px; font-weight: 800; font-size: 11px; }
@@ -150,10 +163,8 @@
     position: relative; flex: 1; border-radius: 16px; padding: 14px; 
     border: 1px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.02); 
     display: flex; flex-direction: column; overflow: hidden; width: 100%;
-    background-color: rgba(253, 251, 247, 0.7); 
-    background-image: var(--paper-texture);
-    background-size: cover;
-    background-position: center;
+    background-color: rgba(253, 251, 247, 0.55); /* โปร่งใสให้เห็นลายกระดาษ */
+    z-index: 2;
   }
   .dropped-decos { position: absolute; inset: 0; pointer-events: none; z-index: 20; border-radius: 16px; overflow: hidden;}
   .dropped-deco { position: absolute; font-size: 1.8rem; cursor: move; pointer-events: all; user-select: none; touch-action: none;}
@@ -207,7 +218,7 @@
   .stamp-hint { font-size: 9px; color: var(--road); font-weight: bold; text-align: center; margin-top: 4px; }
 
   .tulip-corner { position:absolute;bottom:0;left:-8px;font-size:2.2rem;opacity:0.7;pointer-events:none; }
-  #captureFooter { text-align: center; padding-top: 10px; font-size: 13px; font-weight: 800; color: var(--road); letter-spacing: 0.5px; width: 100%;}
+  #captureFooter { text-align: center; padding-top: 10px; font-size: 13px; font-weight: 800; color: var(--road); letter-spacing: 0.5px; width: 100%; position: relative; z-index: 2;}
 
   .save-bar { background:var(--cream);border-top:1px solid #ddd;padding:12px 16px; display:flex;align-items:center;justify-content:space-between;position:sticky;bottom:0;z-index:100; }
   .save-hint { font-size:0.7rem;color:#888;font-weight:600;flex:1;text-align:center; }
@@ -241,7 +252,7 @@
 
   <div class="month-nav">
     <button id="btn-prev-month" onclick="changeMonth(-1)">❮</button>
-    <h2 id="month-display">January</h2>
+    <h2 id="month-display">June</h2>
     <button id="btn-next-month" onclick="changeMonth(1)">❯</button>
   </div>
 
@@ -371,13 +382,13 @@
       
       <img src="images/paper.jpg" alt="paper-texture" class="paper-bg-texture" crossorigin="anonymous">
 
-      <div id="captureHeader" style="display: none; text-align: center; margin-bottom: 20px; padding-top: 15px; position: relative; z-index: 2;">
+      <div id="captureHeader" style="display: none; text-align: center; margin-bottom: 20px; padding-top: 15px;">
         <h2 style="font-family: 'Pacifico', cursive; font-size: 44px; color: #AA1F24;">#CAKE DUMP</h2>
         <p style="font-size: 16px; font-weight: 700; letter-spacing: 0.5px; color: #AA1F24; margin-top: -5px;">S&P PIECE OF MEMORIES</p>
         <div style="background: #AA1F24; color: white; padding: 8px 24px; border-radius: 20px; display: inline-block; margin-top: 12px; font-weight: 800; font-size: 15px;">CAKE COLLECTOR</div>
       </div>
 
-      <div class="journal-canvas" id="journalCanvas" style="z-index: 2;">
+      <div class="journal-canvas" id="journalCanvas">
         <div class="dropped-decos" id="droppedDecos"></div>
 
         <div class="journal-title-row">
@@ -418,6 +429,7 @@
             <div class="field-label" id="t-label-notes">บันทึกประสบการณ์เพิ่มเติม</div>
             <textarea class="lined-textarea" id="cakeNote" placeholder="บอกเล่าเรื่องราวความประทับใจ..."></textarea>
             <div class="html2canvas-textarea-fix" id="cakeNoteFix" style="height: 75px;"></div>
+            
             <div class="field-label" style="margin-top:6px">Cake Stamp</div>
           </div>
           <div class="cake-stamp-area" onclick="triggerCakeStampUpload()">
@@ -434,13 +446,11 @@
         <div class="tulip-corner">🌷</div>
       </div>
 
-      <div id="captureFooter" style="display: none; text-align: center; margin-top: 25px; padding-bottom: 15px; font-size: 16px; font-weight: 800; color: #AA1F24; letter-spacing: 0.5px; position: relative; z-index: 2;">
+      <div id="captureFooter" style="display: none; text-align: center; margin-top: 25px; padding-bottom: 15px; font-size: 16px; font-weight: 800; color: #AA1F24; letter-spacing: 0.5px;">
         @sp_tumcake / #CRACKTHECAKEBYCTT
       </div>
       
-    </div>
-
-    <div class="save-bar">
+    </div> <div class="save-bar">
       <div class="save-hint" id="t-save-hint">Save & แชร์ลงโซเชียลได้เลย ✨</div>
       <button class="save-btn" id="t-save-btn" onclick="saveJournal()">SAVE & SHARE</button>
     </div>
@@ -527,20 +537,21 @@
     }
   };
 
+  // ปรับเดือนใหม่เป็น มิ.ย. (June) / ก.ค. (July) / ส.ค. (August)
   const monthNames = [
-    { th: 'มกราคม', en: 'January' },
-    { th: 'กุมภาพันธ์', en: 'February' },
-    { th: 'มีนาคม', en: 'March' }
+    { th: 'มิถุนายน', en: 'June' },
+    { th: 'กรกฎาคม', en: 'July' },
+    { th: 'สิงหาคม', en: 'August' }
   ];
   let currentMonth = 0;
 
   const cakes = {
-    // Jan
+    // June
     blackforest:  { month: 0, th: 'แบล็คฟอเรสต์', en: 'Black Forest',     emoji: '🍒', imgSrc: 'https://lh3.googleusercontent.com/d/19ZFMBB5cfdvaDL5gCCzWwxt05Fg5OzJS' },
     buttervanilla:{ month: 0, th: 'บัตเตอร์วานิลลา', en: 'Butter Vanilla',   emoji: '🌸', imgSrc: 'https://lh3.googleusercontent.com/d/19Sb-AfW_SmfvJBQSMrBtJuWpT6H2mZzG' },
     chocoFudge:   { month: 0, th: 'ช็อกโกแลตฟัดจ์', en: 'Chocolate Fudge',  emoji: '🍫', imgSrc: 'https://lh3.googleusercontent.com/d/19BUDSO-FYbnEvd1nYygFKb5kYuFYaqJm' },
     pandanLayer:  { month: 0, th: 'เลเยอร์ใบเตย', en: 'Pandan Layer',     emoji: '🍃', imgSrc: 'https://lh3.googleusercontent.com/d/19Vk1Z1qEbQYjkUMipiDPZj9K_rtwBWkA' },
-    // Feb & Mar (Locked permanently in UI logic)
+    // July & August (Locked permanently in UI logic)
     strawberry:   { month: 1, th: 'สตรอว์เบอร์รี', en: 'Strawberry Cake', emoji: '🍓', imgSrc: '' },
     mocha:        { month: 1, th: 'มอคค่า', en: 'Mocha Cake', emoji: '☕', imgSrc: '' },
     coconut:      { month: 1, th: 'เค้กมะพร้าว', en: 'Coconut Cake', emoji: '🥥', imgSrc: '' },
@@ -828,11 +839,11 @@
     noteText.style.display = 'none';
     noteFix.style.display = 'block';
 
-    const origMaxWidth = container.style.maxWidth;
     const origStyles = {
         position: captureArea.style.position,
         top: captureArea.style.top,
         left: captureArea.style.left,
+        right: captureArea.style.right,
         transform: captureArea.style.transform,
         zIndex: captureArea.style.zIndex,
         width: captureArea.style.width,
@@ -848,13 +859,14 @@
     container.style.maxWidth = '1000px';
     captureArea.style.position = 'fixed';
     captureArea.style.top = '0';
-    captureArea.style.left = '50%';
-    captureArea.style.transform = 'translateX(-50%)'; 
+    captureArea.style.left = '0';
+    captureArea.style.right = '0';
+    captureArea.style.margin = '0 auto';
+    captureArea.style.transform = 'none';
     captureArea.style.zIndex = '9999';
     captureArea.style.width = '540px';
     captureArea.style.maxWidth = '540px'; 
     captureArea.style.height = '960px';
-    captureArea.style.margin = '0';
 
     header.style.display = 'block';
     footer.style.display = 'block';
@@ -877,10 +889,11 @@
         }).then(canvas => {
             globalImageDataUrl = canvas.toDataURL('image/png');
             
-            container.style.maxWidth = origMaxWidth;
+            container.style.maxWidth = '480px';
             captureArea.style.position = origStyles.position;
             captureArea.style.top = origStyles.top;
             captureArea.style.left = origStyles.left;
+            captureArea.style.right = origStyles.right;
             captureArea.style.transform = origStyles.transform;
             captureArea.style.zIndex = origStyles.zIndex;
             captureArea.style.width = origStyles.width;
@@ -909,6 +922,7 @@
             console.error("Error generating image", err);
             showToast("Error / ล้มเหลวในการสร้างภาพ");
             
+            container.style.maxWidth = '480px';
             captureArea.style.position = origStyles.position;
             memoText.style.display = 'block';
             memoFix.style.display = 'none';
