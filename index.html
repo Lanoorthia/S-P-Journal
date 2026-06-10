@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S&P Piece of Memories Journal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -16,7 +16,7 @@
             --sp-bg-beige: #FDFBF7;
             --sp-card-bg: #FFFFFF;
             --text-main: #2D2D2D;
-            --text-muted: #666666;
+            --text-muted: #757575;
             --border-color: #EAEAEA;
         }
 
@@ -27,7 +27,7 @@
         }
 
         body {
-            font-family: 'Noto Sans Thai', 'Montserrat', sans-serif;
+            font-family: 'Noto Sans', 'Montserrat', sans-serif;
             background-color: var(--sp-bg-beige);
             color: var(--text-main);
             display: flex;
@@ -36,7 +36,7 @@
             min-height: 100vh;
         }
 
-        /* จำลองหน้าต่างแอปพลิเคชันเปิดผ่านลิ้งก์จาก Line OA */
+        /* Line OA Webview Phone Container Frame */
         .mobile-container {
             width: 100%;
             max-width: 430px;
@@ -51,7 +51,7 @@
             border: 8px solid #2d2d2d;
         }
 
-        /* แถบหัวข้อมินิมอลเน้นเอกลักษณ์แบรนด์ S&P */
+        /* S&P Identity Header */
         header {
             background-color: var(--sp-red);
             color: white;
@@ -81,7 +81,7 @@
             opacity: 0.9;
         }
 
-        /* ตัวบ่งชี้ Flow การเชื่อมโยงแคมเปญ */
+        /* User Campaign Roadmap Flow Status Indicator */
         .flow-status {
             background: #F4EFE6;
             padding: 10px 14px;
@@ -101,71 +101,65 @@
             border-radius: 12px;
         }
 
-        /* พื้นที่เนื้อหาภายในสไลด์แนวตั้ง */
+        /* Main Viewport Content */
         .content {
             padding: 16px;
             flex: 1;
         }
 
-        /* การ์ดระบบสะสมแต้มและเป้าหมายรางวัล (Gamification Dashboard) */
-        .gamified-rewards-card {
-            background: linear-gradient(135deg, var(--sp-red) 0%, var(--sp-dark-red) 100%);
-            color: white;
-            border-radius: 18px;
-            padding: 18px;
-            margin-bottom: 20px;
-            position: relative;
-            box-shadow: 0 6px 16px rgba(170, 31, 36, 0.25);
-        }
-
-        .gamified-rewards-card h3 {
-            font-size: 14px;
-            margin-bottom: 4px;
+        /* Condensed Mini Rewards Dashboard (Visually De-emphasized) */
+        .condensed-rewards-bar {
+            background: #FAF6EE;
+            border: 1px dashed var(--sp-red);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 22px;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             gap: 6px;
         }
 
-        .points-display {
-            font-size: 32px;
+        .rewards-header-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
             font-weight: 700;
-            color: var(--sp-gold);
-            margin: 6px 0;
+            color: var(--sp-dark-red);
+        }
+
+        .mini-points {
+            color: var(--sp-red);
+            font-size: 14px;
         }
 
         .progress-bar-container {
-            background: rgba(255,255,255,0.2);
+            background: #EAEAEA;
             border-radius: 10px;
-            height: 8px;
+            height: 6px;
             width: 100%;
-            margin-top: 10px;
             overflow: hidden;
         }
 
         .progress-bar-fill {
-            background: var(--sp-gold);
+            background: var(--sp-red);
             height: 100%;
             width: 65%;
-            border-radius: 10px;
         }
 
-        .next-milestone-text {
-            font-size: 11px;
-            margin-top: 6px;
-            opacity: 0.9;
-            text-align: right;
-        }
-
+        /* Section Title - Highly Emphasized as requested */
         .section-title {
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 12px;
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 14px;
             color: var(--sp-dark-red);
             border-left: 4px solid var(--sp-red);
             padding-left: 8px;
+            letter-spacing: 0.3px;
+            font-family: 'Montserrat', sans-serif;
         }
 
-        /* ตารางแยกแยะเมนูที่คุณบันทึก (Checklist Grid) */
+        /* Interactive Cake Discovery Checklist Grid Matrix */
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -177,7 +171,7 @@
             background: white;
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 12px;
+            padding: 14px 12px;
             text-align: center;
             cursor: pointer;
             transition: all 0.2s ease-in-out;
@@ -190,402 +184,24 @@
         }
 
         .cake-icon-wrapper {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 10px auto;
+            width: 76px;
+            height: 76px;
+            margin: 4px auto 12px auto;
             background: #FFF5F5;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 32px;
-            position: relative;
+            font-size: 36px;
+            transition: all 0.3s ease;
         }
 
-        /* ควบคุมความทึบของไอคอนเมนูที่ยังไม่ได้กินให้เป็นสีเทา */
+        /* Grayscale Locked States */
         .cake-card.locked .cake-icon-wrapper {
-            background: #F0F0F0;
+            background: #F4F4F4;
             filter: grayscale(1);
-            opacity: 0.4;
+            opacity: 0.35;
         }
 
         .status-badge {
-            position: absolute;
-            top: 6px;
-            right: 6px;
-            font-size: 9px;
-            padding: 2px 6px;
-            border-radius: 10px;
-            font-weight: 700;
-        }
-
-        .cake-card.unlocked .status-badge {
-            background: #E6F7ED;
-            color: #1F9254;
-        }
-
-        .cake-card.locked .status-badge {
-            background: #F2F2F2;
-            color: #666666;
-        }
-
-        .cake-title {
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .badge-tag {
-            font-size: 10px;
-            color: var(--sp-red);
-            font-weight: 600;
-            background: #FFF0F1;
-            padding: 2px 6px;
-            border-radius: 8px;
-            display: inline-block;
-        }
-
-        .cake-card.locked .badge-tag {
-            background: #ECECEC;
-            color: #888888;
-        }
-
-        /* แผ่นสไลด์ขึ้นมาด้านล่างสำหรับพิมพ์ประการณ์ส่วนตัว (Journaling Drawer) */
-        .journal-modal {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: white;
-            border-radius: 24px 24px 0 0;
-            box-shadow: 0 -8px 30px rgba(0,0,0,0.15);
-            padding: 20px;
-            transform: translateY(100%);
-            transition: transform 0.3s ease-out;
-            z-index: 150;
-        }
-
-        .journal-modal.active {
-            transform: translateY(0);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .modal-header h4 {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--sp-dark-red);
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 22px;
-            color: var(--text-muted);
-            cursor: pointer;
-        }
-
-        textarea {
-            width: 100%;
-            height: 90px;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 10px;
-            font-family: inherit;
-            font-size: 13px;
-            resize: none;
-            margin-bottom: 14px;
-            background: #FAFAFA;
-        }
-
-        textarea:focus {
-            outline: none;
-            border-color: var(--sp-red);
-            background: #FFFFFF;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 12px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 13px;
-            text-align: center;
-            border: none;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-
-        .btn:active {
-            opacity: 0.8;
-        }
-
-        .btn-primary {
-            background: var(--sp-red);
-            color: white;
-        }
-
-        .btn-secondary {
-            background: #ECECEC;
-            color: #333333;
-        }
-
-        .btn-share {
-            background: #F5E6EC;
-            color: #C2185B;
-        }
-
-        /* ส่วนจำลองหน้าจอแชร์ผลลัพธ์ลง IG Story Template Dashboard */
-        .share-preview-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 200;
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .share-preview-overlay.active {
-            display: flex;
-        }
-
-        .ig-template-box {
-            width: 100%;
-            max-width: 320px;
-            height: 520px;
-            background: linear-gradient(180deg, #FFF5F5 0%, #FFF0F1 100%);
-            border-radius: 20px;
-            padding: 24px;
-            position: relative;
-            color: var(--sp-dark-red);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .ig-header {
-            text-align: center;
-        }
-
-        .ig-header h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 24px;
-            letter-spacing: 1px;
-            font-weight: 800;
-        }
-
-        .ig-badge-title {
-            background: var(--sp-red);
-            color: white;
-            font-size: 12px;
-            padding: 4px 12px;
-            border-radius: 20px;
-            display: inline-block;
-            margin-top: 8px;
-            font-weight: 600;
-        }
-
-        .ig-sticker-space {
-            background: white;
-            border: 3px dashed var(--sp-red);
-            border-radius: 16px;
-            flex: 1;
-            margin: 16px 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 14px;
-        }
-
-        .ig-note-preview {
-            font-style: italic;
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-top: 8px;
-            line-height: 1.4;
-        }
-
-        .ig-footer {
-            text-align: center;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            opacity: 0.8;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="mobile-container">
-        <header>
-            <div class="logo-area">S&P <span>JOURNAL</span></div>
-            <p>เปลี่ยนคำขนมหวานก้อนโต เป็นสมุดสะสมความทรงจำดิจิทัล</p>
-        </header>
-
-        <div class="flow-status">
-            <span>Line OA Menu</span>
-            <span>&rarr;</span>
-            <span class="active">S&P Web Roadmap</span>
-            <span>&rarr;</span>
-            <span>Share IG</span>
-        </div>
-
-        <div class="content">
-            <div class="gamified-rewards-card">
-                <h3>🏆 แดชบอร์ดสะสมตราเกียรติยศนักกิน</h3>
-                <div class="points-display">650 <span style="font-size: 14px; color: white; font-weight: normal;">แต้มเค้กเจอนัล</span></div>
-                <div style="font-size: 11px; opacity: 0.95;">ยศปัจจุบันของคุณ: <b>S&P Cake Explorer 🏅</b></div>
-                
-                <div class="progress-bar-container">
-                    <div class="progress-bar-fill"></div>
-                </div>
-                <div class="next-milestone-text">อีกเพียง 1 เมนูเพื่อคว้าเข็มกลัดรางวัล 'Choc-Holic MASTER'!</div>
-            </div>
-
-            <div class="section-title">เมนูสะสมของคุณ (S&P Cake Discovery Journey)</div>
-            
-            <div class="menu-grid">
-                <div class="cake-card unlocked" onclick="openJournal('เค้กสตรอว์เบอร์รีดีไลท์', '🍓', 'เค้กนุ่มละมุนมาก หวานกำลังดี ดีไซน์สีพาสเทลถ่ายรูปขึ้นกล้องสุดๆ ฉลองวันสอบมิดเทอมเสร็จกับเพื่อน!')">
-                    <span class="status-badge">เคยกินแล้ว</span>
-                    <div class="cake-icon-wrapper">🍓</div>
-                    <div class="cake-title">Strawberry Delight</div>
-                    <span class="badge-tag">Sweet Angel Drop</span>
-                </div>
-
-                <div class="cake-card unlocked" onclick="openJournal('เค้กดับเบิลช็อกฟัดจ์', '🍫', 'ดาร์กช็อกโกแลตฟัดจ์เยิ้มสะใจ เข้มข้นมาก ซื้อเป็นของขวัญปลอบใจตัวเองวันปั่นโปรเจกต์ผ่านฉลุย!')">
-                    <span class="status-badge">เคยกินแล้ว</span>
-                    <div class="cake-icon-wrapper">🍫</div>
-                    <div class="cake-title">Double Choc Fudge</div>
-                    <span class="badge-tag">Choc Holic Badge</span>
-                </div>
-
-                <div class="cake-card locked" onclick="openJournal('มัทฉะกรีนทีลาเต้เค้ก', '🍵', '')">
-                    <span class="status-badge">ยังไม่เคยกิน</span>
-                    <div class="cake-icon-wrapper">🍵</div>
-                    <div class="cake-title">Matcha Latte Cake</div>
-                    <span class="badge-tag">Locked</span>
-                </div>
-
-                <div class="cake-card locked" onclick="openJournal('บลิสฟูล คาราเมล คัสตาร์ด', '🍮', '')">
-                    <span class="status-badge">ยังไม่เคยกิน</span>
-                    <div class="cake-icon-wrapper">🍮</div>
-                    <div class="cake-title">Caramel Custard</div>
-                    <span class="badge-tag">Locked</span>
-                </div>
-            </div>
-
-            <p style="font-size: 11px; text-align: center; color: var(--text-muted); font-style: italic; line-height: 1.4;">
-                💡 คำแนะนำกิจกรรม: คลิกสแกนเปิดกล่องการ์ดเมนูเพื่อกรอกบันทึกความรู้สึกส่วนตัว และกดคลิกจำลองการแชร์ผลลัพธ์โมเมนต์น่ารักๆ ลง IG Story
-            </p>
-        </div>
-
-        <div class="journal-modal" id="journalModal">
-            <div class="modal-header">
-                <h4 id="modalMenuName">บันทึกประสบการณ์รสชาติ</h4>
-                <button class="close-btn" onclick="closeJournal()">&times;</button>
-            </div>
-            
-            <div style="text-align: center; font-size: 40px; margin-bottom: 10px;" id="modalMenuIcon">🍰</div>
-            
-            <p style="font-size: 11px; font-weight: 700; margin-bottom: 6px; color: var(--text-muted);">
-                📝 เขียนข้อความบันทึกส่วนตัว / ความทรงจำแสนประทับใจกับเมนูคำนี้:
-            </p>
-            <textarea id="journalNotes" placeholder="วันนี้คุณซื้อเนื่องในโอกาสอะไร? ทานร่วมกับใคร หรือรสชาติมีความพึงพอใจจุดไหนพิมพ์บอกเล่าที่นี่ได้เลยนะ..."></textarea>
-            
-            <div class="btn-group">
-                <button class="btn btn-secondary" onclick="closeJournal()">ยกเลิก</button>
-                <button class="btn btn-primary" onclick="saveJournal()">💾 บันทึกความฟิน</button>
-                <button class="btn btn-share" id="shareBtn" onclick="triggerInstagramShare()">✨ แชร์ลง IG Story</button>
-            </div>
-        </div>
-
-        <div class="share-preview-overlay" id="igOverlay">
-            <div class="ig-template-box">
-                <div class="ig-header">
-                    <h2>#CAKE DUMP</h2>
-                    <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.5px;">S&P PIECE OF MEMORIES JOURNAL</p>
-                    <div class="ig-badge-title" id="igBadgeTitle">CAKE COLLECTOR</div>
-                </div>
-                
-                <div class="ig-sticker-space">
-                    <div style="font-size: 52px;" id="igStickerIcon">🍰</div>
-                    <div style="font-weight: 700; font-size: 15px; margin-top: 6px; color: var(--sp-red);" id="igMenuName">Strawberry Delight</div>
-                    <div class="ig-note-preview" id="igNotePreview">"ไม่มีข้อความบันทึก"</div>
-                </div>
-                
-                <div class="ig-footer">
-                    @SNP_GRAND / #CRACKTHECAKEBYCTT
-                </div>
-            </div>
-            
-            <button class="btn" style="margin-top: 16px; background: #ffffff; color: #2d2d2d; max-width: 220px;" onclick="closeIgShare()">
-                &larr; ย้อนกลับไปหน้าจัดการหลัก
-            </button>
-        </div>
-
-    </div>
-
-    <script>
-        let currentMenu = "";
-        let currentIcon = "";
-
-        function openJournal(name, icon, savedNotes) {
-            currentMenu = name;
-            currentIcon = icon;
-            
-            document.getElementById('modalMenuName').innerText = "บันทึกเมนู: " + name;
-            document.getElementById('modalMenuIcon').innerText = icon;
-            document.getElementById('journalNotes').value = savedNotes;
-            
-            document.getElementById('journalModal').classList.add('active');
-        }
-
-        function closeJournal() {
-            document.getElementById('journalModal').classList.remove('active');
-        }
-
-        function saveJournal() {
-            alert("บันทึกความทรงจำและประสบการณ์รสชาติเรียบร้อยแล้ว! ได้รับโบนัสความฟินระบบสะสมแต้ม +50 คะแนน!");
-            closeJournal();
-        }
-
-        function triggerInstagramShare() {
-            const userNotes = document.getElementById('journalNotes').value || "ความสุขสไตล์ Gen Z ในวันธรรมดาที่อร่อยเป็นพิเศษ 💖✨";
-            
-            document.getElementById('igMenuName').innerText = currentMenu;
-            document.getElementById('igStickerIcon').innerText = currentIcon;
-            document.getElementById('igNotePreview').innerText = `"${userNotes}"`;
-            
-            // ปรับตรรกะหัวข้อเข็มกลัดบนแผ่นสติกเกอร์ตามเมนูที่ผู้ใช้คลิกเลือก
-            if(currentIcon === '🍓') document.getElementById('igBadgeTitle').innerText = "🍓 STRAWBERRY DELIGHT ANGEL";
-            else if(currentIcon === '🍫') document.getElementById('igBadgeTitle').innerText = "🍫 CHOC-HOLIC MASTER BADGE";
-            else document.getElementById('igBadgeTitle').innerText = "🍰 S&P CAKE LOVER COLLECTOR";
-
-            document.getElementById('igOverlay').classList.add('active');
-        }
-
-        function closeIgShare() {
-            document.getElementById('igOverlay').classList.remove('active');
-        }
-    </script>
-</body>
-</html>
+            position
