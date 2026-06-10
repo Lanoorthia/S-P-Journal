@@ -18,10 +18,10 @@
     --road: #AA1F24; 
     --dark: #2A2A2A;
     --border-color: #EAEAEA;
-    /* แก้ปัญหาลายกระดาษหายด้วย SVG Noise ฝังลงโค้ดโดยตรง (แคปเจอร์ติด 100%) */
-    --paper-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.02' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23f)' opacity='0.06'/%3E%3C/svg%3E");
+    /* ลายกระดาษสมุด Scrapbook แบบ CSS บริสุทธิ์ (แคปติด 100%) */
+    --paper-dots: radial-gradient(rgba(107, 66, 38, 0.12) 1.5px, transparent 1.5px);
   }
-  body { font-family: 'Nunito', sans-serif; background: var(--blue); overflow-x: hidden; min-height: 100vh; }
+  body { font-family: 'Nunito', sans-serif; background: var(--blue); overflow-x: hidden; min-height: 100vh; margin: 0;}
   .page { display: none; min-height: 100vh; }
   .page.active { display: block; }
 
@@ -111,7 +111,8 @@
   /* ========================================================= */
   #captureArea { 
     background-color: var(--blue); 
-    background-image: var(--paper-texture); /* ใส่ลายกระดาษ Scrapbook */
+    background-image: var(--paper-dots);
+    background-size: 18px 18px; /* ขนาดลายจุด */
     margin: 16px auto; 
     padding: 16px; 
     position: relative; 
@@ -129,8 +130,7 @@
     position: relative; flex: 1; border-radius: 16px; padding: 14px; 
     border: 1px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.02); 
     display: flex; flex-direction: column; overflow: hidden; width: 100%;
-    background-color: var(--cream);
-    background-image: var(--paper-texture); /* ใส่ลายกระดาษด้านในกรอบด้วย */
+    background-color: rgba(255, 255, 255, 0.8); /* สีขาวกึ่งโปร่งใสให้เห็นลายจุดด้านหลังนิดๆ */
   }
   .dropped-decos { position: absolute; inset: 0; pointer-events: none; z-index: 20; border-radius: 16px; overflow: hidden;}
   .dropped-deco { position: absolute; font-size: 1.8rem; cursor: move; pointer-events: all; user-select: none; touch-action: none;}
@@ -522,7 +522,6 @@
     pandanLayer:  { th: 'เลเยอร์ใบเตย', en: 'Pandan Layer',     emoji: '🍃', imgSrc: 'https://lh3.googleusercontent.com/d/19Vk1Z1qEbQYjkUMipiDPZj9K_rtwBWkA' },
   };
 
-  // State Management: ระบบเก็บข้อมูลแยกอิสระสำหรับแต่ละเมนูเค้ก 100%
   let journalData = {
     blackforest: { title: '', celeb: '', date: '', memo: '', notes: '', photo: '', isPhotoVisible: 'none', stamp: '', decos: '' },
     buttervanilla: { title: '', celeb: '', date: '', memo: '', notes: '', photo: '', isPhotoVisible: 'none', stamp: '', decos: '' },
@@ -732,7 +731,7 @@
     reader.readAsDataURL(file);
   }
 
-  // === ระบบแคปภาพ 9:16 ที่แก้ปัญหาภาพเบี้ยว การจัดกลาง และ Texture หาย 100% ===
+  // === ระบบแคปภาพ Export 9:16 ที่แก้ปัญหาเบี้ยว การจัดกลาง และ Texture หาย 100% ===
   function saveJournal() { 
     saveCurrentState();
     showToast(translations[currentLang].toastDownloading);
@@ -741,7 +740,6 @@
     const header = document.getElementById('captureHeader');
     const dashedBox = document.getElementById('journalCanvas');
     const footer = document.getElementById('captureFooter');
-    const container = document.querySelector('.journal-container');
     
     const memoText = document.getElementById('journalText');
     const memoFix = document.getElementById('journalTextFix');
@@ -756,10 +754,17 @@
     noteText.style.display = 'none';
     noteFix.style.display = 'block';
 
-    const origMaxWidth = container.style.maxWidth;
+    // เตรียม Snapshot Container ให้อยู่จุดกึ่งกลางของหน้าต่าง ป้องกัน html2canvas ถ่ายภาพเอียงซ้าย
+    // ใช้ position: fixed ช่วยตรึงตำแหน่งให้อยู่ตรงกลางเป๊ะๆ
     const origStyles = {
+        position: captureArea.style.position,
+        top: captureArea.style.top,
+        left: captureArea.style.left,
+        transform: captureArea.style.transform,
+        zIndex: captureArea.style.zIndex,
         width: captureArea.style.width,
         maxWidth: captureArea.style.maxWidth,
+        height: captureArea.style.height,
         margin: captureArea.style.margin,
         border: dashedBox.style.border,
         padding: dashedBox.style.padding,
@@ -767,12 +772,15 @@
         borderRadius: dashedBox.style.borderRadius
     };
 
-    // บังคับคอนเทนเนอร์ให้เป็นพื้นที่ขนาด 540x960 
-    container.style.maxWidth = '1000px';
+    captureArea.style.position = 'fixed';
+    captureArea.style.top = '0';
+    captureArea.style.left = '50%';
+    captureArea.style.transform = 'translateX(-50%)';
+    captureArea.style.zIndex = '9999';
     captureArea.style.width = '540px';
     captureArea.style.maxWidth = '540px'; 
     captureArea.style.height = '960px';
-    captureArea.style.margin = '0 auto'; // จัดให้อยู่กลางจอเวลาแคป ป้องกันการเอียงซ้าย
+    captureArea.style.margin = '0';
 
     header.style.display = 'block';
     footer.style.display = 'block';
@@ -787,24 +795,25 @@
     window.scrollTo(0,0); 
 
     setTimeout(() => {
-        // ใช้ html2canvas กับออปชัน backgroundColor: null เพื่ออนุญาตให้ Texture SVG เบื้องหลังโชว์ออกมาได้
         html2canvas(captureArea, {
             useCORS: true,
             allowTaint: true,
             scale: 2, 
-            backgroundColor: null, // โชว์พื้นหลังเดิมที่มีลายกระดาษ
-            width: 540,
-            height: 960,
-            windowWidth: 600
+            backgroundColor: null, 
         }).then(canvas => {
             globalImageDataUrl = canvas.toDataURL('image/png');
             
-            // คืนค่ากลับเป็นมือถือเหมือนเดิม
-            container.style.maxWidth = origMaxWidth;
+            // คืนค่า DOM เดิม
+            captureArea.style.position = origStyles.position;
+            captureArea.style.top = origStyles.top;
+            captureArea.style.left = origStyles.left;
+            captureArea.style.transform = origStyles.transform;
+            captureArea.style.zIndex = origStyles.zIndex;
             captureArea.style.width = origStyles.width;
             captureArea.style.maxWidth = origStyles.maxWidth;
             captureArea.style.height = 'auto';
             captureArea.style.margin = origStyles.margin; 
+
             header.style.display = 'none';
             footer.style.display = 'none';
             dashedBox.style.border = origStyles.border || '1px solid var(--border-color)';
@@ -818,7 +827,7 @@
             noteText.style.display = 'block';
             noteFix.style.display = 'none';
 
-            // พรีวิวภาพลงจอ
+            // โชว์ภาพในหน้าต่างพรีวิว
             document.getElementById('finalExportImg').src = globalImageDataUrl;
             document.getElementById('igOverlay').classList.add('active');
             showToast(translations[currentLang].toastSave);
@@ -827,7 +836,7 @@
             console.error("Error generating image", err);
             showToast("Error / ล้มเหลวในการสร้างภาพ");
             
-            container.style.maxWidth = origMaxWidth;
+            captureArea.style.position = origStyles.position;
             memoText.style.display = 'block';
             memoFix.style.display = 'none';
             noteText.style.display = 'block';
