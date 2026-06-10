@@ -10,7 +10,6 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    /* โทนสี S&P: แดง-ขาว-น้ำตาล */
     --cream: #FFFFFF; 
     --blue: #FDFBF7; 
     --pink: #FFF0F1;
@@ -39,48 +38,35 @@
   .roadmap-header h1 span { color: var(--caramel); }
   .roadmap-subtitle { font-size: 0.85rem; text-align: center; color: #555; margin: 6px 20px 16px; font-weight: 600; }
 
-  /* ขยายความสูงของ Roadmap ป้องกันการทับซ้อน (720px) */
   .scene-wrap { position: relative; width: 100%; max-width: 800px; margin: 0 auto; height: 720px; }
   .scene-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 
-  .cake-stop {
-    position: absolute; display: flex; flex-direction: column; align-items: center;
-    cursor: pointer; transition: transform 0.25s ease; z-index: 20;
-  }
+  .cake-stop { position: absolute; display: flex; flex-direction: column; align-items: center; cursor: pointer; transition: transform 0.25s ease; z-index: 20; }
   .cake-stop:hover { transform: scale(1.1) rotate(-3deg); }
   .cake-circle {
-    width: 90px; height: 90px; border-radius: 50%; overflow: hidden;
-    border: 4px solid white; box-shadow: 0 6px 18px rgba(0,0,0,0.25); background: #eee;
+    width: 90px; height: 90px; border-radius: 50%; overflow: hidden; border: 4px solid white; box-shadow: 0 6px 18px rgba(0,0,0,0.25); background: #eee;
     display: flex; justify-content: center; align-items: center;
   }
   .cake-circle img { width: 100%; height: 100%; object-fit: cover; object-position: center 55%; transition: all 0.3s ease; }
   
-  /* สไตล์เค้กที่ล็อคอยู่ */
   .cake-stop.locked .cake-circle img { filter: brightness(0) opacity(0.6); }
   .cake-stop.locked .cake-label { background: #EAEAEA; color: #888; }
-
   .cake-label {
-    margin-top: 6px; background: white; border-radius: 12px; padding: 3px 10px;
-    font-size: 0.7rem; font-weight: 800; color: var(--dark);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.12); white-space: nowrap; border: 1px solid #eee;
-    transition: all 0.3s ease;
+    margin-top: 6px; background: white; border-radius: 12px; padding: 3px 10px; font-size: 0.7rem; font-weight: 800; color: var(--dark);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12); white-space: nowrap; border: 1px solid #eee; transition: all 0.3s ease;
   }
 
-  /* Membership ปลายทาง */
   .membership-stop {
-    position: absolute; flex-direction: column; align-items: center;
-    cursor: pointer; transition: transform 0.25s ease; z-index: 25;
+    position: absolute; flex-direction: column; align-items: center; cursor: pointer; transition: transform 0.25s ease; z-index: 25;
     display: none; animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
   }
   @keyframes popIn { 0% { transform: scale(0); } 100% { transform: scale(1); } }
   .membership-stop:hover { transform: scale(1.1); }
   .membership-badge {
     width: 85px; height: 85px; border-radius: 50%; background: linear-gradient(135deg, var(--road) 0%, #7A1114 100%);
-    border: 4px solid #F5C842; box-shadow: 0 6px 18px rgba(170,31,36,0.35);
-    display: flex; justify-content: center; align-items: center; font-size: 2.2rem;
+    border: 4px solid #F5C842; box-shadow: 0 6px 18px rgba(170,31,36,0.35); display: flex; justify-content: center; align-items: center; font-size: 2.2rem;
   }
 
-  /* ตำแหน่งธงที่ถูกปรับไม่ให้บังเค้ก */
   .start-flag { position: absolute; font-size: 2rem; z-index: 30; left: 4%; top: 2%; }
   .end-flag   { position: absolute; font-size: 2.5rem; z-index: 30; left: 88%; top: 88%; }
   .heart-deco { position: absolute; font-size: 1.5rem; z-index: 5; animation: hb 2s infinite ease-in-out; pointer-events: none; }
@@ -90,13 +76,11 @@
 
   /* ===== JOURNAL PAGE ===== */
   #journal-page { background: var(--cream); min-height: 100vh; }
-  .journal-container { max-width: 480px; margin: 0 auto; padding: 0 0 60px; border-left: 1px solid #eee; border-right: 1px solid #eee; min-height: 100vh; background: var(--cream); }
+  .journal-container { max-width: 480px; margin: 0 auto; padding: 0 0 60px; border-left: 1px solid #eee; border-right: 1px solid #eee; min-height: 100vh; background: var(--cream); transition: max-width 0s; }
 
   .back-btn {
-    display: inline-flex; align-items: center; gap: 6px; background: var(--road);
-    color: white; border: none; padding: 10px 18px; border-radius: 20px;
-    font-family: 'Nunito',sans-serif; font-weight: 700; font-size: 0.9rem;
-    cursor: pointer; margin: 16px 16px 0;
+    display: inline-flex; align-items: center; gap: 6px; background: var(--road); color: white; border: none; padding: 10px 18px; border-radius: 20px;
+    font-family: 'Nunito',sans-serif; font-weight: 700; font-size: 0.9rem; cursor: pointer; margin: 16px 16px 0;
   }
   .back-btn:hover { background: #7A1114; }
 
@@ -106,94 +90,108 @@
   .deco-scroll { display: flex; gap: 10px; overflow-x: auto; flex: 1; scrollbar-width: none; padding: 4px 0; }
   .deco-scroll::-webkit-scrollbar { display: none; }
   .deco-item {
-    flex-shrink: 0; width: 56px; height: 56px; background: white; border-radius: 12px;
-    border: 2px solid #eee; cursor: pointer; font-size: 1.8rem;
-    display: flex; align-items: center; justify-content: center;
-    transition: border-color 0.2s, transform 0.15s; box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    flex-shrink: 0; width: 56px; height: 56px; background: white; border-radius: 12px; border: 2px solid #eee; cursor: pointer; font-size: 1.8rem;
+    display: flex; align-items: center; justify-content: center; transition: border-color 0.2s, transform 0.15s; box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   }
   .deco-item:hover { transform: scale(1.08); border-color: var(--caramel); }
   .deco-item.selected { border-color: var(--caramel); background: var(--pink); }
   .carousel-btn {
-    width: 34px; height: 34px; border-radius: 50%; background: var(--dark); color: white;
-    border: none; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    width: 34px; height: 34px; border-radius: 50%; background: var(--dark); color: white; border: none; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
   .add-deco-btn {
     background: var(--pink); color: var(--road); border: 2px dashed var(--road); padding: 10px 20px;
-    border-radius: 20px; font-family: 'Nunito',sans-serif; font-weight: 800; font-size: 0.85rem;
-    cursor: pointer; margin: 10px 16px 0; display: block; width: calc(100% - 32px); text-align: center;
+    border-radius: 20px; font-family: 'Nunito',sans-serif; font-weight: 800; font-size: 0.85rem; cursor: pointer; margin: 10px 16px 0; display: block; width: calc(100% - 32px); text-align: center;
   }
 
-  /* Capture Wrapper: หน้าตาในเบราว์เซอร์จะยังคง Proportional แต่เวลาแคปภาพจะใช้ขนาด Fixed */
-  #captureArea { background: var(--cream); padding: 16px; margin: 0; position: relative; }
-  .journal-canvas { position: relative; border-radius: 16px; padding: 12px; border: 1px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+  /* ========================================================= */
+  /* CAPTURE AREA - FIX LAYOUT BEHAVIOR (9:16 PROPORTION)      */
+  /* ========================================================= */
+  #captureArea { 
+    background: var(--cream); margin: 16px auto; padding: 16px; position: relative; 
+    /* บังคับสัดส่วนหน้าจอให้เป็น 9:16 ตลอดเวลา ไม่ให้เนื้อหาเบี้ยว */
+    aspect-ratio: 9 / 16; 
+    display: flex; flex-direction: column; width: calc(100% - 32px); max-width: 420px;
+  }
+
+  #captureHeader { text-align: center; margin-bottom: 12px; padding-top: 10px; }
+  #captureHeader h2 { font-family: 'Pacifico', cursive; font-size: 32px; color: var(--road); line-height: 1.2; }
+  #captureHeader p { font-size: 13px; font-weight: 700; letter-spacing: 0.5px; color: var(--road); margin-top: -2px; }
+  .badge-label { background: var(--road); color: white; padding: 4px 14px; border-radius: 20px; display: inline-block; margin-top: 6px; font-weight: 800; font-size: 11px; }
+
+  .journal-canvas { 
+    position: relative; flex: 1; border-radius: 16px; padding: 14px; 
+    border: 1px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.02); 
+    display: flex; flex-direction: column; overflow: hidden;
+  }
   .dropped-decos { position: absolute; inset: 0; pointer-events: none; z-index: 20; border-radius: 16px; overflow: hidden;}
   .dropped-deco { position: absolute; font-size: 1.8rem; cursor: move; pointer-events: all; user-select: none; touch-action: none;}
 
   /* Title row */
-  .journal-title-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; position: relative; z-index: 10; width: 100%;}
+  .journal-title-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; position: relative; z-index: 10; width: 100%;}
   .journal-title-block { flex: 1; min-width: 0; }
-  .field-label { font-size: 0.7rem; color: #888; font-weight: 700; margin-bottom: 2px; }
+  .field-label { font-size: 11px; color: #888; font-weight: 800; margin-bottom: 2px; text-transform: uppercase;}
   .title-input {
-    font-family: 'Nunito',sans-serif; font-weight: 800; font-size: 2rem; color: var(--road);
+    font-family: 'Nunito',sans-serif; font-weight: 800; font-size: 24px; color: var(--road);
     border: none; background: transparent; outline: none; width: 100%;
   }
   .celebration-input {
-    font-family: 'Dancing Script',cursive; font-size: 1.3rem; color: var(--caramel);
+    font-family: 'Dancing Script',cursive; font-size: 18px; color: var(--caramel);
     border: none; background: transparent; outline: none; width: 100%; border-bottom: 1px solid #ccc; padding-bottom: 4px;
   }
 
   /* Polaroid */
-  .polaroid-wrap { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; position: relative; z-index: 10; width: 100%; }
+  .polaroid-wrap { display: flex; gap: 12px; align-items: stretch; margin-bottom: 10px; position: relative; z-index: 10; width: 100%; flex: 1;}
   .polaroid {
     background: white; padding: 8px 8px 26px; box-shadow: 2px 4px 12px rgba(0,0,0,0.15);
-    width: 140px; min-width: 140px; flex-shrink: 0; position: relative; transform: rotate(-1.5deg); cursor: pointer; border: 1px solid #eee;
+    width: 38%; min-width: 120px; flex-shrink: 0; position: relative; transform: rotate(-1.5deg); cursor: pointer; border: 1px solid #eee; height: max-content;
   }
   .tape {
-    position: absolute; top: -11px; left: 50%; transform: translateX(-50%); width: 56px; height: 20px;
-    opacity: 0.8; border-radius: 2px;
+    position: absolute; top: -9px; left: 50%; transform: translateX(-50%); width: 45px; height: 16px; opacity: 0.8; border-radius: 2px;
     background: repeating-linear-gradient(45deg,var(--road) 0,var(--road) 4px,var(--pink) 4px,var(--pink) 8px);
   }
   .polaroid-photo {
-    width: 100%; height: 110px; background: linear-gradient(135deg,#f0f0f0,#e0e0e0);
+    width: 100%; aspect-ratio: 1; background: linear-gradient(135deg,#f0f0f0,#e0e0e0);
     display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden;
   }
   .polaroid-photo img.preview { width:100%;height:100%;object-fit:cover;position:absolute;inset:0; }
-  .polaroid-placeholder { text-align:center;font-size:0.7rem;color:#888;font-weight:700;z-index:1; }
-  .polaroid-cloud { font-size:1.8rem;margin-bottom:3px; }
-  .polaroid-date { font-size:0.78rem;font-weight:800;color:var(--dark);text-align:center;margin-top:5px; }
+  .polaroid-placeholder { text-align:center;font-size:10px;color:#888;font-weight:700;z-index:1; }
+  .polaroid-cloud { font-size:20px;margin-bottom:2px; }
+  .polaroid-date { font-size:11px;font-weight:800;color:var(--dark);text-align:center;margin-top:5px; }
   .polaroid-date input {
     border:none;background:transparent;font-family:'Nunito',sans-serif;
-    font-weight:800;font-size:0.78rem;color:var(--dark);width:100%;text-align:center;outline:none;
+    font-weight:800;font-size:11px;color:var(--dark);width:100%;text-align:center;outline:none;
   }
 
   /* Journal lines */
-  .journal-lines { flex: 1; min-width: 0; height: 100%; display: flex; flex-direction: column;}
+  .journal-lines { flex: 1; min-width: 0; display: flex; flex-direction: column; }
   .lined-textarea {
     width:100%;border:none;background:transparent;outline:none; flex: 1;
-    font-family:'Nunito',sans-serif;font-size:0.86rem;line-height:2.2;resize:none;
+    font-family:'Nunito',sans-serif;font-size:13px;line-height:2.2;resize:none;
     background-image:repeating-linear-gradient(transparent,transparent calc(2.2em - 1px),#eee calc(2.2em - 1px),#eee 2.2em);
     color:var(--dark); overflow: hidden;
   }
 
-  .stars-row { text-align:right;font-size:1rem;color:var(--caramel);letter-spacing:4px;margin:4px 0 6px;position:relative;z-index:10; }
-  .journal-divider { border:none;border-top:1px solid #ccc;margin:6px 0; }
+  .stars-row { text-align:right;font-size:14px;color:var(--caramel);letter-spacing:4px;margin:2px 0 4px;position:relative;z-index:10; }
+  .journal-divider { border:none;border-top:1px solid #ccc;margin:4px 0; }
 
   /* Cake stamp section */
-  .cake-journal-section { display:flex;gap:14px;align-items:flex-start;position:relative;z-index:10;margin-top:6px; width: 100%;}
-  .cake-journal-lines { flex:1; min-width: 0; }
-  #cakeNote { height: 90px; }
+  .cake-journal-section { display:flex;gap:12px;align-items:stretch;position:relative;z-index:10;margin-top:4px; width: 100%; height: max-content;}
+  .cake-journal-lines { flex:1; min-width: 0; display: flex; flex-direction: column;}
+  #cakeNote { height: 75px; flex: none; } /* ฟิกความสูงเพื่อไม่ให้กล่องยืดตอนถ่ายรูป */
   
-  .cake-stamp-area { width:140px; min-width: 140px; flex-shrink:0; cursor:pointer;}
+  .cake-stamp-area { width: 38%; min-width: 120px; flex-shrink:0; cursor:pointer;}
   .cake-stamp-frame {
-    background:white;padding:8px 8px 10px; border: 1px solid #eee;
-    box-shadow:2px 4px 12px rgba(0,0,0,0.12);position:relative;transform:rotate(1deg);
+    background:white;padding:6px 6px 8px; border: 1px solid #eee;
+    box-shadow:2px 4px 10px rgba(0,0,0,0.1);position:relative;transform:rotate(1deg);
   }
-  .stamp-pin { position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-size:1.3rem;z-index:5; }
-  .cake-stamp-frame img { width:100%;height:90px;object-fit:cover;display:block;border-radius:4px; }
-  .cake-stamp-name { text-align:center;font-size:0.72rem;font-weight:800;color:var(--road);margin-top:5px; }
-  .stamp-hint { font-size: 0.58rem; color: var(--road); font-weight: bold; text-align: center; margin-top: 4px; }
+  .stamp-pin { position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:1.1rem;z-index:5; }
+  .cake-stamp-frame img { width:100%; aspect-ratio: 4/3; object-fit:cover; display:block; border-radius:4px; }
+  .cake-stamp-name { text-align:center;font-size:11px;font-weight:800;color:var(--road);margin-top:4px; }
+  .stamp-hint { font-size: 9px; color: var(--road); font-weight: bold; text-align: center; margin-top: 4px; }
 
-  .tulip-corner { position:absolute;bottom:0;left:-10px;font-size:2.8rem;opacity:0.7;pointer-events:none; }
+  .tulip-corner { position:absolute;bottom:0;left:-8px;font-size:2.2rem;opacity:0.7;pointer-events:none; }
+  
+  #captureFooter { text-align: center; padding-top: 10px; font-size: 13px; font-weight: 800; color: var(--road); letter-spacing: 0.5px;}
 
   /* Save bar */
   .save-bar {
@@ -215,14 +213,14 @@
   }
   .share-preview-overlay.active { display: flex; }
   
-  /* กล่องแสดงผลสำหรับ Preview ให้ผู้ใช้ดู (ป้องกันเบี้ยวด้วย object-fit contain) */
+  /* กล่องแสดงผลพรีวิว (ยึดหลัก 9:16 ด้วย object-fit: contain ป้องกันการเบี้ยว 100%) */
   .ig-template-box {
-    width: 320px; height: 568px; /* อัตราส่วน 9:16 */
+    width: 100%; max-width: 320px; aspect-ratio: 9/16;
     background: transparent; position: relative;
     box-shadow: 0 8px 30px rgba(0,0,0,0.5); overflow: hidden; border-radius: 16px;
   }
   .ig-template-box img {
-    width: 100%; height: 100%; object-fit: contain; /* ป้องกันภาพพรีวิวเบี้ยวเด็ดขาด */
+    width: 100%; height: 100%; object-fit: contain; 
   }
   
   .ig-action-bar { display: flex; gap: 10px; margin-top: 20px; }
@@ -269,35 +267,35 @@
     <div class="start-flag">🚩</div>
     <div class="end-flag">🏁</div>
 
-    <div class="cake-stop locked" id="node-blackforest" style="left:20%;top:13%;" onclick="handleCakeClick('blackforest', this)">
+    <div class="cake-stop locked" id="node-blackforest" style="left:23%;top:11%;" onclick="handleCakeClick('blackforest', this)">
       <div class="cake-circle">
         <img src="https://lh3.googleusercontent.com/d/19ZFMBB5cfdvaDL5gCCzWwxt05Fg5OzJS" alt="Cake" crossorigin="anonymous" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
       </div>
       <div class="cake-label" id="label-blackforest">🔒 ยังไม่ปลดล็อค</div>
     </div>
 
-    <div class="cake-stop locked" id="node-buttervanilla" style="left:60%;top:20%;" onclick="handleCakeClick('buttervanilla', this)">
+    <div class="cake-stop locked" id="node-buttervanilla" style="left:60%;top:18%;" onclick="handleCakeClick('buttervanilla', this)">
       <div class="cake-circle">
         <img src="https://lh3.googleusercontent.com/d/19Sb-AfW_SmfvJBQSMrBtJuWpT6H2mZzG" alt="Cake" crossorigin="anonymous" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
       </div>
       <div class="cake-label" id="label-buttervanilla">🔒 ยังไม่ปลดล็อค</div>
     </div>
 
-    <div class="cake-stop locked" id="node-chocoFudge" style="left:80%;top:40%;" onclick="handleCakeClick('chocoFudge', this)">
+    <div class="cake-stop locked" id="node-chocoFudge" style="left:78%;top:42%;" onclick="handleCakeClick('chocoFudge', this)">
       <div class="cake-circle">
         <img src="https://lh3.googleusercontent.com/d/19BUDSO-FYbnEvd1nYygFKb5kYuFYaqJm" alt="Cake" crossorigin="anonymous" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
       </div>
       <div class="cake-label" id="label-chocoFudge">🔒 ยังไม่ปลดล็อค</div>
     </div>
 
-    <div class="cake-stop locked" id="node-pandanLayer" style="left:40%;top:65%;" onclick="handleCakeClick('pandanLayer', this)">
+    <div class="cake-stop locked" id="node-pandanLayer" style="left:42%;top:66%;" onclick="handleCakeClick('pandanLayer', this)">
       <div class="cake-circle">
         <img src="https://lh3.googleusercontent.com/d/19Vk1Z1qEbQYjkUMipiDPZj9K_rtwBWkA" alt="Cake" crossorigin="anonymous" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
       </div>
       <div class="cake-label" id="label-pandanLayer">🔒 ยังไม่ปลดล็อค</div>
     </div>
 
-    <div class="membership-stop" id="membershipNode" style="left:70%; top:85%;" onclick="triggerMembershipReward()">
+    <div class="membership-stop" id="membershipNode" style="left:72%; top:86%;" onclick="triggerMembershipReward()">
       <div class="membership-badge">🎁</div>
       <div class="cake-label" style="border: 2px solid var(--road); font-weight: 800; color: var(--road);" id="t-claim-discount">รับส่วนลดสมาชิก</div>
     </div>
@@ -341,10 +339,10 @@
 
     <div id="captureArea">
       
-      <div id="captureHeader" style="display: none; text-align: center; margin-bottom: 20px; padding-top: 15px;">
-        <h2 style="font-family: 'Pacifico', cursive; font-size: 44px; color: #AA1F24;">#CAKE DUMP</h2>
-        <p style="font-size: 16px; font-weight: 700; letter-spacing: 0.5px; color: #AA1F24; margin-top: -5px;">S&P PIECE OF MEMORIES</p>
-        <div style="background: #AA1F24; color: white; padding: 6px 20px; border-radius: 20px; display: inline-block; margin-top: 12px; font-weight: 800; font-size: 15px;">CAKE COLLECTOR</div>
+      <div id="captureHeader" style="display: none;">
+        <h2>#CAKE DUMP</h2>
+        <p>S&P PIECE OF MEMORIES</p>
+        <div class="badge-label">CAKE COLLECTOR</div>
       </div>
 
       <div class="journal-canvas" id="journalCanvas">
@@ -375,7 +373,7 @@
 
           <div class="journal-lines">
             <div class="field-label" id="t-label-memo">บันทึกความทรงจำ</div>
-            <textarea class="lined-textarea" id="journalText" style="height:190px" placeholder="เขียนบันทึกที่นี่..."></textarea>
+            <textarea class="lined-textarea" id="journalText" placeholder="เขียนบันทึกที่นี่..."></textarea>
           </div>
         </div>
 
@@ -385,7 +383,7 @@
         <div class="cake-journal-section">
           <div class="cake-journal-lines">
             <div class="field-label" id="t-label-notes">บันทึกประสบการณ์เพิ่มเติม</div>
-            <textarea class="lined-textarea" id="cakeNote" style="height:90px" placeholder="บอกเล่าเรื่องราวความประทับใจ..."></textarea>
+            <textarea class="lined-textarea" id="cakeNote" placeholder="บอกเล่าเรื่องราวความประทับใจ..."></textarea>
             <div class="field-label" style="margin-top:6px">Cake Stamp</div>
           </div>
           <div class="cake-stamp-area" onclick="triggerCakeStampUpload()">
@@ -394,7 +392,7 @@
               <img id="cakeStampImg" src="" alt="" crossorigin="anonymous"/>
               <div class="cake-stamp-name" id="cakeStampName"></div>
             </div>
-            <div class="stamp-hint" id="t-hint-stamp" style="font-size: 0.6rem;">📸 แตะเพื่อเปลี่ยนรูปเค้กของคุณ</div>
+            <div class="stamp-hint" id="t-hint-stamp">📸 แตะเพื่อเปลี่ยนรูปเค้กของคุณ</div>
           </div>
         </div>
         <input type="file" id="cakeStampUpload" accept="image/*" onchange="handleCakeStampUpload(event)"/>
@@ -402,7 +400,7 @@
         <div class="tulip-corner">🌷</div>
       </div>
 
-      <div id="captureFooter" style="display: none; text-align: center; margin-top: 25px; padding-bottom: 15px; font-size: 16px; font-weight: 800; color: #AA1F24; letter-spacing: 0.5px;">
+      <div id="captureFooter" style="display: none;">
         @sp_tumcake / #CRACKTHECAKEBYCTT
       </div>
       
@@ -457,8 +455,8 @@
       toastDecoWarn: "กรุณาเลือกของตกแต่งก่อน ✨",
       toastDrop: "วางแล้ว! ลากสติกเกอร์ได้เลย",
       toastPhoto: "📸 อัปโหลดรูปถ่ายส่วนตัวเรียบร้อย!",
-      toastSave: "📸 จำลองการสร้างเทมเพลต IG Story สำเร็จ!",
-      toastDownloading: "กำลังประมวลผลรูปภาพ 9:16...",
+      toastSave: "📸 เตรียมภาพ 9:16 สำเร็จ พร้อมดาวน์โหลด!",
+      toastDownloading: "กำลังลั่นชัตเตอร์ประมวลผลรูปภาพ...",
       toastDownloaded: "✅ บันทึกลงเครื่องสำเร็จ!"
     },
     en: {
@@ -512,7 +510,7 @@
   let unlockStatus = { blackforest: false, buttervanilla: false, chocoFudge: false, pandanLayer: false };
   let selectedDeco = null;
   let currentActiveKey = "blackforest";
-  let globalImageDataUrl = ""; // เก็บไฟล์รูปที่ gen มาจาก html2canvas
+  let globalImageDataUrl = ""; 
 
   function toggleLang() {
     currentLang = currentLang === 'th' ? 'en' : 'th';
@@ -559,7 +557,6 @@
 
   applyLanguage();
 
-  // === ระบบออโต้เซฟลง State ===
   function saveCurrentState() {
      if(!currentActiveKey) return;
      journalData[currentActiveKey] = {
@@ -575,7 +572,6 @@
      };
   }
 
-  // อัปเดตข้อมูล State ตลอดเวลาที่พิมพ์หรือวางสติกเกอร์
   document.querySelectorAll('#journalCanvas input, #journalCanvas textarea').forEach(el => {
       el.addEventListener('input', saveCurrentState);
   });
@@ -583,7 +579,6 @@
       if(document.getElementById('journal-page').classList.contains('active')) saveCurrentState();
   });
 
-  // ระบบปลดล็อคเค้กและแสดงคูปองส่วนลด
   function handleCakeClick(key, element) {
     if (!unlockStatus[key]) {
       unlockStatus[key] = true;
@@ -609,7 +604,6 @@
     showToast(translations[currentLang].toastReward);
   }
 
-  // โหลด State เวลาเปิดเค้กแต่ละชิ้น (แยกข้อมูลชิ้นใครชิ้นมัน 100%)
   function openJournal(key) {
     currentActiveKey = key;
     const data = journalData[key];
@@ -647,7 +641,7 @@
   }
 
   function goBack() {
-    saveCurrentState(); // เซฟก่อนกลับ
+    saveCurrentState(); 
     document.getElementById('journal-page').classList.remove('active');
     document.getElementById('roadmap-page').classList.add('active');
     window.scrollTo(0,0);
@@ -715,7 +709,7 @@
     reader.readAsDataURL(file);
   }
 
-  // === ระบบแคปภาพ Export 9:16 ไร้ความผิดเพี้ยนเป๊ะตาม Template (html2canvas) ===
+  // === ระบบแคปภาพ Export 9:16 ที่แก้ปัญหาเบี้ยวได้ 100% ===
   function saveJournal() { 
     saveCurrentState();
     showToast(translations[currentLang].toastDownloading);
@@ -724,85 +718,56 @@
     const header = document.getElementById('captureHeader');
     const dashedBox = document.getElementById('journalCanvas');
     const footer = document.getElementById('captureFooter');
-    const container = document.querySelector('.journal-container');
-
-    // เก็บสไตล์เดิมก่อนเปลี่ยนเพื่อแคปเจอร์
-    const origMaxWidth = container.style.maxWidth;
+    
+    // สำรองค่าสไตล์เดิม
     const origStyles = {
-        width: captureArea.style.width,
-        height: captureArea.style.height,
-        display: captureArea.style.display,
-        flexDirection: captureArea.style.flexDirection,
         border: dashedBox.style.border,
         padding: dashedBox.style.padding,
         boxShadow: dashedBox.style.boxShadow,
-        margin: dashedBox.style.margin,
         borderRadius: dashedBox.style.borderRadius
     };
 
-    // ปลดล็อคความกว้างเพื่อให้วาดภาพได้ 540x960 px โดยไม่โดนบีบเข้าหากัน
-    container.style.maxWidth = '1000px';
-    captureArea.style.width = '540px';
-    captureArea.style.height = '960px';
-    captureArea.style.display = 'flex';
-    captureArea.style.flexDirection = 'column';
-    captureArea.style.backgroundColor = '#FDFBF7';
-    captureArea.style.padding = '30px 24px';
-    captureArea.style.boxSizing = 'border-box';
-
+    // เปิดส่วนหัวและท้ายให้ html2canvas มองเห็น
     header.style.display = 'block';
     footer.style.display = 'block';
     
-    // ตกแต่งกรอบเส้นประแดงตามภาพที่ส่งมาแบบเว้นระยะ Padding จากขอบ 
+    // ใส่กรอบเส้นประแดง และซ่อนขอบเงา
     dashedBox.style.border = '4px dashed var(--road)';
-    dashedBox.style.padding = '24px';
+    dashedBox.style.padding = '20px';
     dashedBox.style.boxShadow = 'none';
-    dashedBox.style.flex = '1';
-    dashedBox.style.margin = '10px 0';
     dashedBox.style.borderRadius = '30px';
     
-    // ซ่อน Scrollbar ของ Textarea ชั่วคราวเพื่อป้องกันแคปเจอร์ติดแทบเลื่อน
+    // ซ่อน Scrollbar ก่อนแคปภาพ
     document.querySelectorAll('textarea').forEach(el => { el.style.overflow = 'hidden'; });
-    window.scrollTo(0,0); 
+    
+    // หน่วงเวลา 150ms ให้เบราว์เซอร์ Render เลย์เอาต์ที่เพิ่งเปลี่ยน (สำคัญมากในการแก้ภาพเบี้ยว)
+    setTimeout(() => {
+        html2canvas(captureArea, {
+            useCORS: true,
+            scale: 2, // สเกลคูณ 2 เพื่อความคมชัด
+            backgroundColor: "#FDFBF7"
+        }).then(canvas => {
+            globalImageDataUrl = canvas.toDataURL('image/png');
+            
+            // คืนค่าสไตล์กลับเป็นแบบปกติให้ผู้ใช้
+            header.style.display = 'none';
+            footer.style.display = 'none';
+            dashedBox.style.border = origStyles.border || '1px solid var(--border-color)';
+            dashedBox.style.padding = origStyles.padding || '12px';
+            dashedBox.style.boxShadow = origStyles.boxShadow || '0 4px 15px rgba(0,0,0,0.02)';
+            dashedBox.style.borderRadius = origStyles.borderRadius || '16px';
+            document.querySelectorAll('textarea').forEach(el => { el.style.overflow = 'auto'; });
 
-    html2canvas(captureArea, {
-        useCORS: true,
-        scale: 2,
-        backgroundColor: "#FDFBF7",
-        width: 540,
-        height: 960,
-        windowWidth: 600
-    }).then(canvas => {
-        globalImageDataUrl = canvas.toDataURL('image/png');
-        
-        // คืนค่า DOM กลับเป็นสภาพเดิมให้ผู้ใช้
-        container.style.maxWidth = origMaxWidth;
-        captureArea.style.width = origStyles.width;
-        captureArea.style.height = origStyles.height;
-        captureArea.style.display = origStyles.display;
-        captureArea.style.flexDirection = origStyles.flexDirection;
-        captureArea.style.padding = '16px';
-        header.style.display = 'none';
-        footer.style.display = 'none';
-        dashedBox.style.border = origStyles.border || '1px solid var(--border-color)';
-        dashedBox.style.padding = origStyles.padding || '12px';
-        dashedBox.style.boxShadow = origStyles.boxShadow || '0 4px 15px rgba(0,0,0,0.02)';
-        dashedBox.style.flex = 'unset';
-        dashedBox.style.margin = origStyles.margin || '14px 16px';
-        dashedBox.style.borderRadius = origStyles.borderRadius || '16px';
-        
-        document.querySelectorAll('textarea').forEach(el => { el.style.overflow = 'auto'; });
+            // นำภาพผลลัพธ์ใส่เข้าไปใน Modal พร้อมโชว์
+            document.getElementById('finalExportImg').src = globalImageDataUrl;
+            document.getElementById('igOverlay').classList.add('active');
+            showToast(translations[currentLang].toastSave);
 
-        // แสดงพรีวิวผลลัพธ์ในกรอบ
-        document.getElementById('finalExportImg').src = globalImageDataUrl;
-        document.getElementById('igOverlay').classList.add('active');
-        showToast(translations[currentLang].toastSave);
-
-    }).catch(err => {
-        console.error("Error generating image", err);
-        showToast("Error / ล้มเหลวในการสร้างภาพ");
-        container.style.maxWidth = origMaxWidth;
-    });
+        }).catch(err => {
+            console.error("Error generating image", err);
+            showToast("Error / ล้มเหลวในการสร้างภาพ");
+        });
+    }, 150);
   }
 
   function downloadImage() {
