@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>S&P Journey & Journal Roadmap</title>
+<title>Journey & Journal Roadmap</title>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;700;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -44,12 +44,12 @@
   }
   .cake-circle img { width: 100%; height: 100%; object-fit: cover; }
   
-  /* สไตล์การแสดงผลสำหรับไอคอนเค้กที่ยังไม่ปลดล็อก (เงาสีดำ) */
+  /* เอฟเฟกต์สำหรับไอคอนเค้กที่ยังไม่ปลดล็อก (เงาสีดำ) */
   .cake-stop.locked .cake-circle img {
-    filter: brightness(0) opacity(0.8);
+    filter: brightness(0) opacity(0.7);
   }
   .cake-stop.locked .cake-label {
-    background: #EAEAEA;
+    background: #ECECEC;
     color: #777;
   }
 
@@ -59,7 +59,7 @@
     box-shadow: 0 2px 6px rgba(0,0,0,0.12); white-space: nowrap;
   }
 
-  /* Membership Node Reward End Flag */
+  /* Membership Node End Style */
   .membership-stop {
     position: absolute; display: flex; flex-direction: column; align-items: center;
     cursor: pointer; transition: transform 0.25s ease; z-index: 25;
@@ -194,7 +194,7 @@
   }
   .save-btn:hover { background:var(--sp-dark-red); }
 
-  /* Simulated IG Story Template Engine Box */
+  /* Simulated IG Story Template overlay */
   .share-preview-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0,0,0,0.85); z-index: 999;
@@ -231,7 +231,7 @@
     background:var(--dark);color:white;padding:10px 22px;border-radius:24px;
     font-size:0.83rem;font-weight:700;opacity:0;transition:opacity 0.3s,transform 0.3s;z-index:999;pointer-events:none;
   }
-  .toast.show { opacity:1;transform:translateX(-50%) translateY(0); }
+  .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 </style>
 </head>
 <body>
@@ -260,28 +260,28 @@
 
     <div class="cake-stop unlocked" style="left:3%;top:4%;" onclick="openJournal('blackforest')">
       <div class="cake-circle">
-        <img src="https://images.deliveryhero.io/image/fd-th/Products/16146039.jpg" alt="Rainbow Cherish"/>
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23FFF0F1'/><text x='50' y='60' font-size='40' text-anchor='middle'>🌈</text></svg>" id="img-node-1" alt="Rainbow Cherish"/>
       </div>
       <div class="cake-label">🍒 Rainbow Cherish</div>
     </div>
 
     <div class="cake-stop unlocked" style="left:31%;top:33%;" onclick="openJournal('buttervanilla')">
       <div class="cake-circle">
-        <img src="https://images.deliveryhero.io/image/fd-th/Products/16146038.jpg" alt="Rainbow Love Roll"/>
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23FFF0F1'/><text x='50' y='60' font-size='40' text-anchor='middle'>✨</text></svg>" id="img-node-2" alt="Rainbow Love Roll"/>
       </div>
       <div class="cake-label">🌸 Rainbow Love Roll</div>
     </div>
 
     <div class="cake-stop locked" style="left:56%;top:15%;" onclick="showLockToast('Cutie Bear Hood')">
       <div class="cake-circle">
-        <img src="https://images.deliveryhero.io/image/fd-th/Products/16146037.jpg" alt="Locked Cake"/>
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23CCC'/><text x='50' y='60' font-size='40' text-anchor='middle'>🎂</text></svg>" alt="Locked Cake"/>
       </div>
       <div class="cake-label">🔒 Cutie Bear Hood</div>
     </div>
 
     <div class="cake-stop locked" style="left:64%; top:58%;" onclick="showLockToast('Pop Dome Bear')">
       <div class="cake-circle">
-        <img src="https://images.deliveryhero.io/image/fd-th/Products/16146036.jpg" alt="Locked Cake"/>
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23CCC'/><text x='50' y='60' font-size='40' text-anchor='middle'>🎂</text></svg>" alt="Locked Cake"/>
       </div>
       <div class="cake-label">🔒 Pop Dome Bear</div>
     </div>
@@ -378,7 +378,7 @@
         <div class="cake-stamp-area" onclick="triggerCakeStampUpload()">
           <div class="cake-stamp-frame">
             <div class="stamp-pin">📌</div>
-            <img id="cakeStampImg" src="" alt=""/>
+            <img id="cakeStampImg" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23FFF0F1'/><text x='50' y='60' font-size='40' text-anchor='middle'>🍰</text></svg>" alt=""/>
             <div class="cake-stamp-name" id="cakeStampName"></div>
           </div>
           <div class="stamp-hint">📸 แตะเพื่อเปลี่ยนเป็นรูปถ่ายเค้กของคุณ</div>
@@ -424,17 +424,27 @@
 
 <script>
   const cakes = {
-    blackforest:  { name: 'Rainbow Cherish',    emoji: '🌈', imgSrc: 'https://images.deliveryhero.io/image/fd-th/Products/16146039.jpg' },
-    buttervanilla:{ name: 'Rainbow Love Roll',  emoji: '✨', imgSrc: 'https://images.deliveryhero.io/image/fd-th/Products/16146038.jpg' },
+    blackforest:  { name: 'Rainbow Cherish',    emoji: '🌈', svg: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23FFF0F1'/><text x='50' y='60' font-size='40' text-anchor='middle'>🌈</text></svg>" },
+    buttervanilla:{ name: 'Rainbow Love Roll',  emoji: '✨', svg: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23FFF0F1'/><text x='50' y='60' font-size='40' text-anchor='middle'>✨</text></svg>" },
   };
 
   let selectedDeco = null;
-  let currentActiveKey = "";
+  let currentActiveKey = "blackforest";
+
+  // ฟังก์ชันสลับลิงก์รูปภาพเค้กตัวจริงให้แสดงผลอัตโนมัติเมื่อรันเว็บสำเร็จ
+  window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('img-node-1').src = "https://images.deliveryhero.io/image/fd-th/Products/16146039.jpg";
+    document.getElementById('img-node-2').src = "https://images.deliveryhero.io/image/fd-th/Products/16146038.jpg";
+  });
 
   function openJournal(key) {
     currentActiveKey = key;
     const c = cakes[key];
-    document.getElementById('cakeStampImg').src = c.imgSrc;
+    
+    // ตั้งค่ารูปภาพเริ่มต้นตาม Node เมนูที่เลือก
+    if(key === 'blackforest') document.getElementById('cakeStampImg').src = "https://images.deliveryhero.io/image/fd-th/Products/16146039.jpg";
+    else if(key === 'buttervanilla') document.getElementById('cakeStampImg').src = "https://images.deliveryhero.io/image/fd-th/Products/16146038.jpg";
+    
     document.getElementById('cakeStampName').textContent = c.emoji + ' ' + c.name;
     document.getElementById('roadmap-page').classList.remove('active');
     document.getElementById('journal-page').classList.add('active');
@@ -495,7 +505,7 @@
     r.readAsDataURL(f);
   }
 
-  /* User Custom Image Upload Logic to replace Cake Stamp icon safely */
+  /* ฟังก์ชันอัปโหลดภาพถ่ายเค้กส่วนตัวสลับเข้า Stamp */
   function triggerCakeStampUpload() { 
     document.getElementById('cakeStampUpload').click(); 
   }
@@ -509,16 +519,16 @@
     reader.readAsDataURL(file);
   }
 
-  /* Membership Final Interaction Code */
+  /* เคลมส่วนลดปลายทาง */
   function triggerMembershipReward() {
-    alert("🎉 ยินดีด้วยคุณสะสมครบสเตปสำเร็จ! ระบบ Line OA ได้ทำการผูกคูปองส่วนลดพิเศษ S&P Membership Discount 15% ให้ที่บัญชีของคุณเรียบร้อยแล้ว!");
-    showToast('🎁 เคลมสิทธิ์คูปองส่วนลดสมาชิกเรียบร้อย!');
+    alert("🎉 ยินดีด้วยคุณสะสมครบสเตปสำเร็จ! บัญชี Line OA ได้ทำการผูกคูปองโค้ดส่วนลด S&P Membership Discount 15% ให้คุณเรียบร้อยแล้ว!");
+    showToast('🎁 เปิดสิทธิ์คูปองส่วนลดสมาชิกเรียบร้อย!');
   }
 
-  /* Instagram Export Processing Engine */
+  /* ส่งออกเมนูไป IG Story Template */
   function saveJournal() { 
-    const c = cakes[currentActiveKey] || { name: "Custom S&P Treat", imgSrc: document.getElementById('cakeStampImg').src };
-    const notes = document.getElementById('journalText').value || "ความฟินวันธรรมดาสไตล์คนรุ่นใหม่ที่แสนพิเศษ 💖✨";
+    const c = cakes[currentActiveKey] || { name: "My Custom Cake" };
+    const notes = document.getElementById('journalText').value || "บันทึกความทรงจำกับเค้กคำโปรดสไตล์คนรุ่นใหม่ 💖✨";
     
     document.getElementById('igMenuName').innerText = c.name;
     document.getElementById('igStickerImg').src = document.getElementById('cakeStampImg').src;
@@ -539,7 +549,7 @@
   }
 
   function showLockToast(menuName) {
-    showToast('🔒 เมนู ' + menuName + ' ยังไม่ถูกปลดล็อก! สั่งซื้อคอลเลกชันกล่อง S&P Box ถัดไปเพื่อเปิดเนื้อหา');
+    showToast('🔒 เมนู ' + menuName + ' ยังไม่ถูกปลดล็อก! สั่งซื้อกล่อง S&P Box ถัดไปเพื่อเปิดเนื้อหา');
   }
 
   function showToast(msg) {
