@@ -38,8 +38,8 @@
   .roadmap-header h1 span { color: var(--caramel); }
   .roadmap-subtitle { font-size: 0.85rem; text-align: center; color: #555; margin: 6px 20px 16px; font-weight: 600; }
 
-  /* ขยายความสูงของ Roadmap ป้องกันการทับซ้อน */
-  .scene-wrap { position: relative; width: 100%; max-width: 800px; margin: 0 auto; height: 680px; }
+  /* ขยายความสูงของ Roadmap ป้องกันการทับซ้อน (จาก 500px เป็น 720px) */
+  .scene-wrap { position: relative; width: 100%; max-width: 800px; margin: 0 auto; height: 720px; }
   .scene-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 
   .cake-stop {
@@ -79,8 +79,9 @@
     display: flex; justify-content: center; align-items: center; font-size: 2.2rem;
   }
 
-  .start-flag { position: absolute; font-size: 2rem; z-index: 30; left: 4%; top: 6%; }
-  .end-flag   { position: absolute; font-size: 2.5rem; z-index: 30; left: 12%; top: 82%; }
+  /* ปรับตำแหน่งธงไม่ให้บังไอคอนอื่น */
+  .start-flag { position: absolute; font-size: 2rem; z-index: 30; left: 2%; top: 0%; }
+  .end-flag   { position: absolute; font-size: 2.5rem; z-index: 30; left: 16%; top: 88%; }
   .heart-deco { position: absolute; font-size: 1.5rem; z-index: 5; animation: hb 2s infinite ease-in-out; pointer-events: none; }
   @keyframes hb { 0%,100%{transform:scale(1)} 50%{transform:scale(1.2)} }
   .floaty { position: absolute; pointer-events: none; opacity: 0.6; font-size: 1.3rem; animation: fl 4s ease-in-out infinite; }
@@ -121,14 +122,19 @@
     cursor: pointer; margin: 10px 16px 0; display: block; width: calc(100% - 32px); text-align: center;
   }
 
-  .journal-canvas { position: relative; margin: 14px 16px; min-height: 540px; }
-  .dropped-decos { position: absolute; inset: 0; pointer-events: none; z-index: 20; }
-  .dropped-deco { position: absolute; font-size: 1.8rem; cursor: move; pointer-events: all; user-select: none; }
+  /* จัด Journal Canvas ให้สัดส่วนเป็น 9:16 เสมอเพื่อง่ายต่อการเซฟรูปลง IG */
+  .journal-canvas { 
+    position: relative; margin: 14px 16px; background: white; 
+    border-radius: 16px; padding: 16px; border: 1px solid var(--border-color); 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02); aspect-ratio: 9 / 16; overflow: hidden;
+  }
+  .dropped-decos { position: absolute; inset: 0; pointer-events: none; z-index: 20; border-radius: 16px; }
+  .dropped-deco { position: absolute; font-size: 1.8rem; cursor: move; pointer-events: all; user-select: none; touch-action: none;}
 
   /* Title row */
   .journal-title-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; position: relative; z-index: 10; }
   .journal-title-block { flex: 1; }
-  .field-label { font-size: 0.7rem; color: #888; font-weight: 700; margin-bottom: 2px; }
+  .field-label { font-size: 0.7rem; color: #888; font-weight: 700; margin-bottom: 2px; text-transform: uppercase;}
   .title-input {
     font-family: 'Nunito',sans-serif; font-weight: 800; font-size: 2rem; color: var(--road);
     border: none; background: transparent; outline: none; width: 100%;
@@ -209,9 +215,8 @@
   }
   .share-preview-overlay.active { display: flex; }
   
-  /* ขนาดเทมเพลต 9:16 สัดส่วน IG Story */
   .ig-template-box {
-    width: 330px; height: 586px; /* อัตราส่วน 9:16 โดยประมาณ */
+    width: 330px; height: 530px;
     background: linear-gradient(180deg, #FFF5F5 0%, #FFF0F1 100%);
     border-radius: 20px; padding: 24px; position: relative;
     color: var(--road); box-shadow: 0 8px 24px rgba(0,0,0,0.5);
@@ -261,9 +266,9 @@
 
   <div class="scene-wrap">
     <svg class="scene-svg" viewBox="0 0 800 700" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-      <path d="M 50,60 C 150,80 150,200 280,200 C 400,200 400,110 500,110 C 650,110 600,310 700,310 C 800,310 800,600 500,600 C 350,600 400,600 280,600"
+      <path d="M 50,60 C 200,80 200,220 350,220 C 500,220 500,100 650,100 C 800,100 800,320 650,320 C 500,320 500,500 350,500 C 200,500 200,650 350,650 C 500,650 700,650 700,650"
         fill="none" stroke="#AA1F24" stroke-width="30" stroke-linecap="round"/>
-      <path d="M 50,60 C 150,80 150,200 280,200 C 400,200 400,110 500,110 C 650,110 600,310 700,310 C 800,310 800,600 500,600 C 350,600 400,600 280,600"
+      <path d="M 50,60 C 200,80 200,220 350,220 C 500,220 500,100 650,100 C 800,100 800,320 650,320 C 500,320 500,500 350,500 C 200,500 200,650 350,650 C 500,650 700,650 700,650"
         fill="none" stroke="#FFF" stroke-width="3" stroke-dasharray="16,13" stroke-linecap="round" opacity="0.8"/>
     </svg>
 
@@ -275,35 +280,35 @@
     <div class="start-flag">🚩</div>
     <div class="end-flag">🏁</div>
 
-    <div class="cake-stop locked" id="node-blackforest" style="left:2%;top:4%;" onclick="handleCakeClick('blackforest', this)">
+    <div class="cake-stop locked" id="node-blackforest" style="left:12%;top:8%;" onclick="handleCakeClick('blackforest', this)">
       <div class="cake-circle">
         <img src="https://lh3.googleusercontent.com/d/19ZFMBB5cfdvaDL5gCCzWwxt05Fg5OzJS" alt="Cake" crossorigin="anonymous" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
       </div>
       <div class="cake-label" id="label-blackforest">🔒 ยังไม่ปลดล็อค</div>
     </div>
 
-    <div class="cake-stop locked" id="node-buttervanilla" style="left:31%;top:23%;" onclick="handleCakeClick('buttervanilla', this)">
+    <div class="cake-stop locked" id="node-buttervanilla" style="left:40%;top:25%;" onclick="handleCakeClick('buttervanilla', this)">
       <div class="cake-circle">
         <img src="https://lh3.googleusercontent.com/d/19Sb-AfW_SmfvJBQSMrBtJuWpT6H2mZzG" alt="Cake" crossorigin="anonymous" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
       </div>
       <div class="cake-label" id="label-buttervanilla">🔒 ยังไม่ปลดล็อค</div>
     </div>
 
-    <div class="cake-stop locked" id="node-chocoFudge" style="left:58%;top:10%;" onclick="handleCakeClick('chocoFudge', this)">
+    <div class="cake-stop locked" id="node-chocoFudge" style="left:76%;top:38%;" onclick="handleCakeClick('chocoFudge', this)">
       <div class="cake-circle">
         <img src="https://lh3.googleusercontent.com/d/19BUDSO-FYbnEvd1nYygFKb5kYuFYaqJm" alt="Cake" crossorigin="anonymous" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
       </div>
       <div class="cake-label" id="label-chocoFudge">🔒 ยังไม่ปลดล็อค</div>
     </div>
 
-    <div class="cake-stop locked" id="node-pandanLayer" style="left:81%;top:40%;" onclick="handleCakeClick('pandanLayer', this)">
+    <div class="cake-stop locked" id="node-pandanLayer" style="left:42%;top:64%;" onclick="handleCakeClick('pandanLayer', this)">
       <div class="cake-circle">
         <img src="https://lh3.googleusercontent.com/d/19Vk1Z1qEbQYjkUMipiDPZj9K_rtwBWkA" alt="Cake" crossorigin="anonymous" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
       </div>
       <div class="cake-label" id="label-pandanLayer">🔒 ยังไม่ปลดล็อค</div>
     </div>
 
-    <div class="membership-stop" id="membershipNode" style="left:30%; top:78%;" onclick="triggerMembershipReward()">
+    <div class="membership-stop" id="membershipNode" style="left:12%; top:82%;" onclick="triggerMembershipReward()">
       <div class="membership-badge">🎁</div>
       <div class="cake-label" style="border: 2px solid var(--road); font-weight: 800; color: var(--road);" id="t-claim-discount">รับส่วนลดสมาชิก</div>
     </div>
@@ -427,7 +432,7 @@
   </div>
   
   <div class="ig-action-bar">
-      <button class="action-btn dl-btn" id="t-dl-btn" onclick="downloadImage()">⬇️ บันทึกรูปภาพ</button>
+      <button class="action-btn dl-btn" id="t-dl-btn" onclick="downloadJournalImage()">⬇️ บันทึกรูปภาพ</button>
       <button class="action-btn" id="t-close-ig" onclick="closeIgShare()">← ปิดหน้าต่าง</button>
   </div>
 </div>
@@ -457,7 +462,7 @@
       saveHint: "บันทึกและส่งออกเทมเพลตความสุขได้เลย ✨",
       saveBtn: "SAVE & SHARE",
       closeIg: "← ปิดหน้าต่าง",
-      downloadBtn: "⬇️ บันทึกรูปภาพ",
+      downloadBtn: "⬇️ บันทึกรูปภาพ 9:16",
       toastLock: "🔒 ยังไม่ปลดล็อค",
       toastUnlockMsg: "🎉 ปลดล็อคเมนู {name} สำเร็จ!",
       toastAllUnlock: "🎉 ยินดีด้วยปลดล็อคครบแล้ว! รับสิทธิ์ Member Discount ทันที!",
@@ -466,7 +471,7 @@
       toastDrop: "วางแล้ว! ลากสติกเกอร์ได้เลย",
       toastPhoto: "📸 อัปโหลดรูปถ่ายส่วนตัวเรียบร้อย!",
       toastSave: "📸 จำลองการสร้างเทมเพลต IG Story สำเร็จ!",
-      toastDownloading: "กำลังประมวลผลรูปภาพ...",
+      toastDownloading: "กำลังประมวลผลรูปภาพ 9:16...",
       toastDownloaded: "✅ บันทึกลงเครื่องสำเร็จ!"
     },
     en: {
@@ -488,7 +493,7 @@
       saveHint: "Save & Share to your social! ✨",
       saveBtn: "SAVE & SHARE",
       closeIg: "← Back to App",
-      downloadBtn: "⬇️ Download Image",
+      downloadBtn: "⬇️ Save 9:16 Image",
       toastLock: "🔒 Locked",
       toastUnlockMsg: "🎉 Unlocked {name} successfully!",
       toastAllUnlock: "🎉 Congratulations! All cakes unlocked. You received a 15% Discount Coupon!",
@@ -497,7 +502,7 @@
       toastDrop: "Dropped! You can drag it now",
       toastPhoto: "📸 Your personal photo uploaded successfully!",
       toastSave: "📸 Created template ready for IG Story!",
-      toastDownloading: "Generating image...",
+      toastDownloading: "Generating 9:16 image...",
       toastDownloaded: "✅ Image saved successfully!"
     }
   };
@@ -507,6 +512,14 @@
     buttervanilla:{ th: 'บัตเตอร์วานิลลา', en: 'Butter Vanilla',   emoji: '🌸', imgSrc: 'https://lh3.googleusercontent.com/d/19Sb-AfW_SmfvJBQSMrBtJuWpT6H2mZzG' },
     chocoFudge:   { th: 'ช็อกโกแลตฟัดจ์', en: 'Chocolate Fudge',  emoji: '🍫', imgSrc: 'https://lh3.googleusercontent.com/d/19BUDSO-FYbnEvd1nYygFKb5kYuFYaqJm' },
     pandanLayer:  { th: 'เลเยอร์ใบเตย', en: 'Pandan Layer',     emoji: '🍃', imgSrc: 'https://lh3.googleusercontent.com/d/19Vk1Z1qEbQYjkUMipiDPZj9K_rtwBWkA' },
+  };
+
+  // State Management: ระบบเก็บข้อมูลแยกอิสระสำหรับแต่ละเมนูเค้ก 100%
+  let journalData = {
+    blackforest: { title: '', celeb: '', date: '', memo: '', notes: '', photo: '', stamp: '', decos: '' },
+    buttervanilla: { title: '', celeb: '', date: '', memo: '', notes: '', photo: '', stamp: '', decos: '' },
+    chocoFudge: { title: '', celeb: '', date: '', memo: '', notes: '', photo: '', stamp: '', decos: '' },
+    pandanLayer: { title: '', celeb: '', date: '', memo: '', notes: '', photo: '', stamp: '', decos: '' }
   };
 
   let unlockStatus = { blackforest: false, buttervanilla: false, chocoFudge: false, pandanLayer: false };
@@ -559,6 +572,31 @@
 
   applyLanguage();
 
+  // === ระบบออโต้เซฟ (Auto Save to State) ===
+  function saveCurrentState() {
+     if(!currentActiveKey) return;
+     journalData[currentActiveKey] = {
+        title: document.getElementById('journalTitle').value,
+        celeb: document.getElementById('celebrationInput').value,
+        date: document.getElementById('dateInput').value,
+        memo: document.getElementById('journalText').value,
+        notes: document.getElementById('cakeNote').value,
+        photo: document.getElementById('photoPreview').src,
+        isPhotoVisible: document.getElementById('photoPreview').style.display,
+        stamp: document.getElementById('cakeStampImg').src,
+        decos: document.getElementById('droppedDecos').innerHTML
+     };
+  }
+
+  // ผูก Event Listener เพื่อให้อัปเดตข้อมูล State ตลอดเวลาพิมพ์
+  document.querySelectorAll('#journalCanvas input, #journalCanvas textarea').forEach(el => {
+      el.addEventListener('input', saveCurrentState);
+  });
+  // อัปเดตสติกเกอร์เวลากดวางหรือลาก
+  document.addEventListener('pointerup', () => {
+      if(document.getElementById('journal-page').classList.contains('active')) saveCurrentState();
+  });
+
   function handleCakeClick(key, element) {
     if (!unlockStatus[key]) {
       unlockStatus[key] = true;
@@ -584,17 +622,51 @@
     showToast(translations[currentLang].toastReward);
   }
 
+  // === ระบบโหลดข้อมูล (Load State) เวลาเปิดเค้กชิ้นใหม่ ===
   function openJournal(key) {
     currentActiveKey = key;
+    const data = journalData[key];
     const c = cakes[key];
-    document.getElementById('cakeStampImg').src = c.imgSrc;
+    
+    // โหลดข้อความ
+    document.getElementById('journalTitle').value = data.title;
+    document.getElementById('celebrationInput').value = data.celeb;
+    document.getElementById('dateInput').value = data.date || '--/--/--';
+    document.getElementById('journalText').value = data.memo;
+    document.getElementById('cakeNote').value = data.notes;
+    
+    // โหลดรูปภาพ Polaroid
+    if(data.isPhotoVisible === 'block') {
+        document.getElementById('photoPreview').src = data.photo;
+        document.getElementById('photoPreview').style.display = 'block';
+        document.getElementById('polaroidPlaceholder').style.display = 'none';
+    } else {
+        document.getElementById('photoPreview').src = '';
+        document.getElementById('photoPreview').style.display = 'none';
+        document.getElementById('polaroidPlaceholder').style.display = 'block';
+    }
+
+    // โหลด Cake Stamp (ถ้าเคยอัปโหลดรูปเองให้ดึงมาใช้ ถ้าไม่ให้ดึงรูประบบ)
+    if (data.stamp && data.stamp !== '') {
+        document.getElementById('cakeStampImg').src = data.stamp;
+    } else {
+        document.getElementById('cakeStampImg').src = c.imgSrc;
+    }
+
+    // โหลดสติกเกอร์
+    document.getElementById('droppedDecos').innerHTML = data.decos || '';
+    document.querySelectorAll('.dropped-deco').forEach(makeDraggable);
+
+    // อัปเดต Label
     document.getElementById('cakeStampName').textContent = c.emoji + ' ' + c[currentLang];
+    
     document.getElementById('roadmap-page').classList.remove('active');
     document.getElementById('journal-page').classList.add('active');
     window.scrollTo(0,0);
   }
 
   function goBack() {
+    saveCurrentState(); // เซฟก่อนกลับ
     document.getElementById('journal-page').classList.remove('active');
     document.getElementById('roadmap-page').classList.add('active');
     window.scrollTo(0,0);
@@ -616,6 +688,7 @@
     el.style.left = (Math.random()*(canvas.offsetWidth-50))+'px';
     el.style.top  = (Math.random()*(canvas.offsetHeight-50))+'px';
     makeDraggable(el); layer.appendChild(el);
+    saveCurrentState();
     showToast(translations[currentLang].toastDrop);
   }
 
@@ -632,6 +705,7 @@
     });
     el.addEventListener('pointerup', e => {
       el.releasePointerCapture(e.pointerId);
+      saveCurrentState();
     });
   }
 
@@ -643,6 +717,7 @@
       document.getElementById('photoPreview').src = ev.target.result;
       document.getElementById('photoPreview').style.display = 'block';
       document.getElementById('polaroidPlaceholder').style.display = 'none';
+      saveCurrentState();
     };
     r.readAsDataURL(f);
   }
@@ -653,6 +728,7 @@
     const reader = new FileReader();
     reader.onload = ev => {
       document.getElementById('cakeStampImg').src = ev.target.result;
+      saveCurrentState();
       showToast(translations[currentLang].toastPhoto);
     };
     reader.readAsDataURL(file);
@@ -660,6 +736,7 @@
 
   // ส่งออก IG Story พร้อม Dynamic Background
   function saveJournal() { 
+    saveCurrentState();
     const c = cakes[currentActiveKey];
     const notes = document.getElementById('journalText').value || (currentLang === 'th' ? "ความทรงจำแสนวิเศษ 💖✨" : "A wonderful memory 💖✨");
     
@@ -687,18 +764,20 @@
     document.getElementById('igOverlay').classList.remove('active');
   }
 
-  // ฟังก์ชันดาวน์โหลดรูปภาพจาก html2canvas
-  function downloadImage() {
+  // === ฟังก์ชันดาวน์โหลดหน้า Journal 9:16 ด้วย html2canvas ===
+  function downloadJournalImage() {
     showToast(translations[currentLang].toastDownloading);
-    const box = document.getElementById('igTemplateBox');
     
-    html2canvas(box, {
+    // ตั้งเป้าหมายจับภาพไปที่ "หน้า Journal ที่ผู้ใช้เขียนไว้ (journalCanvas)" ไม่ใช่สติกเกอร์
+    const canvasWrapper = document.getElementById('journalCanvas');
+    
+    html2canvas(canvasWrapper, {
         useCORS: true, 
         scale: 2, 
-        backgroundColor: null
+        backgroundColor: "#FFFFFF"
     }).then(canvas => {
         let link = document.createElement('a');
-        link.download = 'SNP_Journal_Memory.png';
+        link.download = `SNP_Journal_${currentActiveKey}_9x16.png`;
         link.href = canvas.toDataURL('image/png');
         link.click();
         showToast(translations[currentLang].toastDownloaded);
