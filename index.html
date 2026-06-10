@@ -18,8 +18,8 @@
     --road: #AA1F24; 
     --dark: #2A2A2A;
     --border-color: #EAEAEA;
-    /* ลายกระดาษสมุด Scrapbook แบบ CSS บริสุทธิ์ (แคปติด 100%) */
-    --paper-dots: radial-gradient(rgba(107, 66, 38, 0.12) 1.5px, transparent 1.5px);
+    /* ดึงภาพกระดาษยับของคุณมาใช้เป็นพื้นหลัง (ไฟล์ต้องอยู่ในที่เดียวกับ index.html) */
+    --paper-texture: url('./paper.jpg');
   }
   body { font-family: 'Nunito', sans-serif; background: var(--blue); overflow-x: hidden; min-height: 100vh; margin: 0;}
   .page { display: none; min-height: 100vh; }
@@ -111,8 +111,9 @@
   /* ========================================================= */
   #captureArea { 
     background-color: var(--blue); 
-    background-image: var(--paper-dots);
-    background-size: 18px 18px; /* ขนาดลายจุด */
+    background-image: var(--paper-texture); /* ใส่ภาพกระดาษยับเป็นพื้นหลัง */
+    background-size: cover; /* ให้ภาพกระดาษคลุมเต็มพื้นที่ 9:16 */
+    background-position: center;
     margin: 16px auto; 
     padding: 16px; 
     position: relative; 
@@ -130,7 +131,8 @@
     position: relative; flex: 1; border-radius: 16px; padding: 14px; 
     border: 1px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.02); 
     display: flex; flex-direction: column; overflow: hidden; width: 100%;
-    background-color: rgba(255, 255, 255, 0.8); /* สีขาวกึ่งโปร่งใสให้เห็นลายจุดด้านหลังนิดๆ */
+    /* ปรับเป็นสีขาวแบบโปร่งแสง เพื่อให้มองทะลุเห็นรอยยับของกระดาษด้านหลัง */
+    background-color: rgba(255, 255, 255, 0.45); 
   }
   .dropped-decos { position: absolute; inset: 0; pointer-events: none; z-index: 20; border-radius: 16px; overflow: hidden;}
   .dropped-deco { position: absolute; font-size: 1.8rem; cursor: move; pointer-events: all; user-select: none; touch-action: none;}
@@ -359,10 +361,10 @@
 
     <div id="captureArea">
       
-      <div id="captureHeader" style="display: none;">
-        <h2>#CAKE DUMP</h2>
-        <p>S&P PIECE OF MEMORIES</p>
-        <div class="badge-label">CAKE COLLECTOR</div>
+      <div id="captureHeader" style="display: none; text-align: center; margin-bottom: 20px; padding-top: 15px;">
+        <h2 style="font-family: 'Pacifico', cursive; font-size: 44px; color: #AA1F24;">#CAKE DUMP</h2>
+        <p style="font-size: 16px; font-weight: 700; letter-spacing: 0.5px; color: #AA1F24; margin-top: -5px;">S&P PIECE OF MEMORIES</p>
+        <div style="background: #AA1F24; color: white; padding: 8px 24px; border-radius: 20px; display: inline-block; margin-top: 12px; font-weight: 800; font-size: 15px;">CAKE COLLECTOR</div>
       </div>
 
       <div class="journal-canvas" id="journalCanvas">
@@ -415,7 +417,7 @@
               <img id="cakeStampImg" src="" alt="" crossorigin="anonymous"/>
               <div class="cake-stamp-name" id="cakeStampName"></div>
             </div>
-            <div class="stamp-hint" id="t-hint-stamp">📸 แตะเพื่อเปลี่ยนรูปเค้กของคุณ</div>
+            <div class="stamp-hint" id="t-hint-stamp" style="font-size: 0.6rem;">📸 แตะเพื่อเปลี่ยนรูปเค้กของคุณ</div>
           </div>
         </div>
         <input type="file" id="cakeStampUpload" accept="image/*" onchange="handleCakeStampUpload(event)"/>
@@ -423,7 +425,7 @@
         <div class="tulip-corner">🌷</div>
       </div>
 
-      <div id="captureFooter" style="display: none;">
+      <div id="captureFooter" style="display: none; text-align: center; margin-top: 25px; padding-bottom: 15px; font-size: 16px; font-weight: 800; color: #AA1F24; letter-spacing: 0.5px;">
         @sp_tumcake / #CRACKTHECAKEBYCTT
       </div>
       
@@ -731,7 +733,7 @@
     reader.readAsDataURL(file);
   }
 
-  // === ระบบแคปภาพ Export 9:16 ที่แก้ปัญหาเบี้ยว การจัดกลาง และ Texture หาย 100% ===
+  // === ระบบแคปภาพ 9:16 ===
   function saveJournal() { 
     saveCurrentState();
     showToast(translations[currentLang].toastDownloading);
@@ -741,6 +743,7 @@
     const dashedBox = document.getElementById('journalCanvas');
     const footer = document.getElementById('captureFooter');
     
+    // จัดการ Textarea ให้เรนเดอร์หลายบรรทัดได้ไม่ตกขอบ
     const memoText = document.getElementById('journalText');
     const memoFix = document.getElementById('journalTextFix');
     const noteText = document.getElementById('cakeNote');
@@ -754,8 +757,6 @@
     noteText.style.display = 'none';
     noteFix.style.display = 'block';
 
-    // เตรียม Snapshot Container ให้อยู่จุดกึ่งกลางของหน้าต่าง ป้องกัน html2canvas ถ่ายภาพเอียงซ้าย
-    // ใช้ position: fixed ช่วยตรึงตำแหน่งให้อยู่ตรงกลางเป๊ะๆ
     const origStyles = {
         position: captureArea.style.position,
         top: captureArea.style.top,
@@ -772,6 +773,7 @@
         borderRadius: dashedBox.style.borderRadius
     };
 
+    // จัดให้ captureArea อยู่กลางจอและเป็นสัดส่วน 540x960 
     captureArea.style.position = 'fixed';
     captureArea.style.top = '0';
     captureArea.style.left = '50%';
@@ -803,7 +805,7 @@
         }).then(canvas => {
             globalImageDataUrl = canvas.toDataURL('image/png');
             
-            // คืนค่า DOM เดิม
+            // คืนค่า DOM เดิมให้ผู้ใช้
             captureArea.style.position = origStyles.position;
             captureArea.style.top = origStyles.top;
             captureArea.style.left = origStyles.left;
@@ -827,7 +829,7 @@
             noteText.style.display = 'block';
             noteFix.style.display = 'none';
 
-            // โชว์ภาพในหน้าต่างพรีวิว
+            // พรีวิวภาพลงจอ
             document.getElementById('finalExportImg').src = globalImageDataUrl;
             document.getElementById('igOverlay').classList.add('active');
             showToast(translations[currentLang].toastSave);
