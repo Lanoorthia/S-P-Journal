@@ -204,4 +204,384 @@
         }
 
         .status-badge {
-            position
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            font-size: 9px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .cake-card.unlocked .status-badge {
+            background: #E6F7ED;
+            color: #1F9254;
+        }
+
+        .cake-card.locked .status-badge {
+            background: #F2F2F2;
+            color: #757575;
+        }
+
+        .cake-title {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        .badge-tag {
+            font-size: 10px;
+            color: var(--sp-red);
+            font-weight: 700;
+            background: #FFF0F1;
+            padding: 2px 8px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .cake-card.locked .badge-tag {
+            background: #ECECEC;
+            color: #888888;
+        }
+
+        /* Sliding Drawer Panel Components */
+        .journal-modal {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            border-radius: 24px 24px 0 0;
+            box-shadow: 0 -8px 30px rgba(0,0,0,0.15);
+            padding: 22px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease-out;
+            z-index: 150;
+        }
+
+        .journal-modal.active {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .modal-header h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--sp-dark-red);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        textarea {
+            width: 100%;
+            height: 95px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px;
+            font-family: inherit;
+            font-size: 13px;
+            resize: none;
+            margin-bottom: 16px;
+            background: #FAFAFA;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--sp-red);
+            background: #FFFFFF;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 13px;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--sp-red);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #ECECEC;
+            color: #333333;
+        }
+
+        .btn-share {
+            background: #F5E6EC;
+            color: #C2185B;
+        }
+
+        /* Simulated Instagram Story Viewport Overlays */
+        .share-preview-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.88);
+            z-index: 200;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .share-preview-overlay.active {
+            display: flex;
+        }
+
+        .ig-template-box {
+            width: 100%;
+            max-width: 320px;
+            height: 520px;
+            background: linear-gradient(180deg, #FFF5F5 0%, #FFF0F1 100%);
+            border-radius: 20px;
+            padding: 24px;
+            position: relative;
+            color: var(--sp-dark-red);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .ig-header {
+            text-align: center;
+        }
+
+        .ig-header h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 26px;
+            letter-spacing: 1px;
+            font-weight: 800;
+        }
+
+        .ig-badge-title {
+            background: var(--sp-red);
+            color: white;
+            font-size: 11px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 8px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .ig-sticker-space {
+            background: white;
+            border: 3px dashed var(--sp-red);
+            border-radius: 16px;
+            flex: 1;
+            margin: 16px 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 14px;
+        }
+
+        .ig-note-preview {
+            font-style: italic;
+            font-size: 12px;
+            color: #555555;
+            margin-top: 8px;
+            line-height: 1.4;
+        }
+
+        .ig-footer {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-container">
+        <header>
+            <div class="logo-area">S&P <span>JOURNAL</span></div>
+            <p>Turn your daily dessert moments into a scrapbook of memories.</p>
+        </header>
+
+        <div class="flow-status">
+            <span>Line OA Menu</span>
+            <span>&rarr;</span>
+            <span class="active">S&P Web Roadmap</span>
+            <span>&rarr;</span>
+            <span>Share IG</span>
+        </div>
+
+        <div class="content">
+            
+            <div class="condensed-rewards-bar">
+                <div class="rewards-header-info">
+                    <span>Loyalty Status: <b>Cake Explorer 🏅</b></span>
+                    <span class="mini-points"><b>650 XP</b></span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill"></div>
+                </div>
+            </div>
+
+            <div class="section-title">My Cake Discovery Journey</div>
+            
+            <div class="menu-grid">
+                <div class="cake-card unlocked" onclick="openJournal('Strawberry Delight', '🍓', 'Super soft chiffon cake! Perfectly balanced sweetness and aesthetic pastel tones. Celebrated completing my midterms with friends!')">
+                    <span class="status-badge">Unlocked</span>
+                    <div class="cake-icon-wrapper">🍓</div>
+                    <div class="cake-title">Strawberry Delight</div>
+                    <span class="badge-tag">Sweet Angel</span>
+                </div>
+
+                <div class="cake-card unlocked" onclick="openJournal('Double Choc Fudge', '🍫', 'Super rich and decadent dark chocolate fudge layer. Treated myself for surviving the brutal pitch presentation week!')">
+                    <span class="status-badge">Unlocked</span>
+                    <div class="cake-icon-wrapper">🍫</div>
+                    <div class="cake-title">Double Choc Fudge</div>
+                    <span class="badge-tag">Choc-Holic</span>
+                </div>
+
+                <div class="cake-card locked" onclick="openJournal('Matcha Latte Cake', '🍵', '')">
+                    <span class="status-badge">Locked</span>
+                    <div class="cake-icon-wrapper">🍵</div>
+                    <div class="cake-title">Matcha Latte Cake</div>
+                    <span class="badge-tag">Locked</span>
+                </div>
+
+                <div class="cake-card locked" onclick="openJournal('Caramel Custard', '🍮', '')">
+                    <span class="status-badge">Locked</span>
+                    <div class="cake-icon-wrapper">🍮</div>
+                    <div class="cake-title">Caramel Custard</div>
+                    <span class="badge-tag">Locked</span>
+                </div>
+            </div>
+
+            <p style="font-size: 11px; text-align: center; color: var(--text-muted); font-style: italic; line-height: 1.4;">
+                💡 Activity Guide: Tap on any cake card matrix to log your private review notes and test sharing your custom #CakeDump template layout to Instagram Stories.
+            </p>
+        </div>
+
+        <div class="journal-modal" id="journalModal">
+            <div class="modal-header">
+                <h4 id="modalMenuName">Log Flavor Experience</h4>
+                <button class="close-btn" onclick="closeJournal()">&times;</button>
+            </div>
+            
+            <div style="text-align: center; font-size: 40px; margin-bottom: 10px;" id="modalMenuIcon">🍰</div>
+            
+            <p style="font-size: 11px; font-weight: 700; margin-bottom: 6px; color: var(--text-muted);">
+                📝 Write your personal review / memorable celebration moments below:
+            </p>
+            <textarea id="journalNotes" placeholder="What was the occasion? Who did you share it with? Describe your favorite flavor profile elements..."></textarea>
+            
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="closeJournal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveJournal()">💾 Save Note</button>
+                <button class="btn btn-share" id="shareBtn" onclick="triggerInstagramShare()">✨ Share to IG</button>
+            </div>
+        </div>
+
+        <div class="share-preview-overlay" id="igOverlay">
+            <div class="ig-template-box">
+                <div class="ig-header">
+                    <h2>#CAKE DUMP</h2>
+                    <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.5px;">S&P PIECE OF MEMORIES JOURNAL</p>
+                    <div class="ig-badge-title" id="igBadgeTitle">CAKE COLLECTOR</div>
+                </div>
+                
+                <div class="ig-sticker-space">
+                    <div style="font-size: 52px;" id="igStickerIcon">🍰</div>
+                    <div style="font-weight: 700; font-size: 15px; margin-top: 6px; color: var(--sp-red);" id="igMenuName">Strawberry Delight</div>
+                    <div class="ig-note-preview" id="igNotePreview">"No notes logged"</div>
+                </div>
+                
+                <div class="ig-footer">
+                    @SNP_GRAND / #CRACKTHECAKEBYCTT
+                </div>
+            </div>
+            
+            <button class="btn" style="margin-top: 16px; background: #ffffff; color: #2d2d2d; max-width: 220px;" onclick="closeIgShare()">
+                &larr; Back to Dashboard
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        let currentMenu = "";
+        let currentIcon = "";
+
+        function openJournal(name, icon, savedNotes) {
+            currentMenu = name;
+            currentIcon = icon;
+            
+            document.getElementById('modalMenuName').innerText = "Reviewing: " + name;
+            document.getElementById('modalMenuIcon').innerText = icon;
+            document.getElementById('journalNotes').value = savedNotes;
+            
+            document.getElementById('journalModal').classList.add('active');
+        }
+
+        function closeJournal() {
+            document.getElementById('journalModal').classList.remove('active');
+        }
+
+        function saveJournal() {
+            alert("Your flavor experience and personal milestone notes have been synced to S&P Journal! gained +50 Experience Points!");
+            closeJournal();
+        }
+
+        function triggerInstagramShare() {
+            const userNotes = document.getElementById('journalNotes').value || "Sweet Gen Z daily treats turned into digital memories! 💖✨";
+            
+            document.getElementById('igMenuName').innerText = currentMenu;
+            document.getElementById('igStickerIcon').innerText = currentIcon;
+            document.getElementById('igNotePreview').innerText = `"${userNotes}"`;
+            
+            // Adjust Sticker Badge Titles Contextually
+            if(currentIcon === '🍓') document.getElementById('igBadgeTitle').innerText = "🍓 STRAWBERRY DELIGHT ANGEL";
+            else if(currentIcon === '🍫') document.getElementById('igBadgeTitle').innerText = "🍫 CHOC-HOLIC MASTER BADGE";
+            else document.getElementById('igBadgeTitle').innerText = "🍰 S&P LOYAL CAKE COLLECTOR";
+
+            document.getElementById('igOverlay').classList.add('active');
+        }
+
+        function closeIgShare() {
+            document.getElementById('igOverlay').classList.remove('active');
+        }
+    </script>
+</body>
+</html>
