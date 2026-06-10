@@ -69,6 +69,11 @@
   
   .cake-stop.locked .cake-circle img { filter: brightness(0) opacity(0.6); }
   .cake-stop.locked .cake-label { background: #EAEAEA; color: #888; }
+  
+  /* สไตล์สำหรับไอคอนที่โดนล็อคถาวรในเดือนที่ยังไม่ถึง */
+  .cake-stop.permanent-lock:hover { transform: scale(1.05); }
+  .cake-stop.permanent-lock .cake-circle img { filter: none; opacity: 0.9; }
+
   .cake-label {
     margin-top: 6px; background: white; border-radius: 12px; padding: 3px 10px; font-size: 0.7rem; font-weight: 800; color: var(--dark);
     box-shadow: 0 2px 6px rgba(0,0,0,0.12); white-space: nowrap; border: 1px solid #eee; transition: all 0.3s ease;
@@ -274,10 +279,22 @@
     
     <div class="start-flag">🚩</div><div class="end-flag">🏁</div>
 
-    <div class="cake-stop locked" id="node-strawberry" style="left:20%;top:13%;" onclick="handleCakeClick('strawberry', this)"><div class="cake-circle"><img src="https://via.placeholder.com/90x90/ffcccc/aa1f24?text=🍓" alt="Cake" crossorigin="anonymous"/></div><div class="cake-label" id="label-strawberry">🔒 ยังไม่ปลดล็อค</div></div>
-    <div class="cake-stop locked" id="node-mocha" style="left:60%;top:20%;" onclick="handleCakeClick('mocha', this)"><div class="cake-circle"><img src="https://via.placeholder.com/90x90/e6d7c3/6b4226?text=☕" alt="Cake" crossorigin="anonymous"/></div><div class="cake-label" id="label-mocha">🔒 ยังไม่ปลดล็อค</div></div>
-    <div class="cake-stop locked" id="node-coconut" style="left:80%;top:40%;" onclick="handleCakeClick('coconut', this)"><div class="cake-circle"><img src="https://via.placeholder.com/90x90/ffffff/555555?text=🥥" alt="Cake" crossorigin="anonymous"/></div><div class="cake-label" id="label-coconut">🔒 ยังไม่ปลดล็อค</div></div>
-    <div class="cake-stop locked" id="node-orange" style="left:40%;top:65%;" onclick="handleCakeClick('orange', this)"><div class="cake-circle"><img src="https://via.placeholder.com/90x90/ffdd99/ff6600?text=🍊" alt="Cake" crossorigin="anonymous"/></div><div class="cake-label" id="label-orange">🔒 ยังไม่ปลดล็อค</div></div>
+    <div class="cake-stop locked permanent-lock" id="node-strawberry" style="left:20%;top:13%;" onclick="showComingSoon()">
+      <div class="cake-circle"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Crect width='90' height='90' fill='%23282828'/%3E%3Ctext x='45' y='60' font-size='42' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='%23666'%3E?%3C/text%3E%3C/svg%3E" alt="Locked"/></div>
+      <div class="cake-label" id="label-strawberry">🔒 ยังไม่ปลดล็อค</div>
+    </div>
+    <div class="cake-stop locked permanent-lock" id="node-mocha" style="left:60%;top:20%;" onclick="showComingSoon()">
+      <div class="cake-circle"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Crect width='90' height='90' fill='%23282828'/%3E%3Ctext x='45' y='60' font-size='42' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='%23666'%3E?%3C/text%3E%3C/svg%3E" alt="Locked"/></div>
+      <div class="cake-label" id="label-mocha">🔒 ยังไม่ปลดล็อค</div>
+    </div>
+    <div class="cake-stop locked permanent-lock" id="node-coconut" style="left:80%;top:40%;" onclick="showComingSoon()">
+      <div class="cake-circle"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Crect width='90' height='90' fill='%23282828'/%3E%3Ctext x='45' y='60' font-size='42' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='%23666'%3E?%3C/text%3E%3C/svg%3E" alt="Locked"/></div>
+      <div class="cake-label" id="label-coconut">🔒 ยังไม่ปลดล็อค</div>
+    </div>
+    <div class="cake-stop locked permanent-lock" id="node-orange" style="left:40%;top:65%;" onclick="showComingSoon()">
+      <div class="cake-circle"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Crect width='90' height='90' fill='%23282828'/%3E%3Ctext x='45' y='60' font-size='42' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='%23666'%3E?%3C/text%3E%3C/svg%3E" alt="Locked"/></div>
+      <div class="cake-label" id="label-orange">🔒 ยังไม่ปลดล็อค</div>
+    </div>
 
     <div class="membership-stop" id="membershipNode-1" style="left:70%; top:85%;" onclick="triggerMembershipReward()"><div class="membership-badge">🎁</div><div class="cake-label" style="border: 2px solid var(--road); font-weight: 800; color: var(--road);" id="t-claim-discount-1">รับส่วนลดสมาชิก</div></div>
   </div>
@@ -291,10 +308,22 @@
     
     <div class="start-flag">🚩</div><div class="end-flag">🏁</div>
 
-    <div class="cake-stop locked" id="node-blueberry" style="left:20%;top:13%;" onclick="handleCakeClick('blueberry', this)"><div class="cake-circle"><img src="https://via.placeholder.com/90x90/ccccff/333399?text=🫐" alt="Cake" crossorigin="anonymous"/></div><div class="cake-label" id="label-blueberry">🔒 ยังไม่ปลดล็อค</div></div>
-    <div class="cake-stop locked" id="node-matcha" style="left:60%;top:20%;" onclick="handleCakeClick('matcha', this)"><div class="cake-circle"><img src="https://via.placeholder.com/90x90/ccffcc/006600?text=🍵" alt="Cake" crossorigin="anonymous"/></div><div class="cake-label" id="label-matcha">🔒 ยังไม่ปลดล็อค</div></div>
-    <div class="cake-stop locked" id="node-taro" style="left:80%;top:40%;" onclick="handleCakeClick('taro', this)"><div class="cake-circle"><img src="https://via.placeholder.com/90x90/e6ccff/660066?text=🍠" alt="Cake" crossorigin="anonymous"/></div><div class="cake-label" id="label-taro">🔒 ยังไม่ปลดล็อค</div></div>
-    <div class="cake-stop locked" id="node-lemon" style="left:40%;top:65%;" onclick="handleCakeClick('lemon', this)"><div class="cake-circle"><img src="https://via.placeholder.com/90x90/ffffcc/cccc00?text=🍋" alt="Cake" crossorigin="anonymous"/></div><div class="cake-label" id="label-lemon">🔒 ยังไม่ปลดล็อค</div></div>
+    <div class="cake-stop locked permanent-lock" id="node-blueberry" style="left:20%;top:13%;" onclick="showComingSoon()">
+      <div class="cake-circle"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Crect width='90' height='90' fill='%23282828'/%3E%3Ctext x='45' y='60' font-size='42' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='%23666'%3E?%3C/text%3E%3C/svg%3E" alt="Locked"/></div>
+      <div class="cake-label" id="label-blueberry">🔒 ยังไม่ปลดล็อค</div>
+    </div>
+    <div class="cake-stop locked permanent-lock" id="node-matcha" style="left:60%;top:20%;" onclick="showComingSoon()">
+      <div class="cake-circle"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Crect width='90' height='90' fill='%23282828'/%3E%3Ctext x='45' y='60' font-size='42' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='%23666'%3E?%3C/text%3E%3C/svg%3E" alt="Locked"/></div>
+      <div class="cake-label" id="label-matcha">🔒 ยังไม่ปลดล็อค</div>
+    </div>
+    <div class="cake-stop locked permanent-lock" id="node-taro" style="left:80%;top:40%;" onclick="showComingSoon()">
+      <div class="cake-circle"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Crect width='90' height='90' fill='%23282828'/%3E%3Ctext x='45' y='60' font-size='42' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='%23666'%3E?%3C/text%3E%3C/svg%3E" alt="Locked"/></div>
+      <div class="cake-label" id="label-taro">🔒 ยังไม่ปลดล็อค</div>
+    </div>
+    <div class="cake-stop locked permanent-lock" id="node-lemon" style="left:40%;top:65%;" onclick="showComingSoon()">
+      <div class="cake-circle"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Crect width='90' height='90' fill='%23282828'/%3E%3Ctext x='45' y='60' font-size='42' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='%23666'%3E?%3C/text%3E%3C/svg%3E" alt="Locked"/></div>
+      <div class="cake-label" id="label-lemon">🔒 ยังไม่ปลดล็อค</div>
+    </div>
 
     <div class="membership-stop" id="membershipNode-2" style="left:70%; top:85%;" onclick="triggerMembershipReward()"><div class="membership-badge">🎁</div><div class="cake-label" style="border: 2px solid var(--road); font-weight: 800; color: var(--road);" id="t-claim-discount-2">รับส่วนลดสมาชิก</div></div>
   </div>
@@ -461,7 +490,8 @@
       toastPhoto: "📸 อัปโหลดรูปถ่ายส่วนตัวเรียบร้อย!",
       toastSave: "📸 เตรียมภาพ 9:16 สำเร็จ พร้อมดาวน์โหลด!",
       toastDownloading: "กำลังประมวลผลรูปภาพ 9:16...",
-      toastDownloaded: "✅ บันทึกลงเครื่องสำเร็จ!"
+      toastDownloaded: "✅ บันทึกลงเครื่องสำเร็จ!",
+      toastComingSoon: "⏳ ยังไม่เปิดให้ปลดล็อค! รอติดตามเดือนถัดไปนะ"
     },
     en: {
       sub: "Tap a cake to create your journal ✨",
@@ -492,7 +522,8 @@
       toastPhoto: "📸 Your personal photo uploaded successfully!",
       toastSave: "📸 Created template ready for IG Story!",
       toastDownloading: "Generating 9:16 image...",
-      toastDownloaded: "✅ Image saved successfully!"
+      toastDownloaded: "✅ Image saved successfully!",
+      toastComingSoon: "⏳ Not yet! Available to unlock next month."
     }
   };
 
@@ -503,23 +534,21 @@
   ];
   let currentMonth = 0;
 
-  // เพิ่มข้อมูลเค้กเป็น 12 ชิ้น (แบ่งเดือนละ 4 ชิ้น)
   const cakes = {
     // Jan
     blackforest:  { month: 0, th: 'แบล็คฟอเรสต์', en: 'Black Forest',     emoji: '🍒', imgSrc: 'https://lh3.googleusercontent.com/d/19ZFMBB5cfdvaDL5gCCzWwxt05Fg5OzJS' },
     buttervanilla:{ month: 0, th: 'บัตเตอร์วานิลลา', en: 'Butter Vanilla',   emoji: '🌸', imgSrc: 'https://lh3.googleusercontent.com/d/19Sb-AfW_SmfvJBQSMrBtJuWpT6H2mZzG' },
     chocoFudge:   { month: 0, th: 'ช็อกโกแลตฟัดจ์', en: 'Chocolate Fudge',  emoji: '🍫', imgSrc: 'https://lh3.googleusercontent.com/d/19BUDSO-FYbnEvd1nYygFKb5kYuFYaqJm' },
     pandanLayer:  { month: 0, th: 'เลเยอร์ใบเตย', en: 'Pandan Layer',     emoji: '🍃', imgSrc: 'https://lh3.googleusercontent.com/d/19Vk1Z1qEbQYjkUMipiDPZj9K_rtwBWkA' },
-    // Feb
-    strawberry:   { month: 1, th: 'สตรอว์เบอร์รี', en: 'Strawberry Cake', emoji: '🍓', imgSrc: 'https://via.placeholder.com/90x90/ffcccc/aa1f24?text=🍓' },
-    mocha:        { month: 1, th: 'มอคค่า', en: 'Mocha Cake', emoji: '☕', imgSrc: 'https://via.placeholder.com/90x90/e6d7c3/6b4226?text=☕' },
-    coconut:      { month: 1, th: 'เค้กมะพร้าว', en: 'Coconut Cake', emoji: '🥥', imgSrc: 'https://via.placeholder.com/90x90/ffffff/555555?text=🥥' },
-    orange:       { month: 1, th: 'เค้กส้ม', en: 'Orange Cake', emoji: '🍊', imgSrc: 'https://via.placeholder.com/90x90/ffdd99/ff6600?text=🍊' },
-    // Mar
-    blueberry:    { month: 2, th: 'บลูเบอร์รีชีส', en: 'Blue Cheese', emoji: '🫐', imgSrc: 'https://via.placeholder.com/90x90/ccccff/333399?text=🫐' },
-    matcha:       { month: 2, th: 'มัทฉะ', en: 'Matcha Cake', emoji: '🍵', imgSrc: 'https://via.placeholder.com/90x90/ccffcc/006600?text=🍵' },
-    taro:         { month: 2, th: 'เค้กเผือก', en: 'Taro Cake', emoji: '🍠', imgSrc: 'https://via.placeholder.com/90x90/e6ccff/660066?text=🍠' },
-    lemon:        { month: 2, th: 'เลมอนทาร์ต', en: 'Lemon Tart', emoji: '🍋', imgSrc: 'https://via.placeholder.com/90x90/ffffcc/cccc00?text=🍋' }
+    // Feb & Mar (Locked permanently in UI logic)
+    strawberry:   { month: 1, th: 'สตรอว์เบอร์รี', en: 'Strawberry Cake', emoji: '🍓', imgSrc: '' },
+    mocha:        { month: 1, th: 'มอคค่า', en: 'Mocha Cake', emoji: '☕', imgSrc: '' },
+    coconut:      { month: 1, th: 'เค้กมะพร้าว', en: 'Coconut Cake', emoji: '🥥', imgSrc: '' },
+    orange:       { month: 1, th: 'เค้กส้ม', en: 'Orange Cake', emoji: '🍊', imgSrc: '' },
+    blueberry:    { month: 2, th: 'บลูเบอร์รีชีส', en: 'Blue Cheese', emoji: '🫐', imgSrc: '' },
+    matcha:       { month: 2, th: 'มัทฉะ', en: 'Matcha Cake', emoji: '🍵', imgSrc: '' },
+    taro:         { month: 2, th: 'เค้กเผือก', en: 'Taro Cake', emoji: '🍠', imgSrc: '' },
+    lemon:        { month: 2, th: 'เลมอนทาร์ต', en: 'Lemon Tart', emoji: '🍋', imgSrc: '' }
   };
 
   let journalData = {};
@@ -552,7 +581,6 @@
     document.getElementById('t-roadmap-sub').innerText = t.sub;
     document.getElementById('t-roadmap-hint').innerText = t.hint;
     
-    // อัปเดตข้อความปุ่มและ Placeholders
     document.getElementById('t-back-btn').innerText = t.backBtn;
     document.getElementById('t-deco-title').innerText = t.decoTitle;
     document.getElementById('t-add-deco').innerText = t.addDeco;
@@ -581,7 +609,6 @@
       else el.classList.remove('active');
     });
 
-    // อัปเดตชื่อเค้กทั้งหมดใน Roadmap
     Object.keys(cakes).forEach(key => {
       const labelEl = document.getElementById('label-' + key);
       if(labelEl) {
@@ -600,6 +627,10 @@
   }
 
   applyLanguage();
+
+  function showComingSoon() {
+    showToast(translations[currentLang].toastComingSoon);
+  }
 
   function saveCurrentState() {
      if(!currentActiveKey) return;
