@@ -10,7 +10,6 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    /* โทนสี S&P: แดง-ขาว-น้ำตาล */
     --cream: #FFFFFF; 
     --blue: #FDFBF7; 
     --pink: #FFF0F1;
@@ -18,8 +17,6 @@
     --road: #AA1F24; 
     --dark: #2A2A2A;
     --border-color: #EAEAEA;
-    
-    /* ตั้งค่ารูปภาพกระดาษยับเป็นพื้นหลัง (อ้างอิงจากโฟลเดอร์ images) */
     --paper-texture: url('images/paper.jpg');
   }
   body { font-family: 'Nunito', sans-serif; background: var(--blue); overflow-x: hidden; min-height: 100vh; margin: 0;}
@@ -95,10 +92,18 @@
   .deco-scroll::-webkit-scrollbar { display: none; }
   .deco-item {
     flex-shrink: 0; width: 56px; height: 56px; background: white; border-radius: 12px; border: 2px solid #eee; cursor: pointer; font-size: 1.8rem;
-    display: flex; align-items: center; justify-content: center; transition: border-color 0.2s, transform 0.15s; box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    display: flex; align-items: center; justify-content: center; transition: border-color 0.2s, transform 0.15s; box-shadow: 0 2px 6px rgba(0,0,0,0.05); overflow: hidden;
   }
   .deco-item:hover { transform: scale(1.08); border-color: var(--caramel); }
   .deco-item.selected { border-color: var(--caramel); background: var(--pink); }
+  
+  /* สไตล์สำหรับรูปภาพที่อยู่ในกล่องสติกเกอร์ (ช่องเลือก) */
+  .deco-item img {
+    width: 75%; 
+    height: auto; 
+    pointer-events: none; /* ป้องกันการลากรูปภาพผิดพลาด */
+  }
+
   .carousel-btn {
     width: 34px; height: 34px; border-radius: 50%; background: var(--dark); color: white; border: none; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
@@ -108,11 +113,11 @@
   }
 
   /* ========================================================= */
-  /* CAPTURE AREA (9:16 PROPORTION) + TEXTURE กระดาษยับ         */
+  /* CAPTURE AREA (9:16 PROPORTION - CENTERED & TEXTURED)      */
   /* ========================================================= */
   #captureArea { 
     background-color: var(--blue); 
-    background-image: var(--paper-texture); /* ใส่รูปกระดาษยับที่หน้าเว็บ */
+    background-image: var(--paper-texture);
     background-size: cover;
     background-position: center;
     margin: 16px auto; 
@@ -132,8 +137,6 @@
     position: relative; flex: 1; border-radius: 16px; padding: 14px; 
     border: 1px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.02); 
     display: flex; flex-direction: column; overflow: hidden; width: 100%;
-    
-    /* ให้กรอบใสทะลุเห็นพื้นหลังกระดาษยับด้านนอก หรือซ้อนลายกระดาษทับอีกชั้น */
     background-color: rgba(253, 251, 247, 0.7); 
     background-image: var(--paper-texture);
     background-size: cover;
@@ -186,7 +189,6 @@
     width:100%;border:none;background:transparent;outline:none; flex: 1;
     font-family:'Nunito',sans-serif; font-size:13px; color:var(--dark); overflow: hidden;
     line-height: 28px; 
-    /* ปรับสีเส้นบรรทัดให้เข้มขึ้นจาก #dddddd เป็น #aaaaaa */
     background-image: linear-gradient(transparent, transparent 27px, #aaaaaa 27px, #aaaaaa 28px);
     background-size: 100% 28px;
   }
@@ -330,6 +332,20 @@
       <div class="deco-carousel">
         <button class="carousel-btn" onclick="scrollDecos(-1)">‹</button>
         <div class="deco-scroll" id="decoScroll">
+          
+          <div class="deco-item" onclick="selectDeco(this, 'images/sticker1.png', true)">
+            <img src="images/sticker1.png" alt="sticker1">
+          </div>
+          <div class="deco-item" onclick="selectDeco(this, 'images/sticker2.png', true)">
+            <img src="images/sticker2.png" alt="sticker2">
+          </div>
+          <div class="deco-item" onclick="selectDeco(this, 'images/sticker3.png', true)">
+            <img src="images/sticker3.png" alt="sticker3">
+          </div>
+          <div class="deco-item" onclick="selectDeco(this, 'images/sticker4.png', true)">
+            <img src="images/sticker4.png" alt="sticker4">
+          </div>
+
           <div class="deco-item" onclick="selectDeco(this,'🍉')">🍉</div>
           <div class="deco-item" onclick="selectDeco(this,'⭐')">⭐</div>
           <div class="deco-item" onclick="selectDeco(this,'🍊')">🍊</div>
@@ -526,6 +542,7 @@
 
   let unlockStatus = { blackforest: false, buttervanilla: false, chocoFudge: false, pandanLayer: false };
   let selectedDeco = null;
+  let selectedDecoIsImage = false; // ตัวแปรเช็คว่าเป็นรูปภาพหรือไม่
   let currentActiveKey = "blackforest";
   let globalImageDataUrl = "";
 
@@ -666,9 +683,12 @@
 
   function scrollDecos(dir) { document.getElementById('decoScroll').scrollBy({left:dir*130,behavior:'smooth'}); }
 
-  function selectDeco(el, emoji) {
+  // เพิ่มพารามิเตอร์ isImage เข้ามาเช็ค
+  function selectDeco(el, value, isImage = false) {
     document.querySelectorAll('.deco-item').forEach(d=>d.classList.remove('selected'));
-    el.classList.add('selected'); selectedDeco = emoji;
+    el.classList.add('selected'); 
+    selectedDeco = value;
+    selectedDecoIsImage = isImage;
   }
 
   function addDecoToCanvas() {
@@ -676,7 +696,23 @@
     const layer = document.getElementById('droppedDecos');
     const canvas = document.getElementById('journalCanvas');
     const el = document.createElement('div');
-    el.className = 'dropped-deco'; el.textContent = selectedDeco;
+    el.className = 'dropped-deco'; 
+    
+    if (selectedDecoIsImage) {
+      // สร้างแท็ก <img> ถ้าสติกเกอร์เป็นรูปภาพ
+      const img = document.createElement('img');
+      img.src = selectedDeco;
+      img.setAttribute('crossorigin', 'anonymous');
+      img.style.width = '80px'; // ตั้งขนาดให้พอดี
+      img.style.height = 'auto';
+      img.style.pointerEvents = 'none'; // ป้องกันการดึงลากรูปซ้อน
+      img.style.display = 'block';
+      el.appendChild(img);
+    } else {
+      // ถ้าเป็นอีโมจิให้แสดงเป็นข้อความปกติ
+      el.textContent = selectedDeco;
+    }
+    
     el.style.left = (Math.random()*(canvas.offsetWidth-50))+'px';
     el.style.top  = (Math.random()*(canvas.offsetHeight-50))+'px';
     makeDraggable(el); layer.appendChild(el);
@@ -726,7 +762,7 @@
     reader.readAsDataURL(file);
   }
 
-  // === ระบบแคปภาพ Export 9:16 แบบบังคับอยู่กลางเป๊ะ ๆ ===
+  // === ระบบแคปภาพ Export ===
   function saveJournal() { 
     saveCurrentState();
     showToast(translations[currentLang].toastDownloading);
@@ -767,12 +803,11 @@
         borderRadius: dashedBox.style.borderRadius
     };
 
-    // ล็อกขนาดและตำแหน่งให้อยู่ตรงกลางจอ 100% ไม่เอียงซ้าย
     container.style.maxWidth = '1000px';
     captureArea.style.position = 'fixed';
     captureArea.style.top = '0';
     captureArea.style.left = '50%';
-    captureArea.style.transform = 'translateX(-50%)'; // ดึงกลับมาตรงกลางเป๊ะๆ
+    captureArea.style.transform = 'translateX(-50%)'; 
     captureArea.style.zIndex = '9999';
     captureArea.style.width = '540px';
     captureArea.style.maxWidth = '540px'; 
