@@ -3,13 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Journey & Journal Roadmap</title>
+<title>S&P Journey & Journal Roadmap</title>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;700;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --cream: #F5EDD8; --blue: #AECBDB; --pink: #F2B8C0;
-    --caramel: #D4955A; --road: #F5C842; --dark: #2A2A2A;
+    --cream: #FDFBF7; 
+    --blue: #F5EDD8; 
+    --pink: #FFF0F1;
+    --sp-red: #AA1F24;
+    --sp-dark-red: #7A1114;
+    --caramel: #8B4513; 
+    --road: #E8B84B; 
+    --dark: #2A2A2A;
+    --border-color: #EAEAEA;
   }
   body { font-family: 'Nunito', sans-serif; background: var(--blue); overflow-x: hidden; min-height: 100vh; }
   .page { display: none; min-height: 100vh; }
@@ -18,7 +25,7 @@
   /* ===== ROADMAP ===== */
   #roadmap-page { background: var(--blue); position: relative; overflow: hidden; }
   .roadmap-header { text-align: center; padding: 36px 20px 8px; }
-  .roadmap-header h1 { font-family: 'Pacifico', cursive; font-size: clamp(1.8rem,5vw,3rem); color: var(--dark); text-shadow: 3px 3px 0 rgba(255,255,255,0.4); }
+  .roadmap-header h1 { font-family: 'Pacifico', cursive; font-size: clamp(1.8rem,5vw,3rem); color: var(--sp-dark-red); text-shadow: 3px 3px 0 rgba(255,255,255,0.4); }
   .roadmap-header h1 span { color: var(--caramel); }
   .roadmap-subtitle { font-size: 0.85rem; text-align: center; color: #555; margin: 6px 20px 16px; font-weight: 600; }
 
@@ -33,23 +40,34 @@
   .cake-circle {
     width: 90px; height: 90px; border-radius: 50%; overflow: hidden;
     border: 4px solid white; box-shadow: 0 6px 18px rgba(0,0,0,0.25); background: #eee;
+    display: flex; justify-content: center; align-items: center;
   }
-  .cake-circle img { width: 100%; height: 100%; object-fit: cover; object-position: center 55%; }
+  .cake-circle img { width: 100%; height: 100%; object-fit: cover; }
+  
+  /* สไตล์การแสดงผลสำหรับไอคอนเค้กที่ยังไม่ปลดล็อก (เงาสีดำ) */
+  .cake-stop.locked .cake-circle img {
+    filter: brightness(0) opacity(0.8);
+  }
+  .cake-stop.locked .cake-label {
+    background: #EAEAEA;
+    color: #777;
+  }
+
   .cake-label {
     margin-top: 6px; background: white; border-radius: 12px; padding: 3px 10px;
     font-size: 0.7rem; font-weight: 800; color: var(--dark);
     box-shadow: 0 2px 6px rgba(0,0,0,0.12); white-space: nowrap;
   }
 
-  /* Membership End Node Style */
+  /* Membership Node Reward End Flag */
   .membership-stop {
     position: absolute; display: flex; flex-direction: column; align-items: center;
     cursor: pointer; transition: transform 0.25s ease; z-index: 25;
   }
-  .membership-stop:hover { transform: scale(1.1) scale(1.05); }
+  .membership-stop:hover { transform: scale(1.1); }
   .membership-badge {
-    width: 95px; height: 95px; border-radius: 50%; background: linear-gradient(135deg, #AA1F24 0%, #7A1114 100%);
-    border: 4px solid #D4AF37; box-shadow: 0 6px 20px rgba(170,31,36,0.4);
+    width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(135deg, var(--sp-red) 0%, var(--sp-dark-red) 100%);
+    border: 4px solid var(--road); box-shadow: 0 6px 18px rgba(170,31,36,0.35);
     display: flex; justify-content: center; align-items: center; font-size: 2.2rem;
   }
 
@@ -62,7 +80,7 @@
 
   /* ===== JOURNAL PAGE ===== */
   #journal-page { background: var(--cream); min-height: 100vh; }
-  .journal-container { max-width: 480px; margin: 0 auto; padding: 0 0 60px; }
+  .journal-container { max-width: 480px; margin: 0 auto; padding: 0 0 60px; background: var(--cream); min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.05); }
 
   .back-btn {
     display: inline-flex; align-items: center; gap: 6px; background: var(--caramel);
@@ -70,10 +88,10 @@
     font-family: 'Nunito',sans-serif; font-weight: 700; font-size: 0.9rem;
     cursor: pointer; margin: 16px 16px 0;
   }
-  .back-btn:hover { background: #b87a40; }
+  .back-btn:hover { background: var(--sp-dark-red); }
 
   .deco-section { background: var(--cream); padding: 14px 16px 12px; border-bottom: 2px dashed #ccc; }
-  .deco-title { font-weight: 800; font-size: 1rem; text-align: center; text-decoration: underline; margin-bottom: 10px; color: var(--dark); }
+  .deco-title { font-weight: 800; font-size: 1rem; text-align: center; text-decoration: underline; margin-bottom: 10px; color: var(--sp-dark-red); }
   .deco-carousel { display: flex; align-items: center; gap: 8px; }
   .deco-scroll { display: flex; gap: 10px; overflow-x: auto; flex: 1; scrollbar-width: none; padding: 4px 0; }
   .deco-scroll::-webkit-scrollbar { display: none; }
@@ -83,53 +101,53 @@
     display: flex; align-items: center; justify-content: center;
     transition: border-color 0.2s, transform 0.15s; box-shadow: 0 2px 6px rgba(0,0,0,0.08);
   }
-  .deco-item:hover { transform: scale(1.08); border-color: var(--caramel); }
-  .deco-item.selected { border-color: var(--caramel); background: #fff8f0; }
+  .deco-item:hover { transform: scale(1.08); border-color: var(--sp-red); }
+  .deco-item.selected { border-color: var(--sp-red); background: #fff8f0; }
   .carousel-btn {
     width: 34px; height: 34px; border-radius: 50%; background: var(--dark); color: white;
     border: none; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
 
   .add-deco-btn {
-    background: var(--pink); color: var(--dark); border: none; padding: 10px 20px;
+    background: var(--pink); color: var(--sp-dark-red); border: 1px dashed var(--sp-red); padding: 10px 20px;
     border-radius: 20px; font-family: 'Nunito',sans-serif; font-weight: 700; font-size: 0.85rem;
     cursor: pointer; margin: 10px 16px 0; display: block; width: calc(100% - 32px); text-align: center;
   }
 
-  .journal-canvas { position: relative; margin: 14px 16px; min-height: 540px; }
-  .dropped-decos { position: absolute; inset: 0; pointer-events: none; z-index: 20; }
+  .journal-canvas { position: relative; margin: 14px 16px; min-height: 540px; background: white; border-radius: 16px; padding: 16px; border: 1px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+  .dropped-decos { position: absolute; inset: 0; pointer-events: none; z-index: 20; overflow: hidden; border-radius: 16px; }
   .dropped-deco { position: absolute; font-size: 1.8rem; cursor: move; pointer-events: all; user-select: none; touch-action: none; }
 
   /* Title row */
   .journal-title-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; position: relative; z-index: 10; }
   .journal-title-block { flex: 1; }
-  .field-label { font-size: 0.7rem; color: #888; font-weight: 700; margin-bottom: 2px; }
+  .field-label { font-size: 0.7rem; color: #888; font-weight: 700; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.3px; }
   .title-input {
-    font-family: 'Nunito',sans-serif; font-weight: 800; font-size: 2rem; color: var(--dark);
+    font-family: 'Nunito',sans-serif; font-weight: 800; font-size: 2rem; color: var(--sp-dark-red);
     border: none; background: transparent; outline: none; width: 100%;
   }
   .celebration-input {
-    font-family: 'Dancing Script',cursive; font-size: 1.3rem; color: #888;
-    border: none; background: transparent; outline: none; width: 100%; border-bottom: 1px solid #ccc;
+    font-family: 'Dancing Script',cursive; font-size: 1.3rem; color: var(--caramel);
+    border: none; background: transparent; outline: none; width: 100%; border-bottom: 1px solid #eee;
   }
 
   /* Polaroid */
   .polaroid-wrap { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; position: relative; z-index: 10; }
   .polaroid {
     background: white; padding: 8px 8px 26px; box-shadow: 2px 4px 12px rgba(0,0,0,0.15);
-    width: 150px; flex-shrink: 0; position: relative; transform: rotate(-1.5deg); cursor: pointer;
+    width: 150px; flex-shrink: 0; position: relative; transform: rotate(-1.5deg); cursor: pointer; border: 1px solid #eee;
   }
   .tape {
     position: absolute; top: -11px; left: 50%; transform: translateX(-50%); width: 56px; height: 20px;
     opacity: 0.8; border-radius: 2px;
-    background: repeating-linear-gradient(45deg,#f8c4d4 0,#f8c4d4 4px,#fddde6 4px,#fddde6 8px);
+    background: repeating-linear-gradient(45deg,#AA1F24 0,#AA1F24 4px,#F5EDD8 4px,#F5EDD8 8px);
   }
   .polaroid-photo {
-    width: 100%; height: 110px; background: linear-gradient(135deg,#d0eaf5,#c8e6a0);
+    width: 100%; height: 110px; background: linear-gradient(135deg,#FAF6EE,#FFF);
     display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden;
   }
   .polaroid-photo img.preview { width:100%;height:100%;object-fit:cover;position:absolute;inset:0; }
-  .polaroid-placeholder { text-align:center;font-size:0.7rem;color:#6a8;font-weight:700;z-index:1; }
+  .polaroid-placeholder { text-align:center;font-size:0.7rem;color:#777;font-weight:700;z-index:1; }
   .polaroid-cloud { font-size:1.8rem;margin-bottom:3px; }
   .polaroid-date { font-size:0.78rem;font-weight:800;color:var(--dark);text-align:center;margin-top:5px; }
   .polaroid-date input {
@@ -142,51 +160,78 @@
   .lined-textarea {
     width:100%;border:none;background:transparent;outline:none;
     font-family:'Nunito',sans-serif;font-size:0.86rem;line-height:2.2;resize:none;
-    background-image:repeating-linear-gradient(transparent,transparent calc(2.2em - 1px),#ccc calc(2.2em - 1px),#ccc 2.2em);
+    background-image:repeating-linear-gradient(transparent,transparent calc(2.2em - 1px),#eee calc(2.2em - 1px),#eee 2.2em);
     color:var(--dark);
   }
 
-  .stars-row { text-align:right;font-size:1rem;color:var(--pink);letter-spacing:4px;margin:4px 0 6px;position:relative;z-index:10; }
-  .journal-divider { border:none;border-top:1px solid #ccc;margin:6px 0; }
+  .stars-row { text-align:right;font-size:1rem;color:var(--sp-red);letter-spacing:4px;margin:4px 0 6px;position:relative;z-index:10; }
+  .journal-divider { border:none;border-top:1px solid #eee;margin:6px 0; }
 
-  /* Cake stamp section */
+  /* Cake stamp section (Continuous Experience System) */
   .cake-journal-section { display:flex;gap:14px;align-items:flex-start;position:relative;z-index:10;margin-top:6px; }
   .cake-journal-lines { flex:1; }
   .cake-stamp-area { width:140px;flex-shrink:0; cursor: pointer; }
   .cake-stamp-frame {
     background:white;padding:8px 8px 10px;
-    box-shadow:2px 4px 12px rgba(0,0,0,0.12);position:relative;transform:rotate(1deg);
+    box-shadow:2px 4px 12px rgba(0,0,0,0.12);position:relative;transform:rotate(1deg);border: 1px solid #eee;
   }
   .stamp-pin { position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-size:1.3rem;z-index:5; }
   .cake-stamp-frame img { width:100%;height:90px;object-fit:cover;display:block;border-radius:4px; }
-  .cake-stamp-name { text-align:center;font-size:0.72rem;font-weight:800;color:var(--dark);margin-top:5px; }
-  .stamp-hint { font-size: 0.55rem; color: #AA1F24; font-weight: bold; margin-top: 2px; text-align: center; }
+  .cake-stamp-name { text-align:center;font-size:0.72rem;font-weight:800;color:var(--sp-dark-red);margin-top:5px; }
+  .stamp-hint { font-size: 0.58rem; color: var(--sp-red); font-weight: bold; text-align: center; margin-top: 4px; }
 
-  .tulip-corner { position:absolute;bottom:0;left:-10px;font-size:2.8rem;opacity:0.7;pointer-events:none; }
+  .tulip-corner { position:absolute;bottom:0;left:-10px;font-size:2.8rem;opacity:0.4;pointer-events:none; }
 
   /* Save bar */
   .save-bar {
     background:var(--cream);border-top:1px solid #ddd;padding:12px 16px;
     display:flex;align-items:center;justify-content:space-between;position:sticky;bottom:0;z-index:100;
   }
-  .save-hint { font-size:0.7rem;color:#888;font-weight:600;flex:1;text-align:center; }
+  .save-hint { font-size:0.7rem;color:#666;font-weight:700;flex:1;text-align:center; }
   .save-btn {
-    background:var(--dark);color:white;border:none;padding:10px 22px;border-radius:8px;
+    background:var(--sp-red);color:white;border:none;padding:10px 22px;border-radius:8px;
     font-family:'Nunito',sans-serif;font-weight:800;font-size:0.9rem;cursor:pointer;letter-spacing:1px;flex-shrink:0;
   }
-  .save-btn:hover { background:#444; }
+  .save-btn:hover { background:var(--sp-dark-red); }
+
+  /* Simulated IG Story Template Engine Box */
+  .share-preview-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85); z-index: 999;
+    display: none; flex-direction: column; justify-content: center; align-items: center; padding: 20px;
+  }
+  .share-preview-overlay.active { display: flex; }
+  
+  .ig-template-box {
+    width: 100%; max-width: 330px; height: 530px;
+    background: linear-gradient(180deg, #FFF5F5 0%, #FFF0F1 100%);
+    border-radius: 20px; padding: 24px; position: relative;
+    color: var(--sp-dark-red); box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .ig-header { text-align: center; }
+  .ig-header h2 { font-family: 'Pacifico', cursive; font-size: 26px; color: var(--sp-red); }
+  .ig-badge-title {
+    background: var(--sp-red); color: white; font-size: 11px; padding: 4px 12px;
+    border-radius: 20px; display: inline-block; margin-top: 8px; font-weight: 700;
+  }
+  .ig-sticker-space {
+    background: white; border: 3px dashed var(--sp-red); border-radius: 16px;
+    flex: 1; margin: 16px 0; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center; padding: 14px;
+  }
+  .ig-sticker-space img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid var(--sp-red); }
+  .ig-note-preview { font-style: italic; font-size: 12px; color: #555; margin-top: 6px; line-height: 1.4; max-width: 240px; }
+  .ig-footer { text-align: center; font-size: 11px; font-weight: 700; opacity: 0.8; }
+  .close-ig-btn { margin-top: 16px; background: white; color: black; border: none; padding: 10px 20px; border-radius: 12px; font-weight: 700; cursor: pointer; }
 
   input[type="file"] { display:none; }
-
   .toast {
     position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);
     background:var(--dark);color:white;padding:10px 22px;border-radius:24px;
     font-size:0.83rem;font-weight:700;opacity:0;transition:opacity 0.3s,transform 0.3s;z-index:999;pointer-events:none;
   }
   .toast.show { opacity:1;transform:translateX(-50%) translateY(0); }
-
-  /* img error fallback */
-  .cake-circle img.error { object-fit: contain; background: #f0f0f0; padding: 8px; }
 </style>
 </head>
 <body>
@@ -213,42 +258,42 @@
     <div class="start-flag">🚩</div>
     <div class="end-flag">🏁</div>
 
-    <div class="cake-stop" style="left:3%;top:4%;" onclick="openJournal('blackforest')">
+    <div class="cake-stop unlocked" style="left:3%;top:4%;" onclick="openJournal('blackforest')">
       <div class="cake-circle">
-        <img src="https://images.deliveryhero.io/image/fd-th/Products/16146039.jpg" alt="Black Forest" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
+        <img src="https://images.deliveryhero.io/image/fd-th/Products/16146039.jpg" alt="Rainbow Cherish"/>
       </div>
-      <div class="cake-label">🍒 Black Forest</div>
+      <div class="cake-label">🍒 Rainbow Cherish</div>
     </div>
 
-    <div class="cake-stop" style="left:31%;top:33%;" onclick="openJournal('buttervanilla')">
+    <div class="cake-stop unlocked" style="left:31%;top:33%;" onclick="openJournal('buttervanilla')">
       <div class="cake-circle">
-        <img src="https://images.deliveryhero.io/image/fd-th/Products/16146038.jpg" alt="Butter Vanilla" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
+        <img src="https://images.deliveryhero.io/image/fd-th/Products/16146038.jpg" alt="Rainbow Love Roll"/>
       </div>
-      <div class="cake-label">🌸 Butter Vanilla</div>
+      <div class="cake-label">🌸 Rainbow Love Roll</div>
     </div>
 
-    <div class="cake-stop" style="left:56%;top:15%;" onclick="openJournal('chocoFudge')">
+    <div class="cake-stop locked" style="left:56%;top:15%;" onclick="showLockToast('Cutie Bear Hood')">
       <div class="cake-circle">
-        <img src="https://images.deliveryhero.io/image/fd-th/Products/16146037.jpg" alt="Chocolate Fudge" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
+        <img src="https://images.deliveryhero.io/image/fd-th/Products/16146037.jpg" alt="Locked Cake"/>
       </div>
-      <div class="cake-label">🍫 Chocolate Fudge</div>
+      <div class="cake-label">🔒 Cutie Bear Hood</div>
     </div>
 
-    <div class="cake-stop" style="left: 65%; top: 60%;" onclick="openJournal('pandanLayer')">
+    <div class="cake-stop locked" style="left:64%; top:58%;" onclick="showLockToast('Pop Dome Bear')">
       <div class="cake-circle">
-        <img src="https://images.deliveryhero.io/image/fd-th/Products/16146036.jpg" alt="Pandan Layer" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
+        <img src="https://images.deliveryhero.io/image/fd-th/Products/16146036.jpg" alt="Locked Cake"/>
       </div>
-      <div class="cake-label">🍃 Pandan Layer</div>
+      <div class="cake-label">🔒 Pop Dome Bear</div>
     </div>
 
-    <div class="membership-stop" style="right:8%; bottom:8%;" onclick="triggerMembershipReward()">
+    <div class="membership-stop" style="right:6%; bottom:8%;" onclick="triggerMembershipReward()">
       <div class="membership-badge">🎁</div>
-      <div class="cake-label" style="border: 2px solid #D4AF37; background: #FFF0F1; color: #AA1F24;">Claim Discount</div>
+      <div class="cake-label" style="border: 2px solid var(--road); font-weight: 800; color: var(--sp-red);">Claim Discount</div>
     </div>
   </div>
 
   <p style="text-align:center;font-size:0.78rem;color:#666;padding:10px 20px 36px;font-weight:600;">
-    🗺️ กดที่เค้กแต่ละชิ้นเพื่อบันทึก journey หรือก้าวสู่ปลายทางเพื่อรับส่วนลดสมาชิกพิเศษ
+    🗺️ กดที่เค้กแต่ละชิ้นเพื่อบันทึก journey หรือพิชิตปลายทางเพื่อรับส่วนลดสมาชิกพิเศษ
   </p>
 </div>
 
@@ -304,7 +349,7 @@
             </div>
           </div>
           <div class="polaroid-date">
-            Date: <input type="text" id="dateInput" value="--/--/--" onclick="event.stopPropagation()" placeholder="DD/MM/YY"/>
+            Date: <input type="text" id="dateInput" value="10/06/26" onclick="event.stopPropagation()" placeholder="DD/MM/YY"/>
           </div>
         </div>
         <input type="file" id="photoUpload" accept="image/*" onchange="handlePhotoUpload(event)"/>
@@ -327,7 +372,7 @@
         <div class="cake-journal-lines">
           <div class="field-label">บันทึกประสบการณ์เพิ่มเติม</div>
           <textarea class="lined-textarea" id="cakeNote" style="height:90px"
-            placeholder="พิมพ์บอกเล่าความฟินและรีวิวรสชาติแบบจัดเต็มที่นี่ต่อได้เลย..."></textarea>
+            placeholder="บอกเล่าเรื่องราวความประทับใจและความรู้สึกส่วนตัวต่อที่นี่ได้เลยนะ..."></textarea>
           <div class="field-label" style="margin-top:6px">Cake Stamp</div>
         </div>
         <div class="cake-stamp-area" onclick="triggerCakeStampUpload()">
@@ -345,25 +390,49 @@
     </div>
 
     <div class="save-bar">
-      <div class="save-hint">Save & แชร์ลงโซเชียลได้เลย ✨</div>
-      <button class="save-btn" onclick="saveJournal()">SAVE</button>
+      <div class="save-hint">บันทึกและส่งออกเทมเพลตความสุขได้เลย ✨</div>
+      <button class="save-btn" onclick="saveJournal()">SAVE & SHARE</button>
     </div>
   </div>
+</div>
+
+<div class="share-preview-overlay" id="igOverlay">
+  <div class="ig-template-box">
+      <div class="ig-header">
+          <h2>#CAKE DUMP</h2>
+          <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.5px;">S&P PIECE OF MEMORIES JOURNAL</p>
+          <div class="ig-badge-title" id="igBadgeTitle">CAKE COLLECTOR</div>
+      </div>
+      
+      <div class="ig-sticker-space">
+          <img id="igStickerImg" src="" alt="Cake Sticker">
+          <div style="font-weight: 700; font-size: 15px; color: var(--sp-red); margin-top: 6px;" id="igMenuName">Cake Menu</div>
+          <div class="ig-note-preview" id="igNotePreview">"No notes logged"</div>
+      </div>
+      
+      <div class="ig-footer">
+          @SNP_GRAND / #CRACKTHECAKEBYCTT
+      </div>
+  </div>
+  
+  <button class="close-ig-btn" onclick="closeIgShare()">
+      &larr; กลับสู่หน้าแอปพลิเคชัน
+  </button>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
   const cakes = {
-    blackforest:  { name: 'Black Forest',     emoji: '🍒', imgSrc: 'https://images.deliveryhero.io/image/fd-th/Products/16146039.jpg' },
-    buttervanilla:{ name: 'Butter Vanilla',   emoji: '🌸', imgSrc: 'https://images.deliveryhero.io/image/fd-th/Products/16146038.jpg' },
-    chocoFudge:   { name: 'Chocolate Fudge',  emoji: '🍫', imgSrc: 'https://images.deliveryhero.io/image/fd-th/Products/16146037.jpg' },
-    pandanLayer:  { name: 'Pandan Layer',     emoji: '🍃', imgSrc: 'https://images.deliveryhero.io/image/fd-th/Products/16146036.jpg' },
+    blackforest:  { name: 'Rainbow Cherish',    emoji: '🌈', imgSrc: 'https://images.deliveryhero.io/image/fd-th/Products/16146039.jpg' },
+    buttervanilla:{ name: 'Rainbow Love Roll',  emoji: '✨', imgSrc: 'https://images.deliveryhero.io/image/fd-th/Products/16146038.jpg' },
   };
 
   let selectedDeco = null;
+  let currentActiveKey = "";
 
   function openJournal(key) {
+    currentActiveKey = key;
     const c = cakes[key];
     document.getElementById('cakeStampImg').src = c.imgSrc;
     document.getElementById('cakeStampName').textContent = c.emoji + ' ' + c.name;
@@ -426,7 +495,7 @@
     r.readAsDataURL(f);
   }
 
-  /* User-specific Custom Cake Photo Upload Functions */
+  /* User Custom Image Upload Logic to replace Cake Stamp icon safely */
   function triggerCakeStampUpload() { 
     document.getElementById('cakeStampUpload').click(); 
   }
@@ -435,18 +504,43 @@
     const reader = new FileReader();
     reader.onload = ev => {
       document.getElementById('cakeStampImg').src = ev.target.result;
-      showToast('📸 อัปโหลดรูปถ่ายเค้กของคุณสำเร็จ!');
+      showToast('📸 อัปโหลดรูปถ่ายเค้กส่วนตัวของคุณเรียบร้อย!');
     };
     reader.readAsDataURL(file);
   }
 
-  /* Membership Final Node Interaction logic */
+  /* Membership Final Interaction Code */
   function triggerMembershipReward() {
-    alert("🎉 ยินดีด้วยคุณเคลมรางวัลสำเร็จ! รับสิทธิ์สแกนบาร์โค้ดรับส่วนลดพิเศษ S&P Membership 15% ทันทีที่หน้าร้าน!");
-    showToast('🎁 เปิดสิทธิ์คุ้มครองส่วนลดสมาชิกเรียบร้อย!');
+    alert("🎉 ยินดีด้วยคุณสะสมครบสเตปสำเร็จ! ระบบ Line OA ได้ทำการผูกคูปองส่วนลดพิเศษ S&P Membership Discount 15% ให้ที่บัญชีของคุณเรียบร้อยแล้ว!");
+    showToast('🎁 เคลมสิทธิ์คูปองส่วนลดสมาชิกเรียบร้อย!');
   }
 
-  function saveJournal() { showToast('📸 บันทึก Journal เรียบร้อย! แชร์โซเชียลได้เลย ✨'); }
+  /* Instagram Export Processing Engine */
+  function saveJournal() { 
+    const c = cakes[currentActiveKey] || { name: "Custom S&P Treat", imgSrc: document.getElementById('cakeStampImg').src };
+    const notes = document.getElementById('journalText').value || "ความฟินวันธรรมดาสไตล์คนรุ่นใหม่ที่แสนพิเศษ 💖✨";
+    
+    document.getElementById('igMenuName').innerText = c.name;
+    document.getElementById('igStickerImg').src = document.getElementById('cakeStampImg').src;
+    document.getElementById('igNotePreview').innerText = `"${notes}"`;
+    
+    if(c.name.includes('Cherish')) {
+        document.getElementById('igBadgeTitle').innerText = "🌈 PASTEL ANGEL BADGE";
+    } else {
+        document.getElementById('igBadgeTitle').innerText = "🍰 TRENDSETTER COLLECTOR";
+    }
+
+    document.getElementById('igOverlay').classList.add('active');
+    showToast('📸 Compile เทมเพลตสำหรับส่งออก IG Story สำเร็จ!');
+  }
+
+  function closeIgShare() {
+    document.getElementById('igOverlay').classList.remove('active');
+  }
+
+  function showLockToast(menuName) {
+    showToast('🔒 เมนู ' + menuName + ' ยังไม่ถูกปลดล็อก! สั่งซื้อคอลเลกชันกล่อง S&P Box ถัดไปเพื่อเปิดเนื้อหา');
+  }
 
   function showToast(msg) {
     const t = document.getElementById('toast');
