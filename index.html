@@ -1,34 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>S&P Journey & Journal Roadmap</title>
+<title>Journey & Journal Roadmap</title>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;700;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --cream: #FDFBF7; 
-    --blue: #AECBDB; 
-    --pink: #FFF0F1;
-    --sp-red: #AA1F24;
-    --sp-dark-red: #7A1114;
-    --caramel: #D4955A; 
-    --road: #E8B84B; 
-    --dark: #2A2A2A;
+    --cream: #F5EDD8; --blue: #AECBDB; --pink: #F2B8C0;
+    --caramel: #D4955A; --road: #F5C842; --dark: #2A2A2A;
   }
   body { font-family: 'Nunito', sans-serif; background: var(--blue); overflow-x: hidden; min-height: 100vh; }
   .page { display: none; min-height: 100vh; }
   .page.active { display: block; }
 
-  /* ===== ROADMAP PAGE ===== */
+  /* ===== ROADMAP ===== */
   #roadmap-page { background: var(--blue); position: relative; overflow: hidden; }
   .roadmap-header { text-align: center; padding: 36px 20px 8px; }
-  .roadmap-header h1 { font-family: 'Pacifico', cursive; font-size: clamp(1.8rem,5vw,2.5rem); color: var(--sp-dark-red); text-shadow: 2px 2px 0 rgba(255,255,255,0.6); }
+  .roadmap-header h1 { font-family: 'Pacifico', cursive; font-size: clamp(1.8rem,5vw,3rem); color: var(--dark); text-shadow: 3px 3px 0 rgba(255,255,255,0.4); }
   .roadmap-header h1 span { color: var(--caramel); }
-  .roadmap-subtitle { font-size: 0.85rem; text-align: center; color: #444; margin: 6px 20px 16px; font-weight: 700; letter-spacing: 0.2px; }
+  .roadmap-subtitle { font-size: 0.85rem; text-align: center; color: #555; margin: 6px 20px 16px; font-weight: 600; }
 
-  .scene-wrap { position: relative; width: 100%; max-width: 800px; margin: 0 auto; height: 520px; }
+  .scene-wrap { position: relative; width: 100%; max-width: 800px; margin: 0 auto; height: 500px; }
   .scene-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 
   .cake-stop {
@@ -37,18 +31,17 @@
   }
   .cake-stop:hover { transform: scale(1.1) rotate(-3deg); }
   .cake-circle {
-    width: 95px; height: 95px; border-radius: 50%; overflow: hidden;
-    border: 4px solid white; box-shadow: 0 6px 18px rgba(0,0,0,0.2); background: #fff;
-    display: flex; justify-content: center; align-items: center;
+    width: 90px; height: 90px; border-radius: 50%; overflow: hidden;
+    border: 4px solid white; box-shadow: 0 6px 18px rgba(0,0,0,0.25); background: #eee;
   }
-  .cake-circle img { width: 100%; height: 100%; object-fit: cover; }
+  .cake-circle img { width: 100%; height: 100%; object-fit: cover; object-position: center 55%; }
   .cake-label {
-    margin-top: 6px; background: white; border-radius: 12px; padding: 4px 12px;
+    margin-top: 6px; background: white; border-radius: 12px; padding: 3px 10px;
     font-size: 0.7rem; font-weight: 800; color: var(--dark);
     box-shadow: 0 2px 6px rgba(0,0,0,0.12); white-space: nowrap;
   }
 
-  .start-flag { position: absolute; font-size: 2rem; z-index: 30; left: 4%; top: 6%; }
+  .start-flag { position: absolute; font-size: 2rem; z-index: 30; left: 4%; top: 8%; }
   .end-flag   { position: absolute; font-size: 2rem; z-index: 30; right: 5%; bottom: 8%; }
   .heart-deco { position: absolute; font-size: 1.5rem; z-index: 5; animation: hb 2s infinite ease-in-out; pointer-events: none; }
   @keyframes hb { 0%,100%{transform:scale(1)} 50%{transform:scale(1.2)} }
@@ -57,63 +50,62 @@
 
   /* ===== JOURNAL PAGE ===== */
   #journal-page { background: var(--cream); min-height: 100vh; }
-  .journal-container { max-width: 480px; margin: 0 auto; padding: 0 0 60px; background: var(--cream); box-shadow: 0 0 30px rgba(0,0,0,0.05); min-height: 100vh; }
+  .journal-container { max-width: 480px; margin: 0 auto; padding: 0 0 60px; }
 
   .back-btn {
-    display: inline-flex; align-items: center; gap: 6px; background: var(--sp-red);
+    display: inline-flex; align-items: center; gap: 6px; background: var(--caramel);
     color: white; border: none; padding: 10px 18px; border-radius: 20px;
-    font-family: 'Nunito',sans-serif; font-weight: 700; font-size: 0.85rem;
-    cursor: pointer; margin: 16px 16px 0; transition: background 0.2s;
+    font-family: 'Nunito',sans-serif; font-weight: 700; font-size: 0.9rem;
+    cursor: pointer; margin: 16px 16px 0;
   }
-  .back-btn:hover { background: var(--sp-dark-red); }
+  .back-btn:hover { background: #b87a40; }
 
   .deco-section { background: var(--cream); padding: 14px 16px 12px; border-bottom: 2px dashed #ccc; }
-  .deco-title { font-weight: 800; font-size: 0.95rem; text-align: center; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; color: var(--sp-dark-red); }
+  .deco-title { font-weight: 800; font-size: 1rem; text-align: center; text-decoration: underline; margin-bottom: 10px; color: var(--dark); }
   .deco-carousel { display: flex; align-items: center; gap: 8px; }
   .deco-scroll { display: flex; gap: 10px; overflow-x: auto; flex: 1; scrollbar-width: none; padding: 4px 0; }
   .deco-scroll::-webkit-scrollbar { display: none; }
   .deco-item {
-    flex-shrink: 0; width: 54px; height: 54px; background: white; border-radius: 12px;
-    border: 2px solid transparent; cursor: pointer; font-size: 1.6rem;
+    flex-shrink: 0; width: 56px; height: 56px; background: white; border-radius: 12px;
+    border: 2px solid transparent; cursor: pointer; font-size: 1.8rem;
     display: flex; align-items: center; justify-content: center;
-    transition: border-color 0.2s, transform 0.15s; box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    transition: border-color 0.2s, transform 0.15s; box-shadow: 0 2px 6px rgba(0,0,0,0.08);
   }
-  .deco-item:hover { transform: scale(1.08); border-color: var(--sp-red); }
-  .deco-item.selected { border-color: var(--sp-red); background: #FFF0F1; }
+  .deco-item:hover { transform: scale(1.08); border-color: var(--caramel); }
+  .deco-item.selected { border-color: var(--caramel); background: #fff8f0; }
   .carousel-btn {
-    width: 32px; height: 32px; border-radius: 50%; background: var(--dark); color: white;
+    width: 34px; height: 34px; border-radius: 50%; background: var(--dark); color: white;
     border: none; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
 
   .add-deco-btn {
-    background: var(--pink); color: var(--sp-dark-red); border: 1px dashed var(--sp-red); padding: 10px 20px;
-    border-radius: 20px; font-family: 'Nunito',sans-serif; font-weight: 800; font-size: 0.85rem;
-    cursor: pointer; margin: 12px 16px 0; display: block; width: calc(100% - 32px); text-align: center;
+    background: var(--pink); color: var(--dark); border: none; padding: 10px 20px;
+    border-radius: 20px; font-family: 'Nunito',sans-serif; font-weight: 700; font-size: 0.85rem;
+    cursor: pointer; margin: 10px 16px 0; display: block; width: calc(100% - 32px); text-align: center;
   }
 
-  .journal-canvas { position: relative; margin: 14px 16px; min-height: 540px; background: white; border-radius: 16px; padding: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); border: 1px solid var(--border-color); }
-  .dropped-decos { position: absolute; inset: 0; pointer-events: none; z-index: 20; overflow: hidden; border-radius: 16px; }
-  .dropped-deco { position: absolute; font-size: 1.8rem; cursor: move; pointer-events: all; user-select: none; touch-action: none; }
+  .journal-canvas { position: relative; margin: 14px 16px; min-height: 540px; }
+  .dropped-decos { position: absolute; inset: 0; pointer-events: none; z-index: 20; }
+  .dropped-deco { position: absolute; font-size: 1.8rem; cursor: move; pointer-events: all; user-select: none; }
 
   /* Title row */
   .journal-title-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; position: relative; z-index: 10; }
   .journal-title-block { flex: 1; }
-  .field-label { font-size: 0.7rem; color: #888; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+  .field-label { font-size: 0.7rem; color: #888; font-weight: 700; margin-bottom: 2px; }
   .title-input {
-    font-family: 'Nunito',sans-serif; font-weight: 800; font-size: 1.8rem; color: var(--sp-dark-red);
+    font-family: 'Nunito',sans-serif; font-weight: 800; font-size: 2rem; color: var(--dark);
     border: none; background: transparent; outline: none; width: 100%;
   }
   .celebration-input {
-    font-family: 'Dancing Script',cursive; font-size: 1.4rem; color: var(--caramel);
-    border: none; background: transparent; outline: none; width: 100%; border-bottom: 1px solid #eee;
+    font-family: 'Dancing Script',cursive; font-size: 1.3rem; color: #888;
+    border: none; background: transparent; outline: none; width: 100%; border-bottom: 1px solid #ccc;
   }
 
-  /* Polaroid Picture */
+  /* Polaroid */
   .polaroid-wrap { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; position: relative; z-index: 10; }
   .polaroid {
-    background: white; padding: 8px 8px 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    width: 145px; flex-shrink: 0; position: relative; transform: rotate(-1.5deg); cursor: pointer;
-    border: 1px solid #f0f0f0;
+    background: white; padding: 8px 8px 26px; box-shadow: 2px 4px 12px rgba(0,0,0,0.15);
+    width: 150px; flex-shrink: 0; position: relative; transform: rotate(-1.5deg); cursor: pointer;
   }
   .tape {
     position: absolute; top: -11px; left: 50%; transform: translateX(-50%); width: 56px; height: 20px;
@@ -121,204 +113,216 @@
     background: repeating-linear-gradient(45deg,#f8c4d4 0,#f8c4d4 4px,#fddde6 4px,#fddde6 8px);
   }
   .polaroid-photo {
-    width: 100%; height: 110px; background: #FAF6EE;
+    width: 100%; height: 110px; background: linear-gradient(135deg,#d0eaf5,#c8e6a0);
     display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden;
   }
-  .polaroid-photo img.preview { width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
-  .polaroid-placeholder { text-align:center; font-size:0.65rem; color:var(--text-muted); font-weight:700; z-index:1; }
-  .polaroid-cloud { font-size:1.6rem; margin-bottom:3px; }
-  .polaroid-date { font-size:0.75rem; font-weight:800; color:var(--dark); text-align:center; margin-top:5px; }
+  .polaroid-photo img.preview { width:100%;height:100%;object-fit:cover;position:absolute;inset:0; }
+  .polaroid-placeholder { text-align:center;font-size:0.7rem;color:#6a8;font-weight:700;z-index:1; }
+  .polaroid-cloud { font-size:1.8rem;margin-bottom:3px; }
+  .polaroid-date { font-size:0.78rem;font-weight:800;color:var(--dark);text-align:center;margin-top:5px; }
   .polaroid-date input {
-    border:none; background:transparent; font-family:'Nunito',sans-serif;
-    font-weight:800; font-size:0.75rem; color:var(--dark); width:80px; text-align:center; outline:none;
+    border:none;background:transparent;font-family:'Nunito',sans-serif;
+    font-weight:800;font-size:0.78rem;color:var(--dark);width:76px;text-align:center;outline:none;
   }
 
   /* Journal lines */
   .journal-lines { flex: 1; }
   .lined-textarea {
-    width:100%; border:none; background:transparent; outline:none;
-    font-family:'Nunito',sans-serif; font-size:0.85rem; line-height:2.2; resize:none;
-    background-image:repeating-linear-gradient(transparent,transparent calc(2.2em - 1px),#eee calc(2.2em - 1px),#eee 2.2em);
+    width:100%;border:none;background:transparent;outline:none;
+    font-family:'Nunito',sans-serif;font-size:0.86rem;line-height:2.2;resize:none;
+    background-image:repeating-linear-gradient(transparent,transparent calc(2.2em - 1px),#ccc calc(2.2em - 1px),#ccc 2.2em);
     color:var(--dark);
   }
 
-  .stars-row { text-align:right; font-size:1rem; color:var(--caramel); letter-spacing:4px; margin:4px 0 6px; position:relative; z-index:10; }
-  .journal-divider { border:none; border-top:1px solid #eee; margin:8px 0; }
+  .stars-row { text-align:right;font-size:1rem;color:var(--pink);letter-spacing:4px;margin:4px 0 6px;position:relative;z-index:10; }
+  .journal-divider { border:none;border-top:1px solid #ccc;margin:6px 0; }
 
   /* Cake stamp section */
-  .cake-journal-section { display:flex; gap:14px; align-items:flex-start; position:relative; z-index:10; margin-top:6px; }
+  .cake-journal-section { display:flex;gap:14px;align-items:flex-start;position:relative;z-index:10;margin-top:6px; }
   .cake-journal-lines { flex:1; }
-  .cake-stamp-area { width:130px; flex-shrink:0; }
+  .cake-stamp-area { width:140px;flex-shrink:0; }
   .cake-stamp-frame {
-    background:white; padding:8px 8px 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08); position:relative; transform:rotate(1deg); border: 1px solid #f0f0f0;
+    background:white;padding:8px 8px 10px;
+    box-shadow:2px 4px 12px rgba(0,0,0,0.12);position:relative;transform:rotate(1deg);
   }
-  .stamp-pin { position:absolute; top:-13px; left:50%; transform:translateX(-50%); font-size:1.3rem; z-index:5; }
-  .cake-stamp-frame img { width:100%; height:90px; object-fit:cover; display:block; border-radius:4px; }
-  .cake-stamp-name { text-align:center; font-size:0.7rem; font-weight:800; color:var(--sp-dark-red); margin-top:5px; }
+  .stamp-pin { position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-size:1.3rem;z-index:5; }
+  .cake-stamp-frame img { width:100%;height:90px;object-fit:cover;display:block;border-radius:4px; }
+  .cake-stamp-name { text-align:center;font-size:0.72rem;font-weight:800;color:var(--dark);margin-top:5px; }
 
-  .tulip-corner { position:absolute; bottom:0; left:-10px; font-size:2.5rem; opacity:0.4; pointer-events:none; }
+  .tulip-corner { position:absolute;bottom:0;left:-10px;font-size:2.8rem;opacity:0.7;pointer-events:none; }
 
   /* Save bar */
   .save-bar {
-    background:var(--cream); border-top:1px solid #eee; padding:12px 16px;
-    display:flex; align-items:center; justify-content:space-between; position:sticky; bottom:0; z-index:100;
+    background:var(--cream);border-top:1px solid #ddd;padding:12px 16px;
+    display:flex;align-items:center;justify-content:space-between;position:sticky;bottom:0;z-index:100;
   }
-  .save-hint { font-size:0.75rem; color:#777; font-weight:700; flex:1; text-align:center; }
+  .save-hint { font-size:0.7rem;color:#888;font-weight:600;flex:1;text-align:center; }
   .save-btn {
-    background:var(--sp-red); color:white; border:none; padding:10px 24px; border-radius:8px;
-    font-family:'Nunito',sans-serif; font-weight:800; font-size:0.9rem; cursor:pointer; letter-spacing:1px; flex-shrink:0;
-    transition: background 0.2s;
+    background:var(--dark);color:white;border:none;padding:10px 22px;border-radius:8px;
+    font-family:'Nunito',sans-serif;font-weight:800;font-size:0.9rem;cursor:pointer;letter-spacing:1px;flex-shrink:0;
   }
-  .save-btn:hover { background: var(--sp-dark-red); }
+  .save-btn:hover { background:#444; }
 
   input[type="file"] { display:none; }
 
   .toast {
-    position:fixed; bottom:80px; left:50%; transform:translateX(-50%) translateY(20px);
-    background:var(--dark); color:white; padding:10px 22px; border-radius:24px;
-    font-size:0.83rem; font-weight:700; opacity:0; transition:opacity 0.3s,transform 0.3s; z-index:999; pointer-events:none;
+    position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--dark);color:white;padding:10px 22px;border-radius:24px;
+    font-size:0.83rem;font-weight:700;opacity:0;transition:opacity 0.3s,transform 0.3s;z-index:999;pointer-events:none;
   }
-  .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+  .toast.show { opacity:1;transform:translateX(-50%) translateY(0); }
+
+  /* img error fallback */
+  .cake-circle img.error { object-fit: contain; background: #f0f0f0; padding: 8px; }
 </style>
 </head>
 <body>
 
+<!-- ===== PAGE 1: ROADMAP ===== -->
 <div id="roadmap-page" class="page active">
   <div class="roadmap-header">
-    <h1>S&P Cake <span>Roadmap</span> 🎂</h1>
+    <h1>Journey <span>&</span> Journal 🎂</h1>
   </div>
-  <p class="roadmap-subtitle">Tap on any active node to open your Experience Journal ✨</p>
+  <p class="roadmap-subtitle">กดที่เค้กเพื่อสร้าง journal ของคุณ ✨</p>
 
   <div class="scene-wrap">
     <svg class="scene-svg" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
       <path d="M 65,75 C 180,75 175,195 300,195 C 425,195 385,95 505,115 C 625,138 605,295 705,315 C 760,330 752,415 703,435"
-        fill="none" stroke="#E8B84B" stroke-width="26" stroke-linecap="round"/>
+        fill="none" stroke="#E8B84B" stroke-width="30" stroke-linecap="round"/>
       <path d="M 65,75 C 180,75 175,195 300,195 C 425,195 385,95 505,115 C 625,138 605,295 705,315 C 760,330 752,415 703,435"
-        fill="none" stroke="#FFF" stroke-width="3" stroke-dasharray="14,11" stroke-linecap="round" opacity="0.8"/>
+        fill="none" stroke="#FFF" stroke-width="3" stroke-dasharray="16,13" stroke-linecap="round" opacity="0.8"/>
     </svg>
 
-    <div class="heart-deco" style="left:22%; top:38%">❤️</div>
-    <div class="heart-deco" style="left:58%; top:60%; animation-delay:.7s">❤️</div>
-    <div class="floaty" style="left:10%; top:62%; animation-delay:1s">🌸</div>
-    <div class="floaty" style="right:14%; top:18%; animation-delay:2s">⭐</div>
-    <div class="floaty" style="left:43%; top:7%; animation-delay:.5s">🍬</div>
+    <div class="heart-deco" style="left:22%;top:38%">❤️</div>
+    <div class="heart-deco" style="left:58%;top:60%;animation-delay:.7s">❤️</div>
+    <div class="floaty" style="left:10%;top:62%;animation-delay:1s">🌸</div>
+    <div class="floaty" style="right:14%;top:18%;animation-delay:2s">⭐</div>
+    <div class="floaty" style="left:43%;top:7%;animation-delay:.5s">🍬</div>
     <div class="start-flag">🚩</div>
     <div class="end-flag">🏁</div>
 
-    <div class="cake-stop" style="left:3%; top:4%;" onclick="openJournal('rainbowCherish')">
+    <!-- Cake 1: Black Forest -->
+    <div class="cake-stop" style="left:3%;top:4%;" onclick="openJournal('blackforest')">
       <div class="cake-circle">
-        <img src="https://images.deliveryhero.io/image/fd-th/Products/16146039.jpg" alt="Rainbow Cherish Cake"/>
+        <img src="https://lh3.googleusercontent.com/d/19ZFMBB5cfdvaDL5gCCzWwxt05Fg5OzJS" alt="Black Forest" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
       </div>
-      <div class="cake-label">🌈 Rainbow Cherish</div>
+      <div class="cake-label">🍒 Black Forest</div>
     </div>
 
-    <div class="cake-stop" style="left:31%; top:33%;" onclick="openJournal('rainbowRoll')">
+    <!-- Cake 2: Butter Vanilla -->
+    <div class="cake-stop" style="left:31%;top:33%;" onclick="openJournal('buttervanilla')">
       <div class="cake-circle">
-        <img src="https://images.deliveryhero.io/image/fd-th/Products/16146038.jpg" alt="Rainbow Love Roll"/>
+        <img src="https://lh3.googleusercontent.com/d/19Sb-AfW_SmfvJBQSMrBtJuWpT6H2mZzG" alt="Butter Vanilla" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
       </div>
-      <div class="cake-label">✨ Rainbow Love Roll</div>
+      <div class="cake-label">🌸 Butter Vanilla</div>
     </div>
 
-    <div class="cake-stop" style="left:56%; top:15%;" onclick="openJournal('bearHood')">
+    <!-- Cake 3: Chocolate Fudge -->
+    <div class="cake-stop" style="left:56%;top:15%;" onclick="openJournal('chocoFudge')">
       <div class="cake-circle">
-        <img src="https://images.deliveryhero.io/image/fd-th/Products/16146037.jpg" alt="Cutie Bear Hood"/>
+        <img src="https://lh3.googleusercontent.com/d/19BUDSO-FYbnEvd1nYygFKb5kYuFYaqJm" alt="Chocolate Fudge" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
       </div>
-      <div class="cake-label">🧸 Cutie Bear Hood</div>
+      <div class="cake-label">🍫 Chocolate Fudge</div>
     </div>
 
-    <div class="cake-stop" style="right:9%; bottom:11%;" onclick="openJournal('popDome')">
+    <!-- Cake 4: Pandan Layer -->
+    <div class="cake-stop" style="right:9%;bottom:11%;" onclick="openJournal('pandanLayer')">
       <div class="cake-circle">
-        <img src="https://images.deliveryhero.io/image/fd-th/Products/16146036.jpg" alt="Pop Cake Dome Bear"/>
+        <img src="https://lh3.googleusercontent.com/d/19Vk1Z1qEbQYjkUMipiDPZj9K_rtwBWkA" alt="Pandan Layer" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
       </div>
-      <div class="cake-label">👑 Pop Dome Bear</div>
+      <div class="cake-label">🍃 Pandan Layer</div>
     </div>
   </div>
 
-  <p style="text-align:center; font-size:0.8rem; color:#444; padding:10px 20px 36px; font-weight:700;">
-    🗺️ Map Discovery: Tap a cake node to document your personal #CakeDump memories.
+  <p style="text-align:center;font-size:0.78rem;color:#666;padding:10px 20px 36px;font-weight:600;">
+    🗺️ กดที่เค้กแต่ละชิ้นเพื่อบันทึก journey ของคุณ
   </p>
 </div>
 
+<!-- ===== PAGE 2: JOURNAL ===== -->
 <div id="journal-page" class="page">
   <div class="journal-container">
-    <button class="back-btn" onclick="goBack()">← Back to Roadmap</button>
+    <button class="back-btn" onclick="goBack()">← กลับหน้า Roadmap</button>
 
+    <!-- Deco chooser -->
     <div class="deco-section">
-      <div class="deco-title">Choose Your Stickers</div>
+      <div class="deco-title">Choose Your Decorations Here</div>
       <div class="deco-carousel">
-        <button class="carousel-btn" onclick="scrollDecos(-1)">‹</button>
+        <button class="carousel-btn" onclick="scrollDecos(-1)">&#8249;</button>
         <div class="deco-scroll" id="decoScroll">
-          <div class="deco-item" onclick="selectDeco(this,'🍒')">🍒</div>
+          <div class="deco-item" onclick="selectDeco(this,'🍉')">🍉</div>
           <div class="deco-item" onclick="selectDeco(this,'⭐')">⭐</div>
+          <div class="deco-item" onclick="selectDeco(this,'🍊')">🍊</div>
+          <div class="deco-item" onclick="selectDeco(this,'📼')">📼</div>
           <div class="deco-item" onclick="selectDeco(this,'🌸')">🌸</div>
           <div class="deco-item" onclick="selectDeco(this,'🎀')">🎀</div>
           <div class="deco-item" onclick="selectDeco(this,'🍓')">🍓</div>
           <div class="deco-item" onclick="selectDeco(this,'🌈')">🌈</div>
+          <div class="deco-item" onclick="selectDeco(this,'💫')">💫</div>
           <div class="deco-item" onclick="selectDeco(this,'🎂')">🎂</div>
           <div class="deco-item" onclick="selectDeco(this,'🌷')">🌷</div>
           <div class="deco-item" onclick="selectDeco(this,'🦋')">🦋</div>
+          <div class="deco-item" onclick="selectDeco(this,'🍡')">🍡</div>
           <div class="deco-item" onclick="selectDeco(this,'✨')">✨</div>
-          <div class="deco-item" onclick="selectDeco(this,'💖')">💖</div>
-          <div class="deco-item" onclick="selectDeco(this,'🎉')">🎉</div>
+          <div class="deco-item" onclick="selectDeco(this,'🌙')">🌙</div>
         </div>
-        <button class="carousel-btn" onclick="scrollDecos(1)">›</button>
+        <button class="carousel-btn" onclick="scrollDecos(1)">&#8250;</button>
       </div>
     </div>
 
-    <button class="add-deco-btn" onclick="addDecoToCanvas()">+ Drop Sticker onto Journal</button>
+    <button class="add-deco-btn" onclick="addDecoToCanvas()">+ วางของตกแต่งลง Journal</button>
 
+    <!-- Journal canvas -->
     <div class="journal-canvas" id="journalCanvas">
       <div class="dropped-decos" id="droppedDecos"></div>
 
+      <!-- Title -->
       <div class="journal-title-row">
         <div class="journal-title-block">
-          <div class="field-label">Celebration Title</div>
-          <input class="title-input" id="journalTitle" type="text" value="MY JOURNAL" maxlength="20" placeholder="TITLE"/>
-          <input class="celebration-input" id="celebrationInput" type="text" value="A Sweet Micro-Moment" placeholder="Celebration context..."/>
+          <div class="field-label">ชื่อ Celebration</div>
+          <input class="title-input" id="journalTitle" type="text" value="TITLE" maxlength="14" placeholder="TITLE"/>
+          <input class="celebration-input" id="celebrationInput" type="text" value="celebration" placeholder="celebration"/>
         </div>
       </div>
 
+      <!-- Polaroid + Notes -->
       <div class="polaroid-wrap">
         <div class="polaroid" onclick="triggerPhotoUpload()">
           <div class="tape"></div>
           <div class="polaroid-photo">
             <img class="preview" id="photoPreview" src="" style="display:none"/>
             <div class="polaroid-placeholder" id="polaroidPlaceholder">
-              <div class="polaroid-cloud">🌤️</div>Upload<br>Memories
+              <div class="polaroid-cloud">🌤️</div>ใส่รูปภาพ<br>ความทรงจำ
             </div>
           </div>
           <div class="polaroid-date">
-            Date: <input type="text" id="dateInput" value="11/06/26" onclick="event.stopPropagation()" placeholder="DD/MM/YY"/>
+            Date: <input type="text" id="dateInput" value="--/--/--" onclick="event.stopPropagation()" placeholder="DD/MM/YY"/>
           </div>
         </div>
         <input type="file" id="photoUpload" accept="image/*" onchange="handlePhotoUpload(event)"/>
 
         <div class="journal-lines">
-          <div class="field-label">Personal Scrapbook Notes</div>
+          <div class="field-label">บันทึกความทรงจำ</div>
           <textarea class="lined-textarea" id="journalText" style="height:190px"
-            placeholder="Document your day here...
-
-What was the occasion?
-Who did you share it with?
-How did it taste?..."></textarea>
+            placeholder="เขียนบันทึกที่นี่...&#10;&#10;วันนี้ฉันได้ลอง...&#10;รสชาติเป็นแบบ...&#10;ฉันรู้สึก..."></textarea>
         </div>
       </div>
 
       <div class="stars-row">✦ ✦ ✦</div>
       <hr class="journal-divider"/>
 
+      <!-- Cake stamp section -->
       <div class="cake-journal-section">
         <div class="cake-journal-lines">
-          <div class="field-label">Baker Verification Notes</div>
+          <div class="field-label">บันทึกเกี่ยวกับเค้ก</div>
           <textarea class="lined-textarea" id="cakeNote" style="height:70px"
-            placeholder="Aesthetic appeal, texture balance, sweet level details..."></textarea>
-          <div class="field-label" style="margin-top:6px">Verified Cake Stamp</div>
+            placeholder="รสชาติ, หน้าตา, ราคา..."></textarea>
+          <div class="field-label" style="margin-top:6px">Cake Stamp</div>
         </div>
         <div class="cake-stamp-area">
           <div class="cake-stamp-frame">
             <div class="stamp-pin">📌</div>
-            <img id="cakeStampImg" src="" alt="Cake Stamp"/>
+            <img id="cakeStampImg" src="" alt=""/>
             <div class="cake-stamp-name" id="cakeStampName"></div>
           </div>
         </div>
@@ -328,8 +332,8 @@ How did it taste?..."></textarea>
     </div>
 
     <div class="save-bar">
-      <div class="save-hint">Ready to export your #CakeDump? ✨</div>
-      <button class="save-btn" onclick="saveJournal()">SAVE & SHARE</button>
+      <div class="save-hint">Save & แชร์ลงโซเชียลได้เลย ✨</div>
+      <button class="save-btn" onclick="saveJournal()">SAVE</button>
     </div>
   </div>
 </div>
@@ -338,13 +342,13 @@ How did it taste?..."></textarea>
 
 <script>
   const cakes = {
-    rainbowCherish: { name: 'Rainbow Cherish', emoji: '🌈', imgSrc: 'https://images.deliveryhero.io/image/fd-th/Products/16146039.jpg' },
-    rainbowRoll:    { name: 'Rainbow Love Roll', emoji: '✨', imgSrc: 'https://images.deliveryhero.io/image/fd-th/Products/16146038.jpg' },
-    bearHood:       { name: 'Cutie Bear Hood', emoji: '🧸', imgSrc: 'https://images.deliveryhero.io/image/fd-th/Products/16146037.jpg' },
-    popDome:        { name: 'Pop Dome Bear',    emoji: '👑', imgSrc: 'https://images.deliveryhero.io/image/fd-th/Products/16146036.jpg' },
+    blackforest:  { name: 'Black Forest',     emoji: '🍒', imgSrc: 'https://lh3.googleusercontent.com/d/19ZFMBB5cfdvaDL5gCCzWwxt05Fg5OzJS' },
+    buttervanilla:{ name: 'Butter Vanilla',   emoji: '🌸', imgSrc: 'https://lh3.googleusercontent.com/d/19Sb-AfW_SmfvJBQSMrBtJuWpT6H2mZzG' },
+    chocoFudge:   { name: 'Chocolate Fudge',  emoji: '🍫', imgSrc: 'https://lh3.googleusercontent.com/d/19BUDSO-FYbnEvd1nYygFKb5kYuFYaqJm' },
+    pandanLayer:  { name: 'Pandan Layer',     emoji: '🍃', imgSrc: 'https://lh3.googleusercontent.com/d/19Vk1Z1qEbQYjkUMipiDPZj9K_rtwBWkA' },
   };
 
-  let selectedDecoEmoji = null;
+  let selectedDeco = null;
 
   function openJournal(key) {
     const c = cakes[key];
@@ -353,7 +357,7 @@ How did it taste?..."></textarea>
     document.getElementById('roadmap-page').classList.remove('active');
     document.getElementById('journal-page').classList.add('active');
     window.scrollTo(0,0);
-    showToast('Opened Journal: ' + c.emoji + ' ' + c.name);
+    showToast('เปิด Journal: ' + c.emoji + ' ' + c.name);
   }
 
   function goBack() {
@@ -362,84 +366,56 @@ How did it taste?..."></textarea>
     window.scrollTo(0,0);
   }
 
-  function scrollDecos(dir) { 
-    document.getElementById('decoScroll').scrollBy({left: dir * 130, behavior: 'smooth'}); 
-  }
+  function scrollDecos(dir) { document.getElementById('decoScroll').scrollBy({left:dir*130,behavior:'smooth'}); }
 
   function selectDeco(el, emoji) {
-    document.querySelectorAll('.deco-item').forEach(d => d.classList.remove('selected'));
-    el.classList.add('selected'); 
-    selectedDecoEmoji = emoji;
+    document.querySelectorAll('.deco-item').forEach(d=>d.classList.remove('selected'));
+    el.classList.add('selected'); selectedDeco = emoji;
   }
 
   function addDecoToCanvas() {
-    if(!selectedDecoEmoji){ showToast('Please select a sticker first! ✨'); return; }
+    if(!selectedDeco){ showToast('กรุณาเลือกของตกแต่งก่อน ✨'); return; }
     const layer = document.getElementById('droppedDecos');
     const canvas = document.getElementById('journalCanvas');
     const el = document.createElement('div');
-    el.className = 'dropped-deco'; 
-    el.textContent = selectedDecoEmoji;
-    
-    // Random safe positioning logic
-    el.style.left = (Math.random() * (canvas.offsetWidth - 60)) + 'px';
-    el.style.top  = (Math.random() * (canvas.offsetHeight - 60)) + 'px';
-    
-    makeElementDraggable(el); 
-    layer.appendChild(el);
-    showToast('Dropped! Drag ' + selectedDecoEmoji + ' anywhere.');
+    el.className = 'dropped-deco'; el.textContent = selectedDeco;
+    el.style.left = (Math.random()*(canvas.offsetWidth-50))+'px';
+    el.style.top  = (Math.random()*(canvas.offsetHeight-50))+'px';
+    makeDraggable(el); layer.appendChild(el);
+    showToast('วางแล้ว! ลาก '+selectedDeco+' ได้เลย');
   }
 
-  function makeElementDraggable(el) {
-    let startX, startY, originalLeft, originalTop;
-    
+  function makeDraggable(el) {
+    let sx,sy,ol,ot;
     el.addEventListener('pointerdown', e => {
-      e.preventDefault(); 
-      startX = e.clientX; 
-      startY = e.clientY;
-      originalLeft = parseInt(el.style.left) || 0; 
-      originalTop = parseInt(el.style.top) || 0;
+      e.preventDefault(); sx=e.clientX; sy=e.clientY;
+      ol=parseInt(el.style.left)||0; ot=parseInt(el.style.top)||0;
       el.setPointerCapture(e.pointerId);
     });
-    
     el.addEventListener('pointermove', e => {
-      if (!el.hasPointerCapture(e.pointerId)) return;
-      const changeX = e.clientX - startX;
-      const changeY = e.clientY - startY;
-      el.style.left = (originalLeft + changeX) + 'px'; 
-      el.style.top  = (originalTop + changeY) + 'px';
-    });
-
-    el.addEventListener('pointerup', e => {
-      el.releasePointerCapture(e.pointerId);
+      if(!e.buttons) return;
+      el.style.left=(ol+e.clientX-sx)+'px'; el.style.top=(ot+e.clientY-sy)+'px';
     });
   }
 
-  function triggerPhotoUpload() { 
-    document.getElementById('photoUpload').click(); 
-  }
-  
+  function triggerPhotoUpload() { document.getElementById('photoUpload').click(); }
   function handlePhotoUpload(e) {
-    const file = e.target.files[0]; 
-    if(!file) return;
-    const reader = new FileReader();
-    reader.onload = ev => {
+    const f = e.target.files[0]; if(!f) return;
+    const r = new FileReader();
+    r.onload = ev => {
       document.getElementById('photoPreview').src = ev.target.result;
       document.getElementById('photoPreview').style.display = 'block';
       document.getElementById('polaroidPlaceholder').style.display = 'none';
     };
-    reader.readAsDataURL(file);
+    r.readAsDataURL(f);
   }
 
-  function saveJournal() { 
-    alert("Experience synced successfully! +50 Sweet XP unlocked. Template compiled for Instagram Story sharing!");
-    showToast('📸 Journal Synced & Saved! Ready to share! ✨'); 
-  }
+  function saveJournal() { showToast('📸 บันทึก Journal เรียบร้อย! แชร์โซเชียลได้เลย ✨'); }
 
   function showToast(msg) {
     const t = document.getElementById('toast');
-    t.textContent = msg; 
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2800);
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'), 2800);
   }
 </script>
 </body>
