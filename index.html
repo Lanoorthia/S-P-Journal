@@ -41,6 +41,18 @@
     box-shadow: 0 2px 6px rgba(0,0,0,0.12); white-space: nowrap;
   }
 
+  /* Membership End Node Style */
+  .membership-stop {
+    position: absolute; display: flex; flex-direction: column; align-items: center;
+    cursor: pointer; transition: transform 0.25s ease; z-index: 25;
+  }
+  .membership-stop:hover { transform: scale(1.1) scale(1.05); }
+  .membership-badge {
+    width: 95px; height: 95px; border-radius: 50%; background: linear-gradient(135deg, #AA1F24 0%, #7A1114 100%);
+    border: 4px solid #D4AF37; box-shadow: 0 6px 20px rgba(170,31,36,0.4);
+    display: flex; justify-content: center; align-items: center; font-size: 2.2rem;
+  }
+
   .start-flag { position: absolute; font-size: 2rem; z-index: 30; left: 4%; top: 8%; }
   .end-flag   { position: absolute; font-size: 2rem; z-index: 30; right: 5%; bottom: 8%; }
   .heart-deco { position: absolute; font-size: 1.5rem; z-index: 5; animation: hb 2s infinite ease-in-out; pointer-events: none; }
@@ -86,7 +98,7 @@
 
   .journal-canvas { position: relative; margin: 14px 16px; min-height: 540px; }
   .dropped-decos { position: absolute; inset: 0; pointer-events: none; z-index: 20; }
-  .dropped-deco { position: absolute; font-size: 1.8rem; cursor: move; pointer-events: all; user-select: none; }
+  .dropped-deco { position: absolute; font-size: 1.8rem; cursor: move; pointer-events: all; user-select: none; touch-action: none; }
 
   /* Title row */
   .journal-title-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; position: relative; z-index: 10; }
@@ -140,7 +152,7 @@
   /* Cake stamp section */
   .cake-journal-section { display:flex;gap:14px;align-items:flex-start;position:relative;z-index:10;margin-top:6px; }
   .cake-journal-lines { flex:1; }
-  .cake-stamp-area { width:140px;flex-shrink:0; }
+  .cake-stamp-area { width:140px;flex-shrink:0; cursor: pointer; }
   .cake-stamp-frame {
     background:white;padding:8px 8px 10px;
     box-shadow:2px 4px 12px rgba(0,0,0,0.12);position:relative;transform:rotate(1deg);
@@ -148,6 +160,7 @@
   .stamp-pin { position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-size:1.3rem;z-index:5; }
   .cake-stamp-frame img { width:100%;height:90px;object-fit:cover;display:block;border-radius:4px; }
   .cake-stamp-name { text-align:center;font-size:0.72rem;font-weight:800;color:var(--dark);margin-top:5px; }
+  .stamp-hint { font-size: 0.55rem; color: #AA1F24; font-weight: bold; margin-top: 2px; text-align: center; }
 
   .tulip-corner { position:absolute;bottom:0;left:-10px;font-size:2.8rem;opacity:0.7;pointer-events:none; }
 
@@ -178,7 +191,6 @@
 </head>
 <body>
 
-<!-- ===== PAGE 1: ROADMAP ===== -->
 <div id="roadmap-page" class="page active">
   <div class="roadmap-header">
     <h1>Journey <span>&</span> Journal 🎂</h1>
@@ -201,54 +213,53 @@
     <div class="start-flag">🚩</div>
     <div class="end-flag">🏁</div>
 
-    <!-- Cake 1: Black Forest -->
     <div class="cake-stop" style="left:3%;top:4%;" onclick="openJournal('blackforest')">
       <div class="cake-circle">
-        <img src="https://lh3.googleusercontent.com/d/19ZFMBB5cfdvaDL5gCCzWwxt05Fg5OzJS" alt="Black Forest" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
+        <img src="https://images.deliveryhero.io/image/fd-th/Products/16146039.jpg" alt="Black Forest" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
       </div>
       <div class="cake-label">🍒 Black Forest</div>
     </div>
 
-    <!-- Cake 2: Butter Vanilla -->
     <div class="cake-stop" style="left:31%;top:33%;" onclick="openJournal('buttervanilla')">
       <div class="cake-circle">
-        <img src="https://lh3.googleusercontent.com/d/19Sb-AfW_SmfvJBQSMrBtJuWpT6H2mZzG" alt="Butter Vanilla" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
+        <img src="https://images.deliveryhero.io/image/fd-th/Products/16146038.jpg" alt="Butter Vanilla" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
       </div>
       <div class="cake-label">🌸 Butter Vanilla</div>
     </div>
 
-    <!-- Cake 3: Chocolate Fudge -->
     <div class="cake-stop" style="left:56%;top:15%;" onclick="openJournal('chocoFudge')">
       <div class="cake-circle">
-        <img src="https://lh3.googleusercontent.com/d/19BUDSO-FYbnEvd1nYygFKb5kYuFYaqJm" alt="Chocolate Fudge" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
+        <img src="https://images.deliveryhero.io/image/fd-th/Products/16146037.jpg" alt="Chocolate Fudge" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
       </div>
       <div class="cake-label">🍫 Chocolate Fudge</div>
     </div>
 
-    <!-- Cake 4: Pandan Layer -->
-    <div class="cake-stop" style="right:9%;bottom:11%;" onclick="openJournal('pandanLayer')">
+    <div class="cake-stop" style="left: 65%; top: 60%;" onclick="openJournal('pandanLayer')">
       <div class="cake-circle">
-        <img src="https://lh3.googleusercontent.com/d/19Vk1Z1qEbQYjkUMipiDPZj9K_rtwBWkA" alt="Pandan Layer" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
+        <img src="https://images.deliveryhero.io/image/fd-th/Products/16146036.jpg" alt="Pandan Layer" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
       </div>
       <div class="cake-label">🍃 Pandan Layer</div>
+    </div>
+
+    <div class="membership-stop" style="right:8%; bottom:8%;" onclick="triggerMembershipReward()">
+      <div class="membership-badge">🎁</div>
+      <div class="cake-label" style="border: 2px solid #D4AF37; background: #FFF0F1; color: #AA1F24;">Claim Discount</div>
     </div>
   </div>
 
   <p style="text-align:center;font-size:0.78rem;color:#666;padding:10px 20px 36px;font-weight:600;">
-    🗺️ กดที่เค้กแต่ละชิ้นเพื่อบันทึก journey ของคุณ
+    🗺️ กดที่เค้กแต่ละชิ้นเพื่อบันทึก journey หรือก้าวสู่ปลายทางเพื่อรับส่วนลดสมาชิกพิเศษ
   </p>
 </div>
 
-<!-- ===== PAGE 2: JOURNAL ===== -->
 <div id="journal-page" class="page">
   <div class="journal-container">
     <button class="back-btn" onclick="goBack()">← กลับหน้า Roadmap</button>
 
-    <!-- Deco chooser -->
     <div class="deco-section">
       <div class="deco-title">Choose Your Decorations Here</div>
       <div class="deco-carousel">
-        <button class="carousel-btn" onclick="scrollDecos(-1)">&#8249;</button>
+        <button class="carousel-btn" onclick="scrollDecos(-1)">‹</button>
         <div class="deco-scroll" id="decoScroll">
           <div class="deco-item" onclick="selectDeco(this,'🍉')">🍉</div>
           <div class="deco-item" onclick="selectDeco(this,'⭐')">⭐</div>
@@ -266,17 +277,15 @@
           <div class="deco-item" onclick="selectDeco(this,'✨')">✨</div>
           <div class="deco-item" onclick="selectDeco(this,'🌙')">🌙</div>
         </div>
-        <button class="carousel-btn" onclick="scrollDecos(1)">&#8250;</button>
+        <button class="carousel-btn" onclick="scrollDecos(1)">›</button>
       </div>
     </div>
 
     <button class="add-deco-btn" onclick="addDecoToCanvas()">+ วางของตกแต่งลง Journal</button>
 
-    <!-- Journal canvas -->
     <div class="journal-canvas" id="journalCanvas">
       <div class="dropped-decos" id="droppedDecos"></div>
 
-      <!-- Title -->
       <div class="journal-title-row">
         <div class="journal-title-block">
           <div class="field-label">ชื่อ Celebration</div>
@@ -285,7 +294,6 @@
         </div>
       </div>
 
-      <!-- Polaroid + Notes -->
       <div class="polaroid-wrap">
         <div class="polaroid" onclick="triggerPhotoUpload()">
           <div class="tape"></div>
@@ -304,29 +312,34 @@
         <div class="journal-lines">
           <div class="field-label">บันทึกความทรงจำ</div>
           <textarea class="lined-textarea" id="journalText" style="height:190px"
-            placeholder="เขียนบันทึกที่นี่...&#10;&#10;วันนี้ฉันได้ลอง...&#10;รสชาติเป็นแบบ...&#10;ฉันรู้สึก..."></textarea>
+            placeholder="เขียนบันทึกที่นี่...
+
+วันนี้ฉันได้ลอง...
+รสชาติเป็นแบบ...
+ฉันรู้สึก..."></textarea>
         </div>
       </div>
 
       <div class="stars-row">✦ ✦ ✦</div>
       <hr class="journal-divider"/>
 
-      <!-- Cake stamp section -->
       <div class="cake-journal-section">
         <div class="cake-journal-lines">
-          <div class="field-label">บันทึกเกี่ยวกับเค้ก</div>
-          <textarea class="lined-textarea" id="cakeNote" style="height:70px"
-            placeholder="รสชาติ, หน้าตา, ราคา..."></textarea>
+          <div class="field-label">บันทึกประสบการณ์เพิ่มเติม</div>
+          <textarea class="lined-textarea" id="cakeNote" style="height:90px"
+            placeholder="พิมพ์บอกเล่าความฟินและรีวิวรสชาติแบบจัดเต็มที่นี่ต่อได้เลย..."></textarea>
           <div class="field-label" style="margin-top:6px">Cake Stamp</div>
         </div>
-        <div class="cake-stamp-area">
+        <div class="cake-stamp-area" onclick="triggerCakeStampUpload()">
           <div class="cake-stamp-frame">
             <div class="stamp-pin">📌</div>
             <img id="cakeStampImg" src="" alt=""/>
             <div class="cake-stamp-name" id="cakeStampName"></div>
           </div>
+          <div class="stamp-hint">📸 แตะเพื่อเปลี่ยนเป็นรูปถ่ายเค้กของคุณ</div>
         </div>
       </div>
+      <input type="file" id="cakeStampUpload" accept="image/*" onchange="handleCakeStampUpload(event)"/>
 
       <div class="tulip-corner">🌷</div>
     </div>
@@ -342,10 +355,10 @@
 
 <script>
   const cakes = {
-    blackforest:  { name: 'Black Forest',     emoji: '🍒', imgSrc: 'https://lh3.googleusercontent.com/d/19ZFMBB5cfdvaDL5gCCzWwxt05Fg5OzJS' },
-    buttervanilla:{ name: 'Butter Vanilla',   emoji: '🌸', imgSrc: 'https://lh3.googleusercontent.com/d/19Sb-AfW_SmfvJBQSMrBtJuWpT6H2mZzG' },
-    chocoFudge:   { name: 'Chocolate Fudge',  emoji: '🍫', imgSrc: 'https://lh3.googleusercontent.com/d/19BUDSO-FYbnEvd1nYygFKb5kYuFYaqJm' },
-    pandanLayer:  { name: 'Pandan Layer',     emoji: '🍃', imgSrc: 'https://lh3.googleusercontent.com/d/19Vk1Z1qEbQYjkUMipiDPZj9K_rtwBWkA' },
+    blackforest:  { name: 'Black Forest',     emoji: '🍒', imgSrc: 'https://images.deliveryhero.io/image/fd-th/Products/16146039.jpg' },
+    buttervanilla:{ name: 'Butter Vanilla',   emoji: '🌸', imgSrc: 'https://images.deliveryhero.io/image/fd-th/Products/16146038.jpg' },
+    chocoFudge:   { name: 'Chocolate Fudge',  emoji: '🍫', imgSrc: 'https://images.deliveryhero.io/image/fd-th/Products/16146037.jpg' },
+    pandanLayer:  { name: 'Pandan Layer',     emoji: '🍃', imgSrc: 'https://images.deliveryhero.io/image/fd-th/Products/16146036.jpg' },
   };
 
   let selectedDeco = null;
@@ -393,8 +406,11 @@
       el.setPointerCapture(e.pointerId);
     });
     el.addEventListener('pointermove', e => {
-      if(!e.buttons) return;
+      if(!el.hasPointerCapture(e.pointerId)) return;
       el.style.left=(ol+e.clientX-sx)+'px'; el.style.top=(ot+e.clientY-sy)+'px';
+    });
+    el.addEventListener('pointerup', e => {
+      el.releasePointerCapture(e.pointerId);
     });
   }
 
@@ -408,6 +424,26 @@
       document.getElementById('polaroidPlaceholder').style.display = 'none';
     };
     r.readAsDataURL(f);
+  }
+
+  /* User-specific Custom Cake Photo Upload Functions */
+  function triggerCakeStampUpload() { 
+    document.getElementById('cakeStampUpload').click(); 
+  }
+  function handleCakeStampUpload(e) {
+    const file = e.target.files[0]; if(!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      document.getElementById('cakeStampImg').src = ev.target.result;
+      showToast('📸 อัปโหลดรูปถ่ายเค้กของคุณสำเร็จ!');
+    };
+    reader.readAsDataURL(file);
+  }
+
+  /* Membership Final Node Interaction logic */
+  function triggerMembershipReward() {
+    alert("🎉 ยินดีด้วยคุณเคลมรางวัลสำเร็จ! รับสิทธิ์สแกนบาร์โค้ดรับส่วนลดพิเศษ S&P Membership 15% ทันทีที่หน้าร้าน!");
+    showToast('🎁 เปิดสิทธิ์คุ้มครองส่วนลดสมาชิกเรียบร้อย!');
   }
 
   function saveJournal() { showToast('📸 บันทึก Journal เรียบร้อย! แชร์โซเชียลได้เลย ✨'); }
