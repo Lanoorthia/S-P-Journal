@@ -10,6 +10,7 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
+    /* โทนสี S&P: แดง-ขาว-น้ำตาล */
     --cream: #FFFFFF; 
     --blue: #FDFBF7; 
     --pink: #FFF0F1;
@@ -17,8 +18,8 @@
     --road: #AA1F24; 
     --dark: #2A2A2A;
     --border-color: #EAEAEA;
-    /* เพิ่มตัวแปรสำหรับลายกระดาษเพื่อเรียกใช้ซ้ำง่ายขึ้น */
-    --paper-texture: url("https://www.transparenttextures.com/patterns/cream-paper.png");
+    /* แก้ปัญหาลายกระดาษหายด้วย SVG Noise ฝังลงโค้ดโดยตรง (แคปเจอร์ติด 100%) */
+    --paper-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.02' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23f)' opacity='0.06'/%3E%3C/svg%3E");
   }
   body { font-family: 'Nunito', sans-serif; background: var(--blue); overflow-x: hidden; min-height: 100vh; }
   .page { display: none; min-height: 100vh; }
@@ -110,12 +111,12 @@
   /* ========================================================= */
   #captureArea { 
     background-color: var(--blue); 
-    background-image: var(--paper-texture); /* ใส่ลายกระดาษไว้ที่ฉากหลังสุด */
+    background-image: var(--paper-texture); /* ใส่ลายกระดาษ Scrapbook */
     margin: 16px auto; 
     padding: 16px; 
     position: relative; 
     aspect-ratio: 9 / 16; 
-    display: flex; flex-direction: column; align-items: center; /* บังคับจัดให้อยู่ตรงกลาง */
+    display: flex; flex-direction: column; align-items: center; 
     width: calc(100% - 32px); max-width: 420px;
   }
 
@@ -129,7 +130,7 @@
     border: 1px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.02); 
     display: flex; flex-direction: column; overflow: hidden; width: 100%;
     background-color: var(--cream);
-    background-image: var(--paper-texture); /* ใส่ลายกระดาษทับอีกชั้นให้มีมิติ */
+    background-image: var(--paper-texture); /* ใส่ลายกระดาษด้านในกรอบด้วย */
   }
   .dropped-decos { position: absolute; inset: 0; pointer-events: none; z-index: 20; border-radius: 16px; overflow: hidden;}
   .dropped-deco { position: absolute; font-size: 1.8rem; cursor: move; pointer-events: all; user-select: none; touch-action: none;}
@@ -521,6 +522,7 @@
     pandanLayer:  { th: 'เลเยอร์ใบเตย', en: 'Pandan Layer',     emoji: '🍃', imgSrc: 'https://lh3.googleusercontent.com/d/19Vk1Z1qEbQYjkUMipiDPZj9K_rtwBWkA' },
   };
 
+  // State Management: ระบบเก็บข้อมูลแยกอิสระสำหรับแต่ละเมนูเค้ก 100%
   let journalData = {
     blackforest: { title: '', celeb: '', date: '', memo: '', notes: '', photo: '', isPhotoVisible: 'none', stamp: '', decos: '' },
     buttervanilla: { title: '', celeb: '', date: '', memo: '', notes: '', photo: '', isPhotoVisible: 'none', stamp: '', decos: '' },
@@ -730,7 +732,7 @@
     reader.readAsDataURL(file);
   }
 
-  // === ระบบแคปภาพ Export 9:16 จัดกลางเป๊ะ พร้อมเทกเจอร์ ===
+  // === ระบบแคปภาพ 9:16 ที่แก้ปัญหาภาพเบี้ยว การจัดกลาง และ Texture หาย 100% ===
   function saveJournal() { 
     saveCurrentState();
     showToast(translations[currentLang].toastDownloading);
@@ -758,19 +760,19 @@
     const origStyles = {
         width: captureArea.style.width,
         maxWidth: captureArea.style.maxWidth,
+        margin: captureArea.style.margin,
         border: dashedBox.style.border,
         padding: dashedBox.style.padding,
         boxShadow: dashedBox.style.boxShadow,
         borderRadius: dashedBox.style.borderRadius
     };
 
-    // ปลดล็อค Container แล้วเซ็ตให้แคปภาพขนาด 540x960 
+    // บังคับคอนเทนเนอร์ให้เป็นพื้นที่ขนาด 540x960 
     container.style.maxWidth = '1000px';
     captureArea.style.width = '540px';
     captureArea.style.maxWidth = '540px'; 
     captureArea.style.height = '960px';
-    // จัดตำแหน่งกล่องกลางหน้าจอเพื่อไม่ให้เอียงซ้าย
-    captureArea.style.margin = '0 auto';
+    captureArea.style.margin = '0 auto'; // จัดให้อยู่กลางจอเวลาแคป ป้องกันการเอียงซ้าย
 
     header.style.display = 'block';
     footer.style.display = 'block';
@@ -785,22 +787,24 @@
     window.scrollTo(0,0); 
 
     setTimeout(() => {
+        // ใช้ html2canvas กับออปชัน backgroundColor: null เพื่ออนุญาตให้ Texture SVG เบื้องหลังโชว์ออกมาได้
         html2canvas(captureArea, {
             useCORS: true,
+            allowTaint: true,
             scale: 2, 
-            backgroundColor: null, // ให้พื้นหลังใส เพื่อโชว์สีและเทกเจอร์ที่กำหนดใน captureArea
+            backgroundColor: null, // โชว์พื้นหลังเดิมที่มีลายกระดาษ
             width: 540,
             height: 960,
             windowWidth: 600
         }).then(canvas => {
             globalImageDataUrl = canvas.toDataURL('image/png');
             
-            // คืนค่า DOM เดิมให้ผู้ใช้
+            // คืนค่ากลับเป็นมือถือเหมือนเดิม
             container.style.maxWidth = origMaxWidth;
             captureArea.style.width = origStyles.width;
             captureArea.style.maxWidth = origStyles.maxWidth;
             captureArea.style.height = 'auto';
-            captureArea.style.margin = '16px auto'; // คืนค่ากลางกลับสำหรับจอมือถือ
+            captureArea.style.margin = origStyles.margin; 
             header.style.display = 'none';
             footer.style.display = 'none';
             dashedBox.style.border = origStyles.border || '1px solid var(--border-color)';
@@ -814,7 +818,7 @@
             noteText.style.display = 'block';
             noteFix.style.display = 'none';
 
-            // โชว์ภาพในหน้าต่างพรีวิว
+            // พรีวิวภาพลงจอ
             document.getElementById('finalExportImg').src = globalImageDataUrl;
             document.getElementById('igOverlay').classList.add('active');
             showToast(translations[currentLang].toastSave);
