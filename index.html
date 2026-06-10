@@ -229,4 +229,490 @@
     justify-content: center; align-items: center; text-align: center; padding: 14px; position: relative; z-index: 2;
   }
   .ig-sticker-space img { width: 110px; height: 110px; border-radius: 50%; object-fit: cover; border: 2px solid var(--road); }
-  .ig-note-preview { font-style: italic; font-size: 13px; color: #444
+  .ig-note-preview { font-style: italic; font-size: 13px; color: #444; margin-top: 10px; line-height: 1.5; max-width: 260px; font-weight: 600;}
+  .ig-footer { text-align: center; font-size: 11px; font-weight: 700; opacity: 0.9; position: relative; z-index: 2; }
+  
+  .ig-action-bar { display: flex; gap: 10px; margin-top: 20px; }
+  .action-btn { 
+    background: white; color: black; border: none; padding: 12px 20px; 
+    border-radius: 12px; font-family: 'Nunito', sans-serif; font-weight: 700; cursor: pointer; 
+  }
+  .dl-btn { background: var(--road); color: white; }
+  .dl-btn:hover { background: #7A1114; }
+
+  input[type="file"] { display:none; }
+  .toast {
+    position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--dark);color:white;padding:10px 22px;border-radius:24px;
+    font-size:0.83rem;font-weight:700;opacity:0;transition:opacity 0.3s,transform 0.3s;z-index:999;pointer-events:none;
+  }
+  .toast.show { opacity:1;transform:translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<button id="langToggle" class="lang-btn" onclick="toggleLang()">EN</button>
+
+<div id="roadmap-page" class="page active">
+  <div class="roadmap-header">
+    <h1>Journey <span>&</span> Journal 🎂</h1>
+  </div>
+  <p class="roadmap-subtitle" id="t-roadmap-sub">กดที่เค้กเพื่อสร้าง journal ของคุณ ✨</p>
+
+  <div class="scene-wrap">
+    <svg class="scene-svg" viewBox="0 0 800 700" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+      <path d="M 50,60 C 150,80 150,200 280,200 C 400,200 400,110 500,110 C 650,110 600,310 700,310 C 800,310 800,600 500,600 C 350,600 400,600 280,600"
+        fill="none" stroke="#AA1F24" stroke-width="30" stroke-linecap="round"/>
+      <path d="M 50,60 C 150,80 150,200 280,200 C 400,200 400,110 500,110 C 650,110 600,310 700,310 C 800,310 800,600 500,600 C 350,600 400,600 280,600"
+        fill="none" stroke="#FFF" stroke-width="3" stroke-dasharray="16,13" stroke-linecap="round" opacity="0.8"/>
+    </svg>
+
+    <div class="heart-deco" style="left:22%;top:28%">❤️</div>
+    <div class="heart-deco" style="left:65%;top:65%;animation-delay:.7s">❤️</div>
+    <div class="floaty" style="left:15%;top:50%;animation-delay:1s">🌸</div>
+    <div class="floaty" style="right:10%;top:18%;animation-delay:2s">⭐</div>
+    <div class="floaty" style="left:43%;top:5%;animation-delay:.5s">🍬</div>
+    <div class="start-flag">🚩</div>
+    <div class="end-flag">🏁</div>
+
+    <div class="cake-stop locked" id="node-blackforest" style="left:2%;top:4%;" onclick="handleCakeClick('blackforest', this)">
+      <div class="cake-circle">
+        <img src="https://lh3.googleusercontent.com/d/19ZFMBB5cfdvaDL5gCCzWwxt05Fg5OzJS" alt="Cake" crossorigin="anonymous" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
+      </div>
+      <div class="cake-label" id="label-blackforest">🔒 ยังไม่ปลดล็อค</div>
+    </div>
+
+    <div class="cake-stop locked" id="node-buttervanilla" style="left:31%;top:23%;" onclick="handleCakeClick('buttervanilla', this)">
+      <div class="cake-circle">
+        <img src="https://lh3.googleusercontent.com/d/19Sb-AfW_SmfvJBQSMrBtJuWpT6H2mZzG" alt="Cake" crossorigin="anonymous" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
+      </div>
+      <div class="cake-label" id="label-buttervanilla">🔒 ยังไม่ปลดล็อค</div>
+    </div>
+
+    <div class="cake-stop locked" id="node-chocoFudge" style="left:58%;top:10%;" onclick="handleCakeClick('chocoFudge', this)">
+      <div class="cake-circle">
+        <img src="https://lh3.googleusercontent.com/d/19BUDSO-FYbnEvd1nYygFKb5kYuFYaqJm" alt="Cake" crossorigin="anonymous" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
+      </div>
+      <div class="cake-label" id="label-chocoFudge">🔒 ยังไม่ปลดล็อค</div>
+    </div>
+
+    <div class="cake-stop locked" id="node-pandanLayer" style="left:81%;top:40%;" onclick="handleCakeClick('pandanLayer', this)">
+      <div class="cake-circle">
+        <img src="https://lh3.googleusercontent.com/d/19Vk1Z1qEbQYjkUMipiDPZj9K_rtwBWkA" alt="Cake" crossorigin="anonymous" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
+      </div>
+      <div class="cake-label" id="label-pandanLayer">🔒 ยังไม่ปลดล็อค</div>
+    </div>
+
+    <div class="membership-stop" id="membershipNode" style="left:30%; top:78%;" onclick="triggerMembershipReward()">
+      <div class="membership-badge">🎁</div>
+      <div class="cake-label" style="border: 2px solid var(--road); font-weight: 800; color: var(--road);" id="t-claim-discount">รับส่วนลดสมาชิก</div>
+    </div>
+  </div>
+
+  <p style="text-align:center;font-size:0.78rem;color:#666;padding:10px 20px 36px;font-weight:600;" id="t-roadmap-hint">
+    🗺️ กดปลดล็อคเค้กให้ครบ เพื่อรับคูปองส่วนลดสมาชิกที่ปลายทาง
+  </p>
+</div>
+
+<div id="journal-page" class="page">
+  <div class="journal-container">
+    <button class="back-btn" id="t-back-btn" onclick="goBack()">← กลับหน้า Roadmap</button>
+
+    <div class="deco-section">
+      <div class="deco-title" id="t-deco-title">เลือกของตกแต่งที่นี่</div>
+      <div class="deco-carousel">
+        <button class="carousel-btn" onclick="scrollDecos(-1)">‹</button>
+        <div class="deco-scroll" id="decoScroll">
+          <div class="deco-item" onclick="selectDeco(this,'🍉')">🍉</div>
+          <div class="deco-item" onclick="selectDeco(this,'⭐')">⭐</div>
+          <div class="deco-item" onclick="selectDeco(this,'🍊')">🍊</div>
+          <div class="deco-item" onclick="selectDeco(this,'📼')">📼</div>
+          <div class="deco-item" onclick="selectDeco(this,'🌸')">🌸</div>
+          <div class="deco-item" onclick="selectDeco(this,'🎀')">🎀</div>
+          <div class="deco-item" onclick="selectDeco(this,'🍓')">🍓</div>
+          <div class="deco-item" onclick="selectDeco(this,'🌈')">🌈</div>
+          <div class="deco-item" onclick="selectDeco(this,'💫')">💫</div>
+          <div class="deco-item" onclick="selectDeco(this,'🎂')">🎂</div>
+          <div class="deco-item" onclick="selectDeco(this,'🌷')">🌷</div>
+          <div class="deco-item" onclick="selectDeco(this,'🦋')">🦋</div>
+          <div class="deco-item" onclick="selectDeco(this,'🍡')">🍡</div>
+          <div class="deco-item" onclick="selectDeco(this,'✨')">✨</div>
+          <div class="deco-item" onclick="selectDeco(this,'🌙')">🌙</div>
+        </div>
+        <button class="carousel-btn" onclick="scrollDecos(1)">›</button>
+      </div>
+    </div>
+
+    <button class="add-deco-btn" id="t-add-deco" onclick="addDecoToCanvas()">+ วางของตกแต่งลง Journal</button>
+
+    <div class="journal-canvas" id="journalCanvas">
+      <div class="dropped-decos" id="droppedDecos"></div>
+
+      <div class="journal-title-row">
+        <div class="journal-title-block">
+          <div class="field-label" id="t-label-name">ชื่อ Celebration</div>
+          <input class="title-input" id="journalTitle" type="text" placeholder="TITLE" maxlength="14"/>
+          <input class="celebration-input" id="celebrationInput" type="text" placeholder="celebration"/>
+        </div>
+      </div>
+
+      <div class="polaroid-wrap">
+        <div class="polaroid" onclick="triggerPhotoUpload()">
+          <div class="tape"></div>
+          <div class="polaroid-photo">
+            <img class="preview" id="photoPreview" src="" style="display:none" crossorigin="anonymous"/>
+            <div class="polaroid-placeholder" id="polaroidPlaceholder">
+              <div class="polaroid-cloud">🌤️</div><span id="t-photo-ph">ใส่รูปภาพ<br>ความทรงจำ</span>
+            </div>
+          </div>
+          <div class="polaroid-date">
+            Date: <input type="text" id="dateInput" value="--/--/--" onclick="event.stopPropagation()" placeholder="DD/MM/YY"/>
+          </div>
+        </div>
+        <input type="file" id="photoUpload" accept="image/*" onchange="handlePhotoUpload(event)"/>
+
+        <div class="journal-lines">
+          <div class="field-label" id="t-label-memo">บันทึกความทรงจำ</div>
+          <textarea class="lined-textarea" id="journalText" style="height:190px" placeholder="เขียนบันทึกที่นี่..."></textarea>
+        </div>
+      </div>
+
+      <div class="stars-row">✦ ✦ ✦</div>
+      <hr class="journal-divider"/>
+
+      <div class="cake-journal-section">
+        <div class="cake-journal-lines">
+          <div class="field-label" id="t-label-notes">บันทึกประสบการณ์เพิ่มเติม</div>
+          <textarea class="lined-textarea" id="cakeNote" style="height:90px" placeholder="บอกเล่าเรื่องราวความประทับใจ..."></textarea>
+          <div class="field-label" style="margin-top:6px">Cake Stamp</div>
+        </div>
+        <div class="cake-stamp-area" onclick="triggerCakeStampUpload()">
+          <div class="cake-stamp-frame">
+            <div class="stamp-pin">📌</div>
+            <img id="cakeStampImg" src="" alt="" crossorigin="anonymous"/>
+            <div class="cake-stamp-name" id="cakeStampName"></div>
+          </div>
+          <div class="stamp-hint" id="t-hint-stamp">📸 แตะเพื่อเปลี่ยนรูปเค้กของคุณ</div>
+        </div>
+      </div>
+      <input type="file" id="cakeStampUpload" accept="image/*" onchange="handleCakeStampUpload(event)"/>
+
+      <div class="tulip-corner">🌷</div>
+    </div>
+
+    <div class="save-bar">
+      <div class="save-hint" id="t-save-hint">Save & แชร์ลงโซเชียลได้เลย ✨</div>
+      <button class="save-btn" id="t-save-btn" onclick="saveJournal()">SAVE & SHARE</button>
+    </div>
+  </div>
+</div>
+
+<div class="share-preview-overlay" id="igOverlay">
+  <div class="ig-template-box" id="igTemplateBox">
+      <div class="ig-header">
+          <h2>#CAKE DUMP</h2>
+          <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.5px;">S&P PIECE OF MEMORIES</p>
+          <div class="ig-badge-title" id="igBadgeTitle">CAKE COLLECTOR</div>
+      </div>
+      
+      <div class="ig-sticker-space">
+          <img id="igStickerImg" src="" alt="Cake Sticker" crossorigin="anonymous">
+          <div style="font-weight: 800; font-size: 16px; color: var(--road); margin-top: 10px;" id="igMenuName">Cake Menu</div>
+          <div class="ig-note-preview" id="igNotePreview">"No notes logged"</div>
+      </div>
+      
+      <div class="ig-footer">
+          @SNP_GRAND / #CRACKTHECAKEBYCTT
+      </div>
+  </div>
+  
+  <div class="ig-action-bar">
+      <button class="action-btn dl-btn" id="t-dl-btn" onclick="downloadImage()">⬇️ บันทึกรูปภาพ</button>
+      <button class="action-btn" id="t-close-ig" onclick="closeIgShare()">← ปิดหน้าต่าง</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  let currentLang = 'th';
+
+  const translations = {
+    th: {
+      sub: "กดที่เค้กเพื่อสร้าง journal ของคุณ ✨",
+      hint: "🗺️ กดปลดล็อคเค้กให้ครบ เพื่อรับคูปองส่วนลดสมาชิกที่ปลายทาง",
+      claim: "รับส่วนลดสมาชิก",
+      backBtn: "← กลับหน้า Roadmap",
+      decoTitle: "เลือกของตกแต่งที่นี่",
+      addDeco: "+ วางของตกแต่งลง Journal",
+      lblTitle: "ชื่อ Celebration",
+      lblMemo: "บันทึกความทรงจำ",
+      lblNotes: "บันทึกประสบการณ์เพิ่มเติม",
+      phTitle: "TITLE",
+      phCeleb: "celebration",
+      phPhoto: "ใส่รูปภาพ<br>ความทรงจำ",
+      phMemo: "เขียนบันทึกที่นี่...\n\nวันนี้ฉันได้ลอง...\nรสชาติเป็นแบบ...\nฉันรู้สึก...",
+      phNotes: "บอกเล่าเรื่องราวความประทับใจและความรู้สึกส่วนตัวต่อที่นี่ได้เลยนะ...",
+      hintStamp: "📸 แตะเพื่อเปลี่ยนรูปเค้ก",
+      saveHint: "บันทึกและส่งออกเทมเพลตความสุขได้เลย ✨",
+      saveBtn: "SAVE & SHARE",
+      closeIg: "← ปิดหน้าต่าง",
+      downloadBtn: "⬇️ บันทึกรูปภาพ",
+      toastLock: "🔒 ยังไม่ปลดล็อค",
+      toastUnlockMsg: "🎉 ปลดล็อคเมนู {name} สำเร็จ!",
+      toastAllUnlock: "🎉 ยินดีด้วยปลดล็อคครบแล้ว! รับสิทธิ์ Member Discount ทันที!",
+      toastReward: "🎁 เคลมสิทธิ์คูปองส่วนลดสมาชิกเรียบร้อย!",
+      toastDecoWarn: "กรุณาเลือกของตกแต่งก่อน ✨",
+      toastDrop: "วางแล้ว! ลากสติกเกอร์ได้เลย",
+      toastPhoto: "📸 อัปโหลดรูปถ่ายส่วนตัวเรียบร้อย!",
+      toastSave: "📸 จำลองการสร้างเทมเพลต IG Story สำเร็จ!",
+      toastDownloading: "กำลังประมวลผลรูปภาพ...",
+      toastDownloaded: "✅ บันทึกลงเครื่องสำเร็จ!"
+    },
+    en: {
+      sub: "Tap a cake to create your journal ✨",
+      hint: "🗺️ Unlock all cakes to claim your membership discount!",
+      claim: "Claim Discount",
+      backBtn: "← Back to Roadmap",
+      decoTitle: "Choose Your Stickers Here",
+      addDeco: "+ Drop Sticker to Journal",
+      lblTitle: "Celebration Name",
+      lblMemo: "Memory Notes",
+      lblNotes: "Additional Experience",
+      phTitle: "TITLE",
+      phCeleb: "celebration context...",
+      phPhoto: "Insert<br>Memory Photo",
+      phMemo: "Write your thoughts...\n\nToday I tried...\nThe taste was...\nI felt...",
+      phNotes: "Tell us about your impression and personal feelings here...",
+      hintStamp: "📸 Tap to set custom photo",
+      saveHint: "Save & Share to your social! ✨",
+      saveBtn: "SAVE & SHARE",
+      closeIg: "← Back to App",
+      downloadBtn: "⬇️ Download Image",
+      toastLock: "🔒 Locked",
+      toastUnlockMsg: "🎉 Unlocked {name} successfully!",
+      toastAllUnlock: "🎉 Congratulations! All cakes unlocked. You received a 15% Discount Coupon!",
+      toastReward: "🎁 Membership discount claimed successfully!",
+      toastDecoWarn: "Please select a decoration first ✨",
+      toastDrop: "Dropped! You can drag it now",
+      toastPhoto: "📸 Your personal photo uploaded successfully!",
+      toastSave: "📸 Created template ready for IG Story!",
+      toastDownloading: "Generating image...",
+      toastDownloaded: "✅ Image saved successfully!"
+    }
+  };
+
+  const cakes = {
+    blackforest:  { th: 'แบล็คฟอเรสต์', en: 'Black Forest',     emoji: '🍒', imgSrc: 'https://lh3.googleusercontent.com/d/19ZFMBB5cfdvaDL5gCCzWwxt05Fg5OzJS' },
+    buttervanilla:{ th: 'บัตเตอร์วานิลลา', en: 'Butter Vanilla',   emoji: '🌸', imgSrc: 'https://lh3.googleusercontent.com/d/19Sb-AfW_SmfvJBQSMrBtJuWpT6H2mZzG' },
+    chocoFudge:   { th: 'ช็อกโกแลตฟัดจ์', en: 'Chocolate Fudge',  emoji: '🍫', imgSrc: 'https://lh3.googleusercontent.com/d/19BUDSO-FYbnEvd1nYygFKb5kYuFYaqJm' },
+    pandanLayer:  { th: 'เลเยอร์ใบเตย', en: 'Pandan Layer',     emoji: '🍃', imgSrc: 'https://lh3.googleusercontent.com/d/19Vk1Z1qEbQYjkUMipiDPZj9K_rtwBWkA' },
+  };
+
+  let unlockStatus = { blackforest: false, buttervanilla: false, chocoFudge: false, pandanLayer: false };
+  let selectedDeco = null;
+  let currentActiveKey = "blackforest";
+
+  // ฟังก์ชันสลับภาษา
+  function toggleLang() {
+    currentLang = currentLang === 'th' ? 'en' : 'th';
+    document.getElementById('langToggle').innerText = currentLang === 'th' ? 'EN' : 'TH';
+    applyLanguage();
+  }
+
+  function applyLanguage() {
+    const t = translations[currentLang];
+    document.getElementById('t-roadmap-sub').innerText = t.sub;
+    document.getElementById('t-roadmap-hint').innerText = t.hint;
+    document.getElementById('t-claim-discount').innerText = t.claim;
+    document.getElementById('t-back-btn').innerText = t.backBtn;
+    document.getElementById('t-deco-title').innerText = t.decoTitle;
+    document.getElementById('t-add-deco').innerText = t.addDeco;
+    document.getElementById('t-label-name').innerText = t.lblTitle;
+    document.getElementById('t-label-memo').innerText = t.lblMemo;
+    document.getElementById('t-label-notes').innerText = t.lblNotes;
+    document.getElementById('t-hint-stamp').innerText = t.hintStamp;
+    document.getElementById('t-save-hint').innerText = t.saveHint;
+    document.getElementById('t-save-btn').innerText = t.saveBtn;
+    document.getElementById('t-close-ig').innerText = t.closeIg;
+    document.getElementById('t-dl-btn').innerText = t.downloadBtn;
+
+    document.getElementById('journalTitle').placeholder = t.phTitle;
+    document.getElementById('celebrationInput').placeholder = t.phCeleb;
+    document.getElementById('t-photo-ph').innerHTML = t.phPhoto;
+    document.getElementById('journalText').placeholder = t.phMemo;
+    document.getElementById('cakeNote').placeholder = t.phNotes;
+
+    Object.keys(cakes).forEach(key => {
+      const labelEl = document.getElementById('label-' + key);
+      if(unlockStatus[key]) {
+        labelEl.textContent = cakes[key].emoji + ' ' + cakes[key][currentLang];
+      } else {
+        labelEl.textContent = t.toastLock;
+      }
+    });
+
+    if(document.getElementById('journal-page').classList.contains('active')){
+      document.getElementById('cakeStampName').textContent = cakes[currentActiveKey].emoji + ' ' + cakes[currentActiveKey][currentLang];
+    }
+  }
+
+  applyLanguage();
+
+  function handleCakeClick(key, element) {
+    if (!unlockStatus[key]) {
+      unlockStatus[key] = true;
+      element.classList.remove('locked');
+      const c = cakes[key];
+      element.querySelector('.cake-label').textContent = c.emoji + ' ' + c[currentLang];
+      showToast(translations[currentLang].toastUnlockMsg.replace('{name}', c[currentLang]));
+      checkAllUnlocked();
+    } else {
+      openJournal(key);
+    }
+  }
+
+  function checkAllUnlocked() {
+    const allUnlocked = Object.values(unlockStatus).every(status => status === true);
+    if (allUnlocked) {
+      document.getElementById('membershipNode').style.display = 'flex';
+      setTimeout(() => alert(translations[currentLang].toastAllUnlock), 800);
+    }
+  }
+
+  function triggerMembershipReward() {
+    showToast(translations[currentLang].toastReward);
+  }
+
+  function openJournal(key) {
+    currentActiveKey = key;
+    const c = cakes[key];
+    document.getElementById('cakeStampImg').src = c.imgSrc;
+    document.getElementById('cakeStampName').textContent = c.emoji + ' ' + c[currentLang];
+    document.getElementById('roadmap-page').classList.remove('active');
+    document.getElementById('journal-page').classList.add('active');
+    window.scrollTo(0,0);
+  }
+
+  function goBack() {
+    document.getElementById('journal-page').classList.remove('active');
+    document.getElementById('roadmap-page').classList.add('active');
+    window.scrollTo(0,0);
+  }
+
+  function scrollDecos(dir) { document.getElementById('decoScroll').scrollBy({left:dir*130,behavior:'smooth'}); }
+
+  function selectDeco(el, emoji) {
+    document.querySelectorAll('.deco-item').forEach(d=>d.classList.remove('selected'));
+    el.classList.add('selected'); selectedDeco = emoji;
+  }
+
+  function addDecoToCanvas() {
+    if(!selectedDeco){ showToast(translations[currentLang].toastDecoWarn); return; }
+    const layer = document.getElementById('droppedDecos');
+    const canvas = document.getElementById('journalCanvas');
+    const el = document.createElement('div');
+    el.className = 'dropped-deco'; el.textContent = selectedDeco;
+    el.style.left = (Math.random()*(canvas.offsetWidth-50))+'px';
+    el.style.top  = (Math.random()*(canvas.offsetHeight-50))+'px';
+    makeDraggable(el); layer.appendChild(el);
+    showToast(translations[currentLang].toastDrop);
+  }
+
+  function makeDraggable(el) {
+    let sx,sy,ol,ot;
+    el.addEventListener('pointerdown', e => {
+      e.preventDefault(); sx=e.clientX; sy=e.clientY;
+      ol=parseInt(el.style.left)||0; ot=parseInt(el.style.top)||0;
+      el.setPointerCapture(e.pointerId);
+    });
+    el.addEventListener('pointermove', e => {
+      if(!el.hasPointerCapture(e.pointerId)) return;
+      el.style.left=(ol+e.clientX-sx)+'px'; el.style.top=(ot+e.clientY-sy)+'px';
+    });
+    el.addEventListener('pointerup', e => {
+      el.releasePointerCapture(e.pointerId);
+    });
+  }
+
+  function triggerPhotoUpload() { document.getElementById('photoUpload').click(); }
+  function handlePhotoUpload(e) {
+    const f = e.target.files[0]; if(!f) return;
+    const r = new FileReader();
+    r.onload = ev => {
+      document.getElementById('photoPreview').src = ev.target.result;
+      document.getElementById('photoPreview').style.display = 'block';
+      document.getElementById('polaroidPlaceholder').style.display = 'none';
+    };
+    r.readAsDataURL(f);
+  }
+
+  function triggerCakeStampUpload() { document.getElementById('cakeStampUpload').click(); }
+  function handleCakeStampUpload(e) {
+    const file = e.target.files[0]; if(!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      document.getElementById('cakeStampImg').src = ev.target.result;
+      showToast(translations[currentLang].toastPhoto);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // ส่งออก IG Story พร้อม Dynamic Background
+  function saveJournal() { 
+    const c = cakes[currentActiveKey];
+    const notes = document.getElementById('journalText').value || (currentLang === 'th' ? "ความทรงจำแสนวิเศษ 💖✨" : "A wonderful memory 💖✨");
+    
+    document.getElementById('igMenuName').innerText = c.emoji + " " + c[currentLang];
+    document.getElementById('igStickerImg').src = document.getElementById('cakeStampImg').src;
+    document.getElementById('igNotePreview').innerText = `"${notes}"`;
+
+    const igBox = document.getElementById('igTemplateBox');
+    const isPhotoUploaded = document.getElementById('photoPreview').style.display === 'block';
+    
+    if (isPhotoUploaded) {
+      const uploadedImageSrc = document.getElementById('photoPreview').src;
+      igBox.style.backgroundImage = `linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 240, 241, 0.95)), url(${uploadedImageSrc})`;
+      igBox.style.backgroundSize = 'cover';
+      igBox.style.backgroundPosition = 'center';
+    } else {
+      igBox.style.backgroundImage = `linear-gradient(180deg, #FFF5F5 0%, #FFF0F1 100%)`;
+    }
+
+    document.getElementById('igOverlay').classList.add('active');
+    showToast(translations[currentLang].toastSave);
+  }
+
+  function closeIgShare() {
+    document.getElementById('igOverlay').classList.remove('active');
+  }
+
+  // ฟังก์ชันดาวน์โหลดรูปภาพจาก html2canvas
+  function downloadImage() {
+    showToast(translations[currentLang].toastDownloading);
+    const box = document.getElementById('igTemplateBox');
+    
+    html2canvas(box, {
+        useCORS: true, 
+        scale: 2, 
+        backgroundColor: null
+    }).then(canvas => {
+        let link = document.createElement('a');
+        link.download = 'SNP_Journal_Memory.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        showToast(translations[currentLang].toastDownloaded);
+    }).catch(err => {
+        console.error("Error generating image", err);
+        showToast("Error / ล้มเหลวในการสร้างภาพ");
+    });
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'), 2800);
+  }
+</script>
+</body>
+</html>
