@@ -39,7 +39,7 @@
   .roadmap-header h1 span { color: var(--caramel); }
   .roadmap-subtitle { font-size: 0.85rem; text-align: center; color: #555; margin: 6px 20px 16px; font-weight: 600; }
 
-  /* ขยายความสูงของ Roadmap ป้องกันการทับซ้อน (720px) */
+  /* ขยายความสูงของ Roadmap 720px */
   .scene-wrap { position: relative; width: 100%; max-width: 800px; margin: 0 auto; height: 720px; }
   .scene-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 
@@ -123,75 +123,96 @@
     cursor: pointer; margin: 10px 16px 0; display: block; width: calc(100% - 32px); text-align: center;
   }
 
-  /* Capture Wrapper: องค์ประกอบที่จะถูกรวมในภาพที่แคปลงเครื่อง */
-  #captureArea { background: var(--cream); padding: 16px; margin: 0; position: relative; }
-  .journal-canvas { position: relative; border-radius: 16px; padding: 12px; border: 1px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+  /* ========================================================================= */
+  /* WYSIWYG Editor: ทำหน้าแก้ไขให้มีขนาด 9:16 เป๊ะเหมือนรูปส่งออก 100% */
+  /* ========================================================================= */
+  #captureArea { 
+    background: var(--cream); margin: 16px; position: relative; 
+    aspect-ratio: 9 / 16; /* บังคับสัดส่วน 9:16 แบบไดนามิกตามความกว้างจอ */
+    display: flex; flex-direction: column;
+    box-sizing: border-box;
+  }
+  
+  #captureHeader { text-align: center; padding-top: 15px; padding-bottom: 10px;}
+  #captureHeader h2 { font-family: 'Pacifico', cursive; font-size: clamp(28px, 8vw, 36px); color: var(--road); }
+  #captureHeader p { font-size: clamp(11px, 3.5vw, 14px); font-weight: 700; letter-spacing: 0.5px; color: var(--road); margin-top: -5px; }
+  .badge-label { background: var(--road); color: white; padding: 4px 16px; border-radius: 20px; display: inline-block; margin-top: 8px; font-weight: 800; font-size: clamp(10px, 3vw, 12px); }
+
+  .journal-canvas { 
+    position: relative; flex: 1; border: 3px dashed var(--road); border-radius: 20px; 
+    padding: 12px; display: flex; flex-direction: column; overflow: hidden; /* กรอบเส้นประแดง */
+  }
   .dropped-decos { position: absolute; inset: 0; pointer-events: none; z-index: 20; border-radius: 16px; overflow: hidden;}
   .dropped-deco { position: absolute; font-size: 1.8rem; cursor: move; pointer-events: all; user-select: none; touch-action: none; }
 
   /* Title row */
-  .journal-title-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; position: relative; z-index: 10; }
+  .journal-title-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 8px; position: relative; z-index: 10; }
   .journal-title-block { flex: 1; }
-  .field-label { font-size: 0.7rem; color: #888; font-weight: 700; margin-bottom: 2px; }
+  .field-label { font-size: clamp(0.6rem, 2.5vw, 0.7rem); color: #888; font-weight: 700; margin-bottom: 2px; }
   .title-input {
-    font-family: 'Nunito',sans-serif; font-weight: 800; font-size: 2rem; color: var(--road);
+    font-family: 'Nunito',sans-serif; font-weight: 800; font-size: clamp(1.4rem, 6vw, 1.8rem); color: var(--road);
     border: none; background: transparent; outline: none; width: 100%;
   }
   .celebration-input {
-    font-family: 'Dancing Script',cursive; font-size: 1.3rem; color: var(--caramel);
-    border: none; background: transparent; outline: none; width: 100%; border-bottom: 1px solid #ccc;
+    font-family: 'Dancing Script',cursive; font-size: clamp(1.1rem, 4vw, 1.3rem); color: var(--caramel);
+    border: none; background: transparent; outline: none; width: 100%; border-bottom: 1px solid #ccc; padding-bottom: 4px;
   }
 
   /* Polaroid */
-  .polaroid-wrap { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; position: relative; z-index: 10; }
+  .polaroid-wrap { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; position: relative; z-index: 10; flex: 1;}
   .polaroid {
-    background: white; padding: 8px 8px 26px; box-shadow: 2px 4px 12px rgba(0,0,0,0.15);
-    width: 150px; flex-shrink: 0; position: relative; transform: rotate(-1.5deg); cursor: pointer; border: 1px solid #eee;
+    background: white; padding: 6px 6px 20px; box-shadow: 2px 4px 10px rgba(0,0,0,0.1);
+    width: 35%; max-width: 140px; flex-shrink: 0; position: relative; transform: rotate(-1.5deg); cursor: pointer; border: 1px solid #eee;
   }
   .tape {
-    position: absolute; top: -11px; left: 50%; transform: translateX(-50%); width: 56px; height: 20px;
+    position: absolute; top: -9px; left: 50%; transform: translateX(-50%); width: 45px; height: 16px;
     opacity: 0.8; border-radius: 2px;
     background: repeating-linear-gradient(45deg,var(--road) 0,var(--road) 4px,var(--pink) 4px,var(--pink) 8px);
   }
   .polaroid-photo {
-    width: 100%; height: 110px; background: linear-gradient(135deg,#f0f0f0,#e0e0e0);
+    width: 100%; aspect-ratio: 1; background: linear-gradient(135deg,#f0f0f0,#e0e0e0);
     display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden;
   }
   .polaroid-photo img.preview { width:100%;height:100%;object-fit:cover;position:absolute;inset:0; }
-  .polaroid-placeholder { text-align:center;font-size:0.7rem;color:#888;font-weight:700;z-index:1; }
-  .polaroid-cloud { font-size:1.8rem;margin-bottom:3px; }
-  .polaroid-date { font-size:0.78rem;font-weight:800;color:var(--dark);text-align:center;margin-top:5px; }
+  .polaroid-placeholder { text-align:center; font-size:clamp(0.55rem, 2vw, 0.7rem); color:#888; font-weight:700; z-index:1; }
+  .polaroid-cloud { font-size:1.4rem; margin-bottom:2px; }
+  .polaroid-date { font-size:0.7rem; font-weight:800; color:var(--dark); text-align:center; margin-top:4px; }
   .polaroid-date input {
     border:none;background:transparent;font-family:'Nunito',sans-serif;
-    font-weight:800;font-size:0.78rem;color:var(--dark);width:76px;text-align:center;outline:none;
+    font-weight:800;font-size:0.7rem;color:var(--dark);width:100%;text-align:center;outline:none;
   }
 
   /* Journal lines */
-  .journal-lines { flex: 1; }
+  .journal-lines { flex: 1; display: flex; flex-direction: column; height: 100%;}
   .lined-textarea {
-    width:100%;border:none;background:transparent;outline:none;
-    font-family:'Nunito',sans-serif;font-size:0.86rem;line-height:2.2;resize:none;
+    width:100%;border:none;background:transparent;outline:none; flex: 1;
+    font-family:'Nunito',sans-serif;font-size: clamp(0.75rem, 3vw, 0.85rem); line-height:2.2; resize:none;
     background-image:repeating-linear-gradient(transparent,transparent calc(2.2em - 1px),#eee calc(2.2em - 1px),#eee 2.2em);
     color:var(--dark); overflow: hidden;
   }
 
-  .stars-row { text-align:right;font-size:1rem;color:var(--caramel);letter-spacing:4px;margin:4px 0 6px;position:relative;z-index:10; }
-  .journal-divider { border:none;border-top:1px solid #ccc;margin:6px 0; }
+  .stars-row { text-align:right;font-size:0.9rem;color:var(--caramel);letter-spacing:4px;margin:2px 0 4px;position:relative;z-index:10; }
+  .journal-divider { border:none;border-top:1px solid #ccc;margin:4px 0; }
 
   /* Cake stamp section */
-  .cake-journal-section { display:flex;gap:14px;align-items:flex-start;position:relative;z-index:10;margin-top:6px; }
+  .cake-journal-section { display:flex;gap:10px;align-items:flex-start;position:relative;z-index:10;margin-top:4px; }
   .cake-journal-lines { flex:1; }
-  .cake-stamp-area { width:140px;flex-shrink:0; cursor:pointer;}
+  #cakeNote { min-height: 50px; }
+  
+  .cake-stamp-area { width: 35%; max-width: 130px; flex-shrink:0; cursor:pointer;}
   .cake-stamp-frame {
-    background:white;padding:8px 8px 10px; border: 1px solid #eee;
-    box-shadow:2px 4px 12px rgba(0,0,0,0.12);position:relative;transform:rotate(1deg);
+    background:white;padding:6px 6px 8px; border: 1px solid #eee;
+    box-shadow:2px 4px 10px rgba(0,0,0,0.1);position:relative;transform:rotate(1deg);
   }
-  .stamp-pin { position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-size:1.3rem;z-index:5; }
-  .cake-stamp-frame img { width:100%;height:90px;object-fit:cover;display:block;border-radius:4px; }
-  .cake-stamp-name { text-align:center;font-size:0.72rem;font-weight:800;color:var(--road);margin-top:5px; }
-  .stamp-hint { font-size: 0.58rem; color: var(--road); font-weight: bold; text-align: center; margin-top: 4px; }
+  .stamp-pin { position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:1.1rem;z-index:5; }
+  .cake-stamp-frame img { width:100%; aspect-ratio: 4/3; object-fit:cover; display:block; border-radius:4px; }
+  .cake-stamp-name { text-align:center;font-size:clamp(0.6rem, 2.5vw, 0.72rem);font-weight:800;color:var(--road);margin-top:4px; }
+  .stamp-hint { font-size: clamp(0.5rem, 2vw, 0.58rem); color: var(--road); font-weight: bold; text-align: center; margin-top: 4px; }
 
-  .tulip-corner { position:absolute;bottom:0;left:-10px;font-size:2.8rem;opacity:0.7;pointer-events:none; }
+  .tulip-corner { position:absolute;bottom:0;left:-8px;font-size:2.2rem;opacity:0.7;pointer-events:none; }
+
+  #captureFooter { text-align: center; padding-top: 10px; font-size: clamp(11px, 3.5vw, 14px); font-weight: 800; color: #AA1F24; letter-spacing: 0.5px;}
+  /* ========================================================================= */
 
   /* Save bar */
   .save-bar {
@@ -213,11 +234,11 @@
   }
   .share-preview-overlay.active { display: flex; }
   
-  /* กล่องแสดงผลสำหรับ Preview ให้ผู้ใช้ดู (จะใช้ object-fit: contain ป้องกันภาพเบี้ยว) */
+  /* กล่องพรีวิวป้องกันการเบี้ยว 100% */
   .ig-template-box {
-    width: 320px; height: 568px; /* อัตราส่วน 9:16 */
+    width: 100%; max-width: 340px; aspect-ratio: 9/16;
     background: transparent; position: relative;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.5); overflow: hidden; border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5); border-radius: 16px;
   }
   .ig-template-box img {
     width: 100%; height: 100%; object-fit: contain; /* ป้องกันภาพเบี้ยวเด็ดขาด */
@@ -339,10 +360,10 @@
 
     <div id="captureArea">
       
-      <div id="captureHeader" style="display: none; text-align: center; margin-bottom: 20px; padding-top: 15px;">
-        <h2 style="font-family: 'Pacifico', cursive; font-size: 42px; color: #AA1F24;">#CAKE DUMP</h2>
-        <p style="font-size: 16px; font-weight: 700; letter-spacing: 0.5px; color: #AA1F24; margin-top: -5px;">S&P PIECE OF MEMORIES</p>
-        <div style="background: #AA1F24; color: white; padding: 6px 20px; border-radius: 20px; display: inline-block; margin-top: 12px; font-weight: 800; font-size: 14px;">CAKE COLLECTOR</div>
+      <div id="captureHeader">
+        <h2>#CAKE DUMP</h2>
+        <p>S&P PIECE OF MEMORIES</p>
+        <div class="badge-label">CAKE COLLECTOR</div>
       </div>
 
       <div class="journal-canvas" id="journalCanvas">
@@ -373,7 +394,7 @@
 
           <div class="journal-lines">
             <div class="field-label" id="t-label-memo">บันทึกความทรงจำ</div>
-            <textarea class="lined-textarea" id="journalText" style="height:190px" placeholder="เขียนบันทึกที่นี่..."></textarea>
+            <textarea class="lined-textarea" id="journalText" placeholder="เขียนบันทึกที่นี่..."></textarea>
           </div>
         </div>
 
@@ -383,7 +404,7 @@
         <div class="cake-journal-section">
           <div class="cake-journal-lines">
             <div class="field-label" id="t-label-notes">บันทึกประสบการณ์เพิ่มเติม</div>
-            <textarea class="lined-textarea" id="cakeNote" style="height:90px" placeholder="บอกเล่าเรื่องราวความประทับใจ..."></textarea>
+            <textarea class="lined-textarea" id="cakeNote" placeholder="บอกเล่าเรื่องราวความประทับใจ..."></textarea>
             <div class="field-label" style="margin-top:6px">Cake Stamp</div>
           </div>
           <div class="cake-stamp-area" onclick="triggerCakeStampUpload()">
@@ -392,7 +413,7 @@
               <img id="cakeStampImg" src="" alt="" crossorigin="anonymous"/>
               <div class="cake-stamp-name" id="cakeStampName"></div>
             </div>
-            <div class="stamp-hint" id="t-hint-stamp" style="font-size: 0.6rem;">📸 แตะเพื่อเปลี่ยนรูปเค้กของคุณ</div>
+            <div class="stamp-hint" id="t-hint-stamp">📸 แตะเพื่อเปลี่ยนรูปเค้กของคุณ</div>
           </div>
         </div>
         <input type="file" id="cakeStampUpload" accept="image/*" onchange="handleCakeStampUpload(event)"/>
@@ -400,7 +421,7 @@
         <div class="tulip-corner">🌷</div>
       </div>
 
-      <div id="captureFooter" style="display: none; text-align: center; margin-top: 25px; padding-bottom: 15px; font-size: 16px; font-weight: 800; color: #AA1F24; letter-spacing: 0.5px;">
+      <div id="captureFooter">
         @sp_tumcake / #CRACKTHECAKEBYCTT
       </div>
       
@@ -455,7 +476,7 @@
       toastDecoWarn: "กรุณาเลือกของตกแต่งก่อน ✨",
       toastDrop: "วางแล้ว! ลากสติกเกอร์ได้เลย",
       toastPhoto: "📸 อัปโหลดรูปถ่ายส่วนตัวเรียบร้อย!",
-      toastSave: "📸 จำลองการสร้างเทมเพลต IG Story สำเร็จ!",
+      toastSave: "📸 สร้างเทมเพลตสำเร็จ พร้อมดาวน์โหลด!",
       toastDownloading: "กำลังประมวลผลรูปภาพ 9:16...",
       toastDownloaded: "✅ บันทึกลงเครื่องสำเร็จ!"
     },
@@ -486,7 +507,7 @@
       toastDecoWarn: "Please select a decoration first ✨",
       toastDrop: "Dropped! You can drag it now",
       toastPhoto: "📸 Your personal photo uploaded successfully!",
-      toastSave: "📸 Created template ready for IG Story!",
+      toastSave: "📸 Created template ready!",
       toastDownloading: "Generating 9:16 image...",
       toastDownloaded: "✅ Image saved successfully!"
     }
@@ -499,7 +520,6 @@
     pandanLayer:  { th: 'เลเยอร์ใบเตย', en: 'Pandan Layer',     emoji: '🍃', imgSrc: 'https://lh3.googleusercontent.com/d/19Vk1Z1qEbQYjkUMipiDPZj9K_rtwBWkA' },
   };
 
-  // State Management: ระบบเก็บข้อมูลแยกอิสระสำหรับแต่ละเมนูเค้ก 100%
   let journalData = {
     blackforest: { title: '', celeb: '', date: '', memo: '', notes: '', photo: '', isPhotoVisible: 'none', stamp: '', decos: '' },
     buttervanilla: { title: '', celeb: '', date: '', memo: '', notes: '', photo: '', isPhotoVisible: 'none', stamp: '', decos: '' },
@@ -510,7 +530,7 @@
   let unlockStatus = { blackforest: false, buttervanilla: false, chocoFudge: false, pandanLayer: false };
   let selectedDeco = null;
   let currentActiveKey = "blackforest";
-  let globalImageDataUrl = ""; // เก็บไฟล์รูปที่ gen มาจาก html2canvas
+  let globalImageDataUrl = "";
 
   function toggleLang() {
     currentLang = currentLang === 'th' ? 'en' : 'th';
@@ -557,7 +577,6 @@
 
   applyLanguage();
 
-  // === ระบบออโต้เซฟลง State ===
   function saveCurrentState() {
      if(!currentActiveKey) return;
      journalData[currentActiveKey] = {
@@ -573,7 +592,6 @@
      };
   }
 
-  // อัปเดตข้อมูล State ตลอดเวลาที่พิมพ์หรือวางสติกเกอร์
   document.querySelectorAll('#journalCanvas input, #journalCanvas textarea').forEach(el => {
       el.addEventListener('input', saveCurrentState);
   });
@@ -581,7 +599,6 @@
       if(document.getElementById('journal-page').classList.contains('active')) saveCurrentState();
   });
 
-  // ระบบปลดล็อคเค้กและแสดงคูปองส่วนลด
   function handleCakeClick(key, element) {
     if (!unlockStatus[key]) {
       unlockStatus[key] = true;
@@ -607,7 +624,6 @@
     showToast(translations[currentLang].toastReward);
   }
 
-  // โหลด State เวลาเปิดเค้กแต่ละชิ้น (แยกข้อมูลชิ้นใครชิ้นมัน 100%)
   function openJournal(key) {
     currentActiveKey = key;
     const data = journalData[key];
@@ -645,7 +661,7 @@
   }
 
   function goBack() {
-    saveCurrentState(); // เซฟก่อนกลับ
+    saveCurrentState();
     document.getElementById('journal-page').classList.remove('active');
     document.getElementById('roadmap-page').classList.add('active');
     window.scrollTo(0,0);
@@ -713,82 +729,28 @@
     reader.readAsDataURL(file);
   }
 
-  // === ระบบแคปภาพ Export 9:16 ไร้ความผิดเพี้ยนเป๊ะตาม Template (html2canvas) ===
+  // === ระบบแคปภาพ Export 9:16 ที่ปราศจากปัญหาเบี้ยวอย่างเด็ดขาด ===
   function saveJournal() { 
     saveCurrentState();
     showToast(translations[currentLang].toastDownloading);
 
     const captureArea = document.getElementById('captureArea');
-    const header = document.getElementById('captureHeader');
-    const dashedBox = document.getElementById('journalCanvas');
-    const footer = document.getElementById('captureFooter');
-
-    // เก็บสไตล์เดิมก่อนเปลี่ยนเพื่อแคปเจอร์
-    const origStyles = {
-        width: captureArea.style.width,
-        height: captureArea.style.height,
-        display: captureArea.style.display,
-        flexDirection: captureArea.style.flexDirection,
-        border: dashedBox.style.border,
-        padding: dashedBox.style.padding,
-        boxShadow: dashedBox.style.boxShadow,
-        margin: dashedBox.style.margin
-    };
-
-    // บังคับเปลี่ยน DOM ให้เป็นไซส์ 9:16 เป๊ะ (เช่น 540x960 px) ก่อนทำการถ่ายภาพ
-    captureArea.style.width = '540px';
-    captureArea.style.height = '960px';
-    captureArea.style.display = 'flex';
-    captureArea.style.flexDirection = 'column';
-    captureArea.style.backgroundColor = '#FDFBF7';
-    captureArea.style.padding = '24px';
-    captureArea.style.boxSizing = 'border-box';
-
-    header.style.display = 'block';
-    footer.style.display = 'block';
     
-    // ตกแต่งกรอบเส้นประแดงตามภาพตัวอย่างของคุณ
-    dashedBox.style.border = '4px dashed var(--road)';
-    dashedBox.style.padding = '24px';
-    dashedBox.style.boxShadow = 'none';
-    dashedBox.style.flex = '1';
-    dashedBox.style.margin = '10px 0';
-    dashedBox.style.borderRadius = '24px';
-    
-    // ซ่อน Scrollbar ของ Textarea ชั่วคราวเพื่อป้องกันแคปเจอร์ล้มเหลว
+    // ซ่อน Scrollbar ของ Textarea ชั่วคราวเพื่อแคปเจอร์
     document.querySelectorAll('textarea').forEach(el => { el.style.overflow = 'hidden'; });
-
-    // รีเซ็ตการ Scroll กลับไปบนสุดเสมอ (กัน html2canvas ตัดภาพผิดตำแหน่ง)
     window.scrollTo(0,0); 
 
+    // ใช้ html2canvas ดึงผลลัพธ์จาก DOM โดยไม่มีการบิดเบือนขนาด
     html2canvas(captureArea, {
         useCORS: true,
-        scale: 2,
+        scale: 3, // เพิ่มความละเอียดระดับ HD
         backgroundColor: "#FDFBF7",
-        width: 540,
-        height: 960,
-        windowWidth: 540,
-        windowHeight: 960
     }).then(canvas => {
         globalImageDataUrl = canvas.toDataURL('image/png');
         
-        // คืนค่า DOM เดิมให้ผู้ใช้
-        captureArea.style.width = origStyles.width;
-        captureArea.style.height = origStyles.height;
-        captureArea.style.display = origStyles.display;
-        captureArea.style.flexDirection = origStyles.flexDirection;
-        captureArea.style.padding = '16px';
-        header.style.display = 'none';
-        footer.style.display = 'none';
-        dashedBox.style.border = origStyles.border || '1px solid var(--border-color)';
-        dashedBox.style.padding = origStyles.padding || '12px';
-        dashedBox.style.boxShadow = origStyles.boxShadow || '0 4px 15px rgba(0,0,0,0.02)';
-        dashedBox.style.flex = 'unset';
-        dashedBox.style.margin = origStyles.margin || '14px 16px';
-        
         document.querySelectorAll('textarea').forEach(el => { el.style.overflow = 'auto'; });
 
-        // เอารูปที่ได้ไปแสดงใน Overlay Preview (แบบไม่โดนบีบเบี้ยวด้วย object-fit:contain)
+        // นำภาพเข้าป๊อปอัปให้ผู้ใช้ดาวน์โหลด
         document.getElementById('finalExportImg').src = globalImageDataUrl;
         document.getElementById('igOverlay').classList.add('active');
         showToast(translations[currentLang].toastSave);
