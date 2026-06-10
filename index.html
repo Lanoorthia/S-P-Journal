@@ -10,7 +10,6 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    /* โทนสี S&P: แดง-ขาว-น้ำตาล */
     --cream: #FFFFFF; 
     --blue: #FDFBF7; 
     --pink: #FFF0F1;
@@ -18,8 +17,6 @@
     --road: #AA1F24; 
     --dark: #2A2A2A;
     --border-color: #EAEAEA;
-    /* อัปเดต Path ของไฟล์ภาพพื้นหลังให้ตรงกับโฟลเดอร์ของคุณ */
-    --paper-texture: url('images/paper.jpg');
   }
   body { font-family: 'Nunito', sans-serif; background: var(--blue); overflow-x: hidden; min-height: 100vh; margin: 0;}
   .page { display: none; min-height: 100vh; }
@@ -111,15 +108,27 @@
   /* ========================================================= */
   #captureArea { 
     background-color: var(--blue); 
-    background-image: var(--paper-texture); /* ดึงลายกระดาษมาใช้เป็นพื้นหลังสุด */
-    background-size: cover;
-    background-position: center;
     margin: 16px auto; 
     padding: 16px; 
     position: relative; 
     aspect-ratio: 9 / 16; 
     display: flex; flex-direction: column; align-items: center; 
     width: calc(100% - 32px); max-width: 420px;
+    z-index: 1; /* สำคัญ: สร้าง Stacking Context ให้ลายกระดาษอยู่ข้างล่าง */
+  }
+
+  /* * ใช้แท็ก img วางเป็น Background ด้านล่างสุด 
+   * เพื่อแก้ปัญหา html2canvas มองไม่เห็น CSS background-image
+   */
+  .paper-bg-texture {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.9;
   }
 
   #captureHeader { text-align: center; margin-bottom: 12px; padding-top: 10px; width: 100%; }
@@ -131,10 +140,8 @@
     position: relative; flex: 1; border-radius: 16px; padding: 14px; 
     border: 1px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.02); 
     display: flex; flex-direction: column; overflow: hidden; width: 100%;
-    /* ปรับพื้นหลังให้โปรงใสระดับหนึ่ง เพื่อให้มองทะลุเห็นลายกระดาษยับด้านหลัง */
-    background-color: rgba(253, 251, 247, 0.65);
-    background-image: var(--paper-texture); /* ซ้อนลายกระดาษด้านในอีกชั้น */
-    background-size: cover;
+    /* ปล่อยให้พื้นหลังใสเพื่อให้ลายกระดาษจาก .paper-bg-texture ทะลุขึ้นมา */
+    background-color: transparent; 
   }
   .dropped-decos { position: absolute; inset: 0; pointer-events: none; z-index: 20; border-radius: 16px; overflow: hidden;}
   .dropped-deco { position: absolute; font-size: 1.8rem; cursor: move; pointer-events: all; user-select: none; touch-action: none;}
@@ -158,6 +165,7 @@
     background: white; padding: 8px 8px 26px; box-shadow: 2px 4px 12px rgba(0,0,0,0.15);
     width: 38%; min-width: 120px; flex-shrink: 0; position: relative; transform: rotate(-1.5deg); cursor: pointer; border: 1px solid #eee; height: max-content;
   }
+  
   .tape {
     position: absolute; top: -9px; left: 50%; transform: translateX(-50%); width: 45px; height: 16px; opacity: 0.85; border-radius: 2px;
     background-color: var(--pink);
@@ -179,6 +187,7 @@
 
   /* Journal lines */
   .journal-lines { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  
   .lined-textarea, .html2canvas-textarea-fix {
     width:100%;border:none;background:transparent;outline:none; flex: 1;
     font-family:'Nunito',sans-serif; font-size:13px; color:var(--dark); overflow: hidden;
@@ -186,6 +195,7 @@
     background-image: linear-gradient(transparent, transparent 27px, #dddddd 27px, #dddddd 28px);
     background-size: 100% 28px;
   }
+  
   .html2canvas-textarea-fix {
     white-space: pre-wrap; word-wrap: break-word; text-align: left; display: none;
   }
@@ -196,6 +206,7 @@
   /* Cake stamp section */
   .cake-journal-section { display:flex;gap:12px;align-items:stretch;position:relative;z-index:10;margin-top:4px; width: 100%; height: max-content;}
   .cake-journal-lines { flex:1; min-width: 0; display: flex; flex-direction: column;}
+  
   #cakeNote, #cakeNoteFix { height: 84px; flex: none; } 
   
   .cake-stamp-area { width: 38%; min-width: 120px; flex-shrink:0; cursor:pointer;}
@@ -287,35 +298,35 @@
     <div class="start-flag">🚩</div>
     <div class="end-flag">🏁</div>
 
-    <div class="cake-stop locked" id="node-blackforest" style="left:23%;top:11%;" onclick="handleCakeClick('blackforest', this)">
+    <div class="cake-stop locked" id="node-blackforest" style="left:20%;top:13%;" onclick="handleCakeClick('blackforest', this)">
       <div class="cake-circle">
         <img src="https://lh3.googleusercontent.com/d/19ZFMBB5cfdvaDL5gCCzWwxt05Fg5OzJS" alt="Cake" crossorigin="anonymous" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
       </div>
       <div class="cake-label" id="label-blackforest">🔒 ยังไม่ปลดล็อค</div>
     </div>
 
-    <div class="cake-stop locked" id="node-buttervanilla" style="left:60%;top:18%;" onclick="handleCakeClick('buttervanilla', this)">
+    <div class="cake-stop locked" id="node-buttervanilla" style="left:60%;top:20%;" onclick="handleCakeClick('buttervanilla', this)">
       <div class="cake-circle">
         <img src="https://lh3.googleusercontent.com/d/19Sb-AfW_SmfvJBQSMrBtJuWpT6H2mZzG" alt="Cake" crossorigin="anonymous" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
       </div>
       <div class="cake-label" id="label-buttervanilla">🔒 ยังไม่ปลดล็อค</div>
     </div>
 
-    <div class="cake-stop locked" id="node-chocoFudge" style="left:78%;top:42%;" onclick="handleCakeClick('chocoFudge', this)">
+    <div class="cake-stop locked" id="node-chocoFudge" style="left:80%;top:40%;" onclick="handleCakeClick('chocoFudge', this)">
       <div class="cake-circle">
         <img src="https://lh3.googleusercontent.com/d/19BUDSO-FYbnEvd1nYygFKb5kYuFYaqJm" alt="Cake" crossorigin="anonymous" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
       </div>
       <div class="cake-label" id="label-chocoFudge">🔒 ยังไม่ปลดล็อค</div>
     </div>
 
-    <div class="cake-stop locked" id="node-pandanLayer" style="left:42%;top:66%;" onclick="handleCakeClick('pandanLayer', this)">
+    <div class="cake-stop locked" id="node-pandanLayer" style="left:40%;top:65%;" onclick="handleCakeClick('pandanLayer', this)">
       <div class="cake-circle">
         <img src="https://lh3.googleusercontent.com/d/19Vk1Z1qEbQYjkUMipiDPZj9K_rtwBWkA" alt="Cake" crossorigin="anonymous" onerror="this.src='https://via.placeholder.com/90x90?text=🎂'"/>
       </div>
       <div class="cake-label" id="label-pandanLayer">🔒 ยังไม่ปลดล็อค</div>
     </div>
 
-    <div class="membership-stop" id="membershipNode" style="left:72%; top:86%;" onclick="triggerMembershipReward()">
+    <div class="membership-stop" id="membershipNode" style="left:70%; top:85%;" onclick="triggerMembershipReward()">
       <div class="membership-badge">🎁</div>
       <div class="cake-label" style="border: 2px solid var(--road); font-weight: 800; color: var(--road);" id="t-claim-discount">รับส่วนลดสมาชิก</div>
     </div>
@@ -359,13 +370,15 @@
 
     <div id="captureArea">
       
-      <div id="captureHeader" style="display: none; text-align: center; margin-bottom: 20px; padding-top: 15px;">
+      <img src="images/paper.jpg" alt="paper-texture" class="paper-bg-texture" crossorigin="anonymous">
+
+      <div id="captureHeader" style="display: none; text-align: center; margin-bottom: 20px; padding-top: 15px; position: relative; z-index: 2;">
         <h2 style="font-family: 'Pacifico', cursive; font-size: 44px; color: #AA1F24;">#CAKE DUMP</h2>
         <p style="font-size: 16px; font-weight: 700; letter-spacing: 0.5px; color: #AA1F24; margin-top: -5px;">S&P PIECE OF MEMORIES</p>
         <div style="background: #AA1F24; color: white; padding: 8px 24px; border-radius: 20px; display: inline-block; margin-top: 12px; font-weight: 800; font-size: 15px;">CAKE COLLECTOR</div>
       </div>
 
-      <div class="journal-canvas" id="journalCanvas">
+      <div class="journal-canvas" id="journalCanvas" style="z-index: 2;">
         <div class="dropped-decos" id="droppedDecos"></div>
 
         <div class="journal-title-row">
@@ -423,7 +436,7 @@
         <div class="tulip-corner">🌷</div>
       </div>
 
-      <div id="captureFooter" style="display: none; text-align: center; margin-top: 25px; padding-bottom: 15px; font-size: 16px; font-weight: 800; color: #AA1F24; letter-spacing: 0.5px;">
+      <div id="captureFooter" style="display: none; text-align: center; margin-top: 25px; padding-bottom: 15px; font-size: 16px; font-weight: 800; color: #AA1F24; letter-spacing: 0.5px; position: relative; z-index: 2;">
         @sp_tumcake / #CRACKTHECAKEBYCTT
       </div>
       
@@ -731,7 +744,7 @@
     reader.readAsDataURL(file);
   }
 
-  // === ระบบแคปภาพ Export 9:16 จัดให้ Center เป๊ะๆ ===
+  // === ระบบแคปภาพ Export 9:16 ที่แก้ปัญหาเบี้ยว การจัดกลาง และ Texture หาย 100% ===
   function saveJournal() { 
     saveCurrentState();
     showToast(translations[currentLang].toastDownloading);
@@ -773,13 +786,14 @@
     // ใช้ position: fixed ให้อยู่กลางจอเพื่อแคปให้แม่นยำ ไม่เอียงซ้าย
     captureArea.style.position = 'fixed';
     captureArea.style.top = '0';
-    captureArea.style.left = '50%';
-    captureArea.style.transform = 'translateX(-50%)';
+    captureArea.style.left = '0';
+    captureArea.style.right = '0';
+    captureArea.style.margin = '0 auto'; // แก้ปัญหาการเอียงซ้ายด้วย auto margin 
+    captureArea.style.transform = 'none'; // เอา transform ออกเพื่อไม่ให้ html2canvas งงพิกัด
     captureArea.style.zIndex = '9999';
     captureArea.style.width = '540px';
     captureArea.style.maxWidth = '540px'; 
     captureArea.style.height = '960px';
-    captureArea.style.margin = '0';
 
     header.style.display = 'block';
     footer.style.display = 'block';
@@ -806,6 +820,7 @@
             captureArea.style.position = origStyles.position;
             captureArea.style.top = origStyles.top;
             captureArea.style.left = origStyles.left;
+            captureArea.style.right = 'auto';
             captureArea.style.transform = origStyles.transform;
             captureArea.style.zIndex = origStyles.zIndex;
             captureArea.style.width = origStyles.width;
