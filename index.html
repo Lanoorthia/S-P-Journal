@@ -343,7 +343,7 @@
 
 <div id="journal-page" class="page">
   <div class="journal-container">
-    <button class="back-btn" id="t-back-btn" onclick="goBack()">← กลับหน้า Roadmap</button>
+    <button class="back-btn" id="t-back-btn" onclick="goBack()">← กลับสู่ Roadmap</button>
 
     <div class="deco-section">
       <div class="deco-title" id="t-deco-title">เลือกของตกแต่งที่นี่</div>
@@ -376,7 +376,7 @@
       </div>
     </div>
 
-    <button class="add-deco-btn" id="t-add-deco" onclick="addDecoToCanvas()">+ วางของตกแต่งลง Journal</button>
+    <button class="add-deco-btn" id="t-add-deco" onclick="addDecoToCanvas()">+ คลิกเพื่อวางของตกแต่ง</button>
 
     <div id="captureArea">
       
@@ -393,7 +393,7 @@
 
         <div class="journal-title-row">
           <div class="journal-title-block">
-            <div class="field-label" id="t-label-name">ชื่อ Celebration</div>
+            <div class="field-label" id="t-label-name">Celebration</div>
             <input class="title-input" id="journalTitle" type="text" placeholder="TITLE" maxlength="14"/>
             <input class="celebration-input" id="celebrationInput" type="text" placeholder="celebration"/>
           </div>
@@ -405,7 +405,7 @@
             <div class="polaroid-photo">
               <img class="preview" id="photoPreview" src="" style="display:none" crossorigin="anonymous"/>
               <div class="polaroid-placeholder" id="polaroidPlaceholder">
-                <div class="polaroid-cloud">🌤️</div><span id="t-photo-ph">ใส่รูปภาพ<br>ความทรงจำ</span>
+                <div class="polaroid-cloud">🌤️</div><span id="t-photo-ph">เพิ่มภาพ<br>ความทรงจำ</span>
               </div>
             </div>
             <div class="polaroid-date">
@@ -426,11 +426,11 @@
 
         <div class="cake-journal-section">
           <div class="cake-journal-lines">
-            <div class="field-label" id="t-label-notes">บันทึกประสบการณ์เพิ่มเติม</div>
+            <div class="field-label" id="t-label-notes">ความประทับใจที่ได้รับจากเค้กชิ้นนี้</div>
             <textarea class="lined-textarea" id="cakeNote" placeholder="บอกเล่าเรื่องราวความประทับใจ..."></textarea>
             <div class="html2canvas-textarea-fix" id="cakeNoteFix" style="height: 75px;"></div>
             
-            <div class="field-label" style="margin-top:6px">Cake Stamp</div>
+            <div class="field-label" style="margin-top:6px"> </div>
           </div>
           <div class="cake-stamp-area" onclick="triggerCakeStampUpload()">
             <div class="cake-stamp-frame">
@@ -438,7 +438,7 @@
               <img id="cakeStampImg" src="" alt="" crossorigin="anonymous"/>
               <div class="cake-stamp-name" id="cakeStampName"></div>
             </div>
-            <div class="stamp-hint" id="t-hint-stamp" style="font-size: 0.6rem;">📸 แตะเพื่อเปลี่ยนรูปเค้กของคุณ</div>
+            <div class="stamp-hint" id="t-hint-stamp" style="font-size: 0.6rem;">📸 แตะเพื่อเปลี่ยนรูปภาพของคุณ</div>
           </div>
         </div>
         <input type="file" id="cakeStampUpload" accept="image/*" onchange="handleCakeStampUpload(event)"/>
@@ -451,7 +451,7 @@
       </div>
       
     </div> <div class="save-bar">
-      <div class="save-hint" id="t-save-hint">Save & แชร์ลงโซเชียลได้เลย ✨</div>
+      <div class="save-hint" id="t-save-hint">SAVE & SHARE ✨</div>
       <button class="save-btn" id="t-save-btn" onclick="saveJournal()">SAVE & SHARE</button>
     </div>
   </div>
@@ -460,7 +460,7 @@
 <div class="share-preview-overlay" id="igOverlay">
   <div class="ig-template-box"><img id="finalExportImg" src="" alt="Export Preview"></div>
   <div class="ig-action-bar">
-      <button class="action-btn dl-btn" id="t-dl-btn" onclick="downloadImage()">⬇️ บันทึกรูปภาพ 9:16</button>
+      <button class="action-btn dl-btn" id="t-dl-btn" onclick="downloadImage()">⬇️ บันทึกภาพ </button>
       <button class="action-btn" id="t-close-ig" onclick="closeIgShare()">← ปิดหน้าต่าง</button>
   </div>
 </div>
@@ -475,12 +475,12 @@
       sub: "กดที่เค้กเพื่อสร้าง journal ของคุณ ✨",
       hint: "🗺️ ปลดล็อคเค้กให้ครบ เพื่อรับส่วนลดประจำเดือน",
       claim: "รับส่วนลดสมาชิก",
-      backBtn: "← กลับหน้า Roadmap",
+      backBtn: "← กลับสู่ Roadmap",
       decoTitle: "เลือกของตกแต่งที่นี่",
-      addDeco: "+ วางของตกแต่งลง Journal",
-      lblTitle: "ชื่อ Celebration",
+      addDeco: "+ คลิกเพื่อวางของตกแต่ง",
+      lblTitle: "Celebration",
       lblMemo: "บันทึกความทรงจำ",
-      lblNotes: "บันทึกประสบการณ์เพิ่มเติม",
+      lblNotes: "ความประทับใจที่ได้รับจากเค้กชิ้นนี้",
       phTitle: "TITLE",
       phCeleb: "celebration",
       phPhoto: "ใส่รูปภาพ<br>ความทรงจำ",
@@ -490,7 +490,7 @@
       saveHint: "บันทึกและส่งออกเทมเพลตความสุขได้เลย ✨",
       saveBtn: "SAVE & SHARE",
       closeIg: "← ปิดหน้าต่าง",
-      downloadBtn: "⬇️ บันทึกรูปภาพ 9:16",
+      downloadBtn: "⬇️ บันทึกภาพ ",
       toastLock: "🔒 ยังไม่ปลดล็อค",
       toastUnlockMsg: "🎉 ปลดล็อคเมนู {name} สำเร็จ!",
       toastAllUnlock: "🎉 ยินดีด้วย! ปลดล็อคเค้กประจำเดือนครบแล้ว รับคูปองส่วนลดทันที!",
@@ -498,9 +498,9 @@
       toastDecoWarn: "กรุณาเลือกของตกแต่งก่อน ✨",
       toastDrop: "วางแล้ว! ลากสติกเกอร์ได้เลย",
       toastPhoto: "📸 อัปโหลดรูปถ่ายส่วนตัวเรียบร้อย!",
-      toastSave: "📸 เตรียมภาพ 9:16 สำเร็จ พร้อมดาวน์โหลด!",
-      toastDownloading: "กำลังประมวลผลรูปภาพ 9:16...",
-      toastDownloaded: "✅ บันทึกลงเครื่องสำเร็จ!",
+      toastSave: "📸 จัดเตรียมภาพสำเร็จ ดาวน์โหลดได้เลย!",
+      toastDownloading: "กำลังประมวลผลรูปภาพ...",
+      toastDownloaded: "✅ บันทึกสำเร็จ!",
       toastComingSoon: "⏳ ยังไม่เปิดให้ปลดล็อค! รอติดตามเดือนถัดไปนะ"
     },
     en: {
@@ -509,20 +509,20 @@
       claim: "Claim Discount",
       backBtn: "← Back to Roadmap",
       decoTitle: "Choose Your Stickers Here",
-      addDeco: "+ Drop Sticker to Journal",
-      lblTitle: "Celebration Name",
+      addDeco: "+ Drop The Sticker",
+      lblTitle: "Celebration",
       lblMemo: "Memory Notes",
       lblNotes: "Additional Experience",
       phTitle: "TITLE",
       phCeleb: "celebration context...",
       phPhoto: "Insert<br>Memory Photo",
       phMemo: "Write your thoughts...\n\nToday I tried...\nThe taste was...\nI felt...",
-      phNotes: "Tell us about your impression and personal feelings here...",
+      phNotes: "Tell us about your impression of this cake here...",
       hintStamp: "📸 Tap to set custom photo",
-      saveHint: "Save & Share to your social! ✨",
+      saveHint: "Save & Share ✨",
       saveBtn: "SAVE & SHARE",
       closeIg: "← Back to App",
-      downloadBtn: "⬇️ Save 9:16 Image",
+      downloadBtn: "⬇️ Save Image",
       toastLock: "🔒 Locked",
       toastUnlockMsg: "🎉 Unlocked {name} successfully!",
       toastAllUnlock: "🎉 Congrats! All monthly cakes unlocked. You received a Discount Coupon!",
@@ -531,7 +531,7 @@
       toastDrop: "Dropped! You can drag it now",
       toastPhoto: "📸 Your personal photo uploaded successfully!",
       toastSave: "📸 Created template ready for IG Story!",
-      toastDownloading: "Generating 9:16 image...",
+      toastDownloading: "Generating image...",
       toastDownloaded: "✅ Image saved successfully!",
       toastComingSoon: "⏳ Not yet! Available to unlock next month."
     }
